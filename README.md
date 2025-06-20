@@ -1,5 +1,9 @@
 ### Refreshing Long-Context for LLMs: The Memory Agent Paradigm via Reinforcement Learning
 
+**[📄 论文](https://arxiv.org/abs/xxx)** | **[💻 代码](https://github.com/your-repo/RL-MemoryAgent)** | **[🧠 模型](https://huggingface.co/your-org/RL-MemoryAgent)**
+
+---
+
 ### 导读：
 我们推出了一个全新的长文本处理框架——RL-Memory Agent，通过端到端的强化学习，无需改变模型架构便可以对长文本任务进行直接优化。
 RL-Memory Agent实现了三大核心突破：
@@ -9,6 +13,8 @@ RL-Memory Agent实现了三大核心突破：
 3.  **强化学习驱动的外推能力**：我们改进了 GRPO 算法，使其能支持独立上下文的多轮对话生成训练。基于此，我们训练的 Memory Agent 展现了前所未有的外推性能，将在 32K 上下文数据上训练，成功无损外推至 3.5M 长度的问答任务中（性能下降<5%）。
 
 这项工作以一种简洁而高效的方式，首次实现了真正意义上的、由强化学习赋予的可训练记忆能力，充分证明了将强化学习应用于优化特定工作流的巨大潜力。
+
+---
 
 ### 方法介绍：
 
@@ -44,7 +50,9 @@ $$p(x_{1:N}) = \sum_{m^1,...,m^{K-1}} \prod_{k=1}^{K} p(m^k | c^k, m^{k-1})p(c^k
 
 [图片：RL训练流程]
 
-### RL训练流程：
+---
+
+### 多轮RL训练流程：
 
 * **多轮对话训练机制**
     对于每个输入样本，模型会通过模型并行生成多组独立对话序列。
