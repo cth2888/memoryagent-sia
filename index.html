@@ -315,12 +315,13 @@
                         <li><strong>Chunking:</strong> The input is divided into K sequential chunks <span>$(c^1, c^2, ..., c^K)$</span> ,each of length ≤ C.</li>
                         <li><strong>Iterative Processing:</strong> Chunks are processed sequentially, keeping computation per chunk constant.</li>
                         <li><strong>Memory Augmentation:</strong> A latent memory state <span>$m^k$</span> is updated after each chunk.</li>
+                        <div class="content has-text-centered">
+                            $$p(\mathbf{x}_{1:N}) = \sum_{\mathbf{m}^{1:K-1}} \prod_{k=1}^{K}
+                            \underbrace{p(\mathbf{c}^k \mid \mathbf{m}^{k-1})}_{\text{read}} \cdot
+                            \underbrace{p(\mathbf{m}^k \mid \mathbf{c}^k, \mathbf{m}^{k-1})}_{\text{write}}$$
+                        </div>
                     </ul>
-                    <p lang="en"><div class="content has-text-centered">
-                        $$p(\mathbf{x}_{1:N}) = \sum_{\mathbf{m}^{1:K-1}} \prod_{k=1}^{K}
-                        \underbrace{p(\mathbf{c}^k \mid \mathbf{m}^{k-1})}_{\text{read}} \cdot
-                        \underbrace{p(\mathbf{m}^k \mid \mathbf{c}^k, \mathbf{m}^{k-1})}_{\text{write}}$$
-                    </div></p>
+
                     
                     <p lang="zh"><strong>Memory Agent 核心架构：</strong></p>
                     <p lang="zh">
@@ -330,12 +331,13 @@
                         <li><strong>分块处理：</strong> 将输入序列划分为K个连续块 <span>$$(c^1, c^2, ..., c^K)$$</span>，每块不超过C个token。</li>
                         <li><strong>循环处理：</strong> 按块顺序处理，每块的计算开销保持恒定。</li>
                         <li><strong>引入记忆状态：</strong> 每一块处理后会更新潜在的记忆变量 <span>$$m^k$$</span>，作为下一块的输入。</li>
+                        <div class="content has-text-centered">
+                            $$p(\mathbf{x}_{1:N}) = \sum_{\mathbf{m}^{1:K-1}} \prod_{k=1}^{K}
+                            \underbrace{p(\mathbf{c}^k \mid \mathbf{m}^{k-1})}_{\text{读取}} \cdot
+                            \underbrace{p(\mathbf{m}^k \mid \mathbf{c}^k, \mathbf{m}^{k-1})}_{\text{写入}}$$
+                        </div>
                     </ul>
-                    <p lang="zh"><div class="content has-text-centered">
-                        $$p(\mathbf{x}_{1:N}) = \sum_{\mathbf{m}^{1:K-1}} \prod_{k=1}^{K}
-                        \underbrace{p(\mathbf{c}^k \mid \mathbf{m}^{k-1})}_{\text{读取}} \cdot
-                        \underbrace{p(\mathbf{m}^k \mid \mathbf{c}^k, \mathbf{m}^{k-1})}_{\text{写入}}$$
-                    </div></p>
+
                     
                     <h4 lang="en"><strong>Reinforcement Learning Optimization</strong></h4>
                     <h4 lang="zh"><strong>强化学习训练机制</strong></h4>
