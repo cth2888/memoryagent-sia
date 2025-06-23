@@ -372,7 +372,7 @@
                         在训练过程中，每个输入样本会并行生成多组独立的对话序列。系统根据最终的回答确定奖励值，并通过组归一化方式将其智能分配到所有相关对话中。损失以chunk为单位计算，优化结构包含“组别-对话轮次-token”三维。
                     </p>
                     
-                    <div class="content has-text-centered">
+                    <div class="text-align: center; margin: 1em 0;">
                         $$ 
                         \begin{aligned}
                         \mathcal{J}_{\text{GRPO}}(\theta) =\quad &\mathbb{E}_{(q,a)\sim \mathcal{D}, \{o_{i,j}\}_{i=1}^G\sim \pi_{\theta_\text{old}}(\cdot\mid q,~o_{i,j-1})} \\
@@ -415,7 +415,7 @@
           <p lang="zh">
             <strong>RL-Memory Agent：</strong> 在超长文本处理任务中表现出极高稳定性：
             <ul>
-              <li>RL-Memory Agent-14B：在3.5M超长文本测试中仅出现<5%的边际性能下降，实现了无损外推。</li>
+              <li>RL-Memory Agent-14B：在3.5M超长文本测试中仅出现边际性能下降（<5%），实现了无损外推。</li>
               <li>RL-Memory Agent-7B：在最长文本上虽略有性能下降，但总体表现远超其他模型。</li>
             </ul>
           </p>
