@@ -215,58 +215,59 @@
         </div>
     </section>
 
-    <section class="section" id="introduction">
-        <div class="container">
+<section class="section" id="introduction">
+    <div class="container">
+        <div class="columns is-centered">
+            <div class="column is-10">
+                <h2 class="title is-3">
+                    <span lang="en">Introduction</span>
+                    <span lang="zh">介绍</span>
+                </h2>
+                <div class="content">
 
-            <div class="columns is-centered">
-                <div class="column is-10">
-                    <h2 class="title is-3">
-                        <span lang="en">Introduction</span>
-                        <span lang="zh">介绍</span>
-                    </h2>
-                    <div class="content">
-                        <p lang="en">
-                            We introduce <strong>Enigmata</strong>, the first comprehensive suite tailored for improving LLMs with puzzle reasoning skills, which integrates seamlessly with reinforcement learning using verifiable rule-based rewards.
-                        </p>
-                        <p lang="zh">
-                            我们推出了<strong>Enigmata</strong>，这是第一个专为提升大语言模型谜题推理能力而设计的综合套件，它与使用可验证的基于规则的奖励的强化学习无缝集成。
-                        </p>
-                        
-                        <p lang="en"> <strong>Enigmata-Data</strong> includes 36 tasks across 7 categories, each with: 1) a generator that produces unlimited examples with controllable difficulty, and 2) a rule-based verifier for automatic evaluation. This generator-verifier design supports scalable, multi-task RL training, fine-grained analysis, and seamless RLVR integration.
-                        We further propose <strong>Enigmata-Eval</strong>, a rigorous benchmark for assessing puzzle reasoning abilities and guiding research on generalizable reasoning models.                            
-                        </p>
-                        <p lang="zh"> <strong>Enigmata-Data</strong>包含7个类别的36个任务，每个任务都具有：1）一个能够生成无限样例且难度可控的生成器，以及2）一个用于自动评估的基于规则的验证器。这种生成器-验证器设计支持可扩展的多任务强化学习训练、细粒度分析和无缝的RLVR集成。
-                        我们进一步提出了<strong>Enigmata-Eval</strong>，这是一个严格的基准测试，用于评估谜题推理能力并指导可泛化推理模型的研究。                            
-                        </p>
+                    <p lang="en">
+                        We present <strong>RL-Memory Agent</strong>, a novel framework for long-text processing that directly optimizes task performance through end-to-end reinforcement learning, without any architectural modifications to the base model.
+                    </p>
+                    <p lang="zh">
+                        我们推出了<strong>RL-Memory Agent</strong>，这是一个全新的长文本处理框架，能够通过端到端的强化学习直接优化长文本任务性能，而无需更改底层模型架构。
+                    </p>
 
-                        <p lang="en"><strong>Qwen2.5-32B-Enigmata</strong>, trained with RLVR, consistently surpasses o3-mini-high and o1 on the puzzle reasoning benchmarks like Enigmata-Eval, ARC-AGI, and ARC-AGI 2. It also generalizes well to out-of-domain puzzle benchmarks and mathematical reasoning, with little multitasking trade-off.</p>
-                        <p lang="zh"><strong>Qwen2.5-32B-Enigmata</strong>，通过RLVR训练，在Enigmata-Eval、ARC-AGI和ARC-AGI 2等谜题推理基准测试中持续超越o3-mini-high和o1。它还能很好地泛化到领域外的谜题基准测试和数学推理，几乎没有多任务权衡。</p>
-                        
-                        <p lang="en">When trained on <strong>larger models like Seed1.5-Thinking</strong> (20B activated parameters and 200B total parameters), puzzle data from Enigmata further boosts SoTA performance on advanced math and STEM reasoning tasks such as AIME (2024-2025), BeyondAIME and GPQA (Diamond), showing nice generalization benefits of Enigmata.
-                        </p>
-                        <p lang="zh">当在<strong>更大的模型（如Seed1.5-Thinking）</strong>（20B激活参数和200B总参数）上训练时，来自Enigmata的谜题数据进一步提升了在高级数学和STEM推理任务（如AIME（2024-2025）、BeyondAIME和GPQA（Diamond））上的最先进性能，展示了Enigmata良好的泛化优势。
-                        </p>
-                        
-                        <strong><em style="color: #3a76ed"><center lang="en">We hope Enigmata serves as a solid foundation for the community to push forth the research on reasoning models!</center></em></strong>
-                        <strong><em style="color: #3a76ed"><center lang="zh">我们希望Enigmata能够成为推动推理模型研究的坚实基础！</center></em></strong>
-                        <!-- <p>
-                            Our key contributions are:
-                            <ul>
-                                <li>We introduce Enigmata, the first suite for enabling LLMs with advanced and comprehensive logical reasoning abilities for solving puzzles.</li>
-                                <li>The Enigmata suite consists of Enigmata-Data, featuring <strong>36 distinct tasks across 7 categories</strong> with
-                                    controllable difficulty, scalable generation, and automatic verification, which seamlessly fit the RLVR
-                                    training paradigm.</li>
-                                <li>We establish Enigmata-Eval, a benchmark that rigorously and comprehensively evaluates puzzle
-                                    reasoning abilities, and propose the Enigmata-Model recipe that trains models with superior performance
-                                    on in-domain and OOD puzzle reasoning tasks.</li>
-                                </ul> -->
+                    <p lang="en">
+                        <strong>RL-Memory Agent</strong> achieves three major breakthroughs:
+                        <br><br>
+                        - <em>Novel memory mechanism:</em> It introduces a notebook-style workflow where the agent reads input in segments and efficiently updates memory using an overwrite strategy. This enables handling virtually unlimited-length inputs within a fixed context window, fundamentally breaking the hard length limits of Transformer models.
+                        <br>
+                        - <em>O(n) linear complexity:</em> The agent design decouples compute and memory cost from input length, reducing the processing burden from quadratic to linear with respect to input size.
+                        <br>
+                        - <em>RL-driven extrapolation:</em> A modified GRPO algorithm supports training on multi-turn generation tasks with independent contexts. As a result, models trained with 32K contexts can extrapolate to 3.5M-token sequences with <5% performance drop.
+                    </p>
 
-                    </div>
+                    <p lang="zh">
+                        <strong>RL-Memory Agent</strong> 实现了三大核心突破：
+                        <br><br>
+                        - <em>新型记忆机制：</em> 我们引入了一种记事本式的工作流，Agent 以分段方式读取文本，并借助覆写策略高效更新记忆。该设计使得模型能够在固定上下文窗口内处理几乎任意长度的输入，从根本上突破了传统 Transformer 架构的窗口长度限制。
+                        <br>
+                        - <em>O(n) 线性复杂度：</em> 这一创新性的 Agent 设计将计算与显存开销与文本长度解耦，使得处理长文本的复杂度由原本的二次方增长转变为线性增长。
+                        <br>
+                        - <em>强化学习驱动的外推能力：</em> 我们改进了 GRPO 算法，使其支持独立上下文的多轮生成训练。基于此，训练出的 Memory Agent 在32K上下文长度的数据上训练后，能够无损外推至3.5M token的问答任务中，性能下降低于5%。
+                    </p>
+
+                    <p lang="en">
+                        In a simple yet effective way, we demonstrate—for the first time—a trainable memory ability empowered by reinforcement learning. RL-Memory Agent showcases the untapped potential of optimizing specialized workflows via policy learning rather than architectural changes.
+                    </p>
+                    <p lang="zh">
+                        我们以一种简洁而高效的方式，首次实现了真正意义上的、由强化学习赋予的可训练记忆能力，充分展现了强化学习在优化特定工作流方面的巨大潜力。
+                    </p>
+
+                    <strong><em style="color: #3a76ed"><center lang="en">We believe RL-Memory Agent paves the way for the next generation of scalable long-context LLMs.</center></em></strong>
+                    <strong><em style="color: #3a76ed"><center lang="zh">我们相信，RL-Memory Agent 为下一代可扩展的长上下文大语言模型开辟了新路径。</center></em></strong>
+
                 </div>
             </div>
-
         </div>
-    </section>
+    </div>
+</section>
+
 
     <section class="section" id="data">
         <div class="container">
