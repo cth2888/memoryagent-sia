@@ -14,7 +14,6 @@
     <link rel="stylesheet" href="./css/bulma-carousel.min.css" />
     <link rel="stylesheet" href="./css/bulma-slider.min.css" />
     <link rel="stylesheet" href="./css/fontawesome.all.min.css" />
-    <!-- <link rel="stylesheet" href="./css/fontawesome_6_7_2.all.css" /> -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/jpswalsh/academicons@1/css/academicons.min.css" />
     <link rel="stylesheet" href="./css/index.css" />
     <link rel="stylesheet" href="./css/enhanced-styles.css" />
@@ -25,8 +24,6 @@
     <link rel="stylesheet" href="./css/spacing-fix.css" />
     <link rel="stylesheet" href="./css/author-affiliation-styles.css" />
     <link rel="icon" href="./assets/doubao.png" type="image/png" />
-    <!-- add page icon at 64 x 64-->
-    <!-- <link rel="icon" type="image/png" href="./assets/re.png" sizes="256x256" /> -->
 
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <script defer src="./js/fontawesome.all.min.js"></script>
@@ -36,10 +33,23 @@
     <script src="./js/enhanced-animations.js"></script>
     <script src="./js/language-switcher.js"></script>
     <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        MathJax = {
+          tex: {
+            inlineMath: [['$', '$'], ['\\(', '\\)']],
+            displayMath: [['$$', '$$'], ['\\[', '\\]']]
+          },
+          svg: {
+            fontCache: 'global'
+          }
+        };
+    </script>
+    <script type="text/javascript" id="MathJax-script" async
+        src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js">
+    </script>
 </head>
 
 <body>
-    <!-- Enhanced Navigation Bar -->
     <nav class="navbar is-fixed-top" role="navigation" aria-label="main navigation">
         <div class="container">
             <div class="navbar-brand">
@@ -58,17 +68,13 @@
                         <span lang="en">Introduction</span>
                         <span lang="zh">介绍</span>
                     </a>
-                    <a class="navbar-item" href="#data">
-                        <span lang="en">Data</span>
-                        <span lang="zh">数据</span>
+                    <a class="navbar-item" href="#method">
+                        <span lang="en">Method</span>
+                        <span lang="zh">模型</span>
                     </a>
                     <a class="navbar-item" href="#eval">
                         <span lang="en">Evaluation</span>
                         <span lang="zh">评估</span>
-                    </a>
-                    <a class="navbar-item" href="#model">
-                        <span lang="en">Model</span>
-                        <span lang="zh">模型</span>
                     </a>
                     <a class="navbar-item" href="#citation">
                         <span lang="en">Citation</span>
@@ -201,7 +207,7 @@
                                             我们引入了一种记事本式的工作流，Agent 以分段方式读取文本，并借助覆写策略高效更新记忆。该设计使得模型能够在固定上下文窗口内处理几乎任意长度的输入，从根本上突破了传统 Transformer 架构的窗口长度限制。</p>
                                     </div>
                                 </div>
-                        
+                                
                                 <div style="display: flex; align-items: flex-start; gap: 0.8rem;">
                                     <div
                                         style="background-color: #3a76ed; color: white; padding: 0.4rem; border-radius: 50%; font-size: 0.9rem; display: flex; align-items: center; justify-content: center; min-width: 2rem; height: 2rem;">
@@ -227,7 +233,7 @@
                                             我们改进了 GRPO 算法，使其支持独立上下文的多轮生成训练。基于此，训练出的 Memory Agent 在32K上下文长度的数据上训练后，能够无损外推至3.5M token的问答任务中，性能下降低于5%。</p>
                                     </div>
                                 </div>                                
-                        </div>
+                            </div>
                     </div>
 
                     <p lang="en">
@@ -271,52 +277,62 @@
                         <strong>Memory Agent</strong>引入了一个固定长度的辅助记忆面板，允许模型在处理长文本时以分段方式读取输入，并在每一段后主动更新记忆状态，从而实现“局部处理 + 全局融合”的新型工作流。该记忆模块在推理过程中不断更新，并在所有段落处理完毕后聚合关键信息生成最终输出。
                     </p>
 
-                    <figure>
+                    <figure class="image" style="max-width: 800px; margin: 2rem auto;">
                         <img src="figs/method_00.png" alt="Memory Agent Architecture Overview">
                     </figure>
 
                     <p lang="en">
                         <strong>Traditional Modeling:</strong><br>
-                        $$p(\mathbf{x}_{1:N})=p(x_1)\prod_{n=2}^N p(x_n \mid \mathbf{x}_{1:n-1})$$
-                        This requires caching all previous tokens, leading to quadratic complexity.
+                    </p>
+                    <div class="content has-text-centered">
+                       $$p(\mathbf{x}_{1:N})=p(x_1)\prod_{n=2}^N p(x_n \mid \mathbf{x}_{1:n-1})$$
+                    </div>
+                    <p lang="en"> This requires caching all previous tokens, leading to quadratic complexity.
                     </p>
                     <p lang="zh">
                         <strong>传统建模方式：</strong><br>
-                        $$p(\mathbf{x}_{1:N})=p(x_1)\prod_{n=2}^N p(x_n \mid \mathbf{x}_{1:n-1})$$
-                        这种方式需要缓存全部历史token，导致计算与显存开销呈二次方增长。
+                    </p>
+                    <div class="content has-text-centered">
+                       $$p(\mathbf{x}_{1:N})=p(x_1)\prod_{n=2}^N p(x_n \mid \mathbf{x}_{1:n-1})$$
+                    </div>
+                     <p lang="zh">这种方式需要缓存全部历史token，导致计算与显存开销呈二次方增长。
                     </p>
 
                     <p lang="en">
                         <strong>Memory Agent Process:</strong><br>
+                    </p>
+                     <div class="content has-text-centered">
                         $$p(\mathbf{x}_{1:N}) = \sum_{\mathbf{m}^{1:K-1}} \prod_{k=1}^{K}
                         \underbrace{p(\mathbf{c}^k \mid \mathbf{m}^{k-1})}_{\text{read}} \cdot
                         \underbrace{p(\mathbf{m}^k \mid \mathbf{c}^k, \mathbf{m}^{k-1})}_{\text{write}}$$
-                    </p>
+                    </div>
                     <p lang="zh">
                         <strong>Memory Agent 核心流程：</strong><br>
+                     </p>
+                     <div class="content has-text-centered">
                         $$p(\mathbf{x}_{1:N}) = \sum_{\mathbf{m}^{1:K-1}} \prod_{k=1}^{K}
                         \underbrace{p(\mathbf{c}^k \mid \mathbf{m}^{k-1})}_{\text{读取}} \cdot
                         \underbrace{p(\mathbf{m}^k \mid \mathbf{c}^k, \mathbf{m}^{k-1})}_{\text{写入}}$$
-                    </p>
+                    </div>
 
                     <h4 lang="en"><strong>Reinforcement Learning Optimization</strong></h4>
                     <h4 lang="zh"><strong>强化学习训练机制</strong></h4>
 
                     <p lang="en">
-
+                         We use Reinforcement Learning with Verifiable Outcomes (RLVR), which has shown excellent performance in reasoning tasks, to train the Memory Agent, rather than simple fine-tuning or instruction engineering. To this end, we have extended the existing GRPO algorithm to further support end-to-end optimization of the Agent Workflow with multi-turn independent dialogues.
                     </p>
                     <p lang="zh">
                         我们使用目前在推理领域表现出卓越性能的基于可验证结果的强化学习（RLVR)来训练Memory agent，而非简单的进行微调或指令工程。为此，我们扩展了现有的DAPO算法，使其进一步支持了具有多轮独立对话的AgentWorkflow的端到端优化。
                     </p>
 
-                    <div class="columns">
+                    <div class="columns is-vcentered">
                         <div class="column">
-                            <figure>
+                            <figure class="image">
                                 <img src="figs/algo_00.png" alt="RL Flow">
                             </figure>
                         </div>
                         <div class="column">
-                            <figure>
+                            <figure class="image">
                                 <img src="figs/template.png" alt="RL Template">
                             </figure>
                         </div>
@@ -331,8 +347,8 @@
                     <p lang="zh">
                         在训练过程中，每个输入样本会并行生成多组独立的对话序列。系统根据最终的回答确定奖励值，并通过组归一化方式将其智能分配到所有相关对话中。损失以chunk为单位计算，优化结构包含“组别-对话轮次-token”三维。
                     </p>
-
-                    <p>
+                    
+                    <div class="content has-text-centered">
                         $$ 
                         \begin{aligned}
                         \mathcal{J}_{\text{GRPO}}(\theta) =\quad &\mathbb{E}_{(q,a)\sim \mathcal{D}, \{o_{i,j}\}_{i=1}^G\sim \pi_{\theta_\text{old}}(\cdot\mid q,~o_{i,j-1})} \\
@@ -342,8 +358,7 @@
                         \ \text{clip} \Big( r_{i,j,t}(\theta), 1 - {\varepsilon}, 1 + {\varepsilon} \Big) \hat{A}_{i,j,t}\Big)
                         \end{aligned}
                         $$
-                    </p>
-
+                    </div>
                 </div>
             </div>
         </div>
@@ -351,7 +366,7 @@
 </section>
 
 
-<section class="section" id="experiments">
+<section class="section" id="eval">
   <div class="container">
     <div class="columns is-centered">
       <div class="column is-10">
@@ -381,7 +396,7 @@
             </ul>
           </p>
 
-          <figure>
+          <figure class="image" style="max-width: 800px; margin: 2rem auto;">
             <img src="figs/main_result_00.png" alt="Main Results">
           </figure>
 
@@ -395,7 +410,7 @@
             </ol>
           </p>
 
-          <figure>
+          <figure class="image" style="max-width: 800px; margin: 2rem auto;">
             <img src="figs/ablation_00.png" alt="Ablation Study">
           </figure>
 
@@ -446,40 +461,39 @@
 
           <div class="columns is-multiline">
             <div class="column is-4">
-              <figure><img src="figs/niah_single_1_00.png" alt="NIAH Single 1"></figure>
+              <figure class="image"><img src="figs/niah_single_1_00.png" alt="NIAH Single 1"></figure>
             </div>
             <div class="column is-4">
-              <figure><img src="figs/niah_single_2_00.png" alt="NIAH Single 2"></figure>
+              <figure class="image"><img src="figs/niah_single_2_00.png" alt="NIAH Single 2"></figure>
             </div>
             <div class="column is-4">
-              <figure><img src="figs/niah_single_3_00.png" alt="NIAH Single 3"></figure>
+              <figure class="image"><img src="figs/niah_single_3_00.png" alt="NIAH Single 3"></figure>
             </div>
 
             <div class="column is-4">
-              <figure><img src="figs/niah_multikey_1_00.png" alt="NIAH Multi 1"></figure>
+              <figure class="image"><img src="figs/niah_multikey_1_00.png" alt="NIAH Multi 1"></figure>
             </div>
             <div class="column is-4">
-              <figure><img src="figs/niah_multikey_2_00.png" alt="NIAH Multi 2"></figure>
+              <figure class="image"><img src="figs/niah_multikey_2_00.png" alt="NIAH Multi 2"></figure>
             </div>
             <div class="column is-4">
-              <figure><img src="figs/niah_multikey_3_00.png" alt="NIAH Multi 3"></figure>
+              <figure class="image"><img src="figs/niah_multikey_3_00.png" alt="NIAH Multi 3"></figure>
             </div>
 
             <div class="column is-6">
-              <figure><img src="figs/niah_multiquery_00.png" alt="Multi-query"></figure>
+              <figure class="image"><img src="figs/niah_multiquery_00.png" alt="Multi-query"></figure>
             </div>
             <div class="column is-6">
-              <figure><img src="figs/niah_multivalue_00.png" alt="Multi-value"></figure>
+              <figure class="image"><img src="figs/niah_multivalue_00.png" alt="Multi-value"></figure>
             </div>
 
             <div class="column is-6">
-              <figure><img src="figs/fwe_00.png" alt="FWE"></figure>
+              <figure class="image"><img src="figs/fwe_00.png" alt="FWE"></figure>
             </div>
             <div class="column is-6">
-              <figure><img src="figs/vt_00.png" alt="VT"></figure>
+              <figure class="image"><img src="figs/vt_00.png" alt="VT"></figure>
             </div>
           </div>
-
         </div>
       </div>
     </div>
@@ -528,10 +542,10 @@
             <li><strong>易用性显著提升：</strong> 训练流程只需编写一个标准 OpenAI 接口函数，即可完成复杂上下文拼接、token处理与状态管理。</li>
           </ul>
 
-          <figure>
+          <figure class="image" style="max-width: 800px; margin: 2rem auto;">
             <img src="figs/workflow1.png" alt="Async Engine Workflow 1">
           </figure>
-          <figure>
+          <figure class="image" style="max-width: 800px; margin: 2rem auto;">
             <img src="figs/workflow2.png" alt="Async Engine Workflow 2">
           </figure>
         </div>
