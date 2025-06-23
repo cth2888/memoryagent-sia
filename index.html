@@ -290,13 +290,7 @@
                     <p lang="en">
                         Conventional autoregressive language models represent a token sequence of length N as:
                     </p>
-                    <div class="content has-text-centered">
-                        $$p(\mathbf{x}_{1:N}) = p(x_1) \prod_{n=2}^{N} p(x_n \mid \mathbf{x}_{1:n-1})$$
-                    </div>
-                    <p lang="en">
-                        This requires caching all historical tokens, leading to quadratic complexity in computation and memory usage.
-                    </p>
-                    
+
                     <p lang="zh"><strong>传统建模方式：</strong></p>
                     <p lang="zh">
                         传统自回归语言模型通常对长度为N的token序列建模如下：
@@ -304,6 +298,9 @@
                     <div class="content has-text-centered">
                         $$p(\mathbf{x}_{1:N}) = p(x_1) \prod_{n=2}^{N} p(x_n \mid \mathbf{x}_{1:n-1})$$
                     </div>
+                    <p lang="en">
+                        This requires caching all historical tokens, leading to quadratic complexity in computation and memory usage.
+                    </p>
                     <p lang="zh">
                         该方法需要缓存全部历史token，导致计算和显存消耗随序列长度呈二次方增长。
                     </p>
@@ -313,9 +310,9 @@
                         Memory Agent reformulates the decoding process by introducing a memory-augmented, segment-wise strategy:
                     </p>
                     <ul lang="en">
-                        <li><strong>Chunking:</strong> The input is divided into K sequential chunks $$(c^1, c^2, ..., c^K)$$, each of length ≤ C.</li>
+                        <li><strong>Chunking:</strong> The input is divided into K sequential chunks $(c^1, c^2, ..., c^K)$ ,each of length ≤ C.</li>
                         <li><strong>Iterative Processing:</strong> Chunks are processed sequentially, keeping computation per chunk constant.</li>
-                        <li><strong>Memory Augmentation:</strong> A latent memory state $$m^k$$ is updated after each chunk.</li>
+                        <li><strong>Memory Augmentation:</strong> A latent memory state $m^k$ is updated after each chunk.</li>
                     </ul>
                     <div class="content has-text-centered">
                         $$p(\mathbf{x}_{1:N}) = \sum_{\mathbf{m}^{1:K-1}} \prod_{k=1}^{K}
