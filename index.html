@@ -307,38 +307,61 @@
                         该方法需要缓存全部历史token，导致计算和显存消耗随序列长度呈二次方增长。
                     </p>
                     
+                    <p lang="en"><strong>Traditional Modeling:</strong></p>
+                    <p lang="en">
+                      Autoregressive language models traditionally generate a token sequence of length N as:
+                    </p>
+                    <div class="content has-text-centered">
+                      $$p(\mathbf{x}_{1:N}) = p(x_1) \prod_{n=2}^{N} p(x_n \mid \mathbf{x}_{1:n-1})$$
+                    </div>
+                    <p lang="en">
+                      This requires caching all previous tokens, resulting in quadratic complexity with sequence length.
+                    </p>
+                    
+                    <p lang="zh"><strong>传统建模方式：</strong></p>
+                    <p lang="zh">
+                      传统的自回归语言模型以如下形式建模长度为 N 的 token 序列：
+                    </p>
+                    <div class="content has-text-centered">
+                      $$p(\mathbf{x}_{1:N}) = p(x_1) \prod_{n=2}^{N} p(x_n \mid \mathbf{x}_{1:n-1})$$
+                    </div>
+                    <p lang="zh">
+                      该方式需缓存全部历史 token，计算与显存成本随长度呈二次增长。
+                    </p>
+                    
+                    <hr>
+                    
                     <p lang="en"><strong>Memory Agent Architecture:</strong></p>
                     <p lang="en">
-                        Memory Agent reformulates the decoding process by introducing a memory-augmented, segment-wise strategy:
+                      To overcome this bottleneck, <strong>Memory Agent</strong> introduces a memory-augmented decoding scheme:
                     </p>
                     <ul lang="en">
-                        <li><strong>Chunking:</strong> The input is divided into K sequential chunks <span>$(c^1, c^2, ..., c^K)$</span> ,each of length ≤ C.</li>
-                        <li><strong>Iterative Processing:</strong> Chunks are processed sequentially, keeping computation per chunk constant.</li>
-                        <li><strong>Memory Augmentation:</strong> A latent memory state <span>$m^k$</span> is updated after each chunk.</li>
+                      <li><strong>Chunking:</strong> The input sequence is divided into K segments <span>\((c^1, c^2, \ldots, c^K)\)</span>, each with ≤ C tokens.</li>
+                      <li><strong>Iterative Processing:</strong> Each chunk is processed sequentially with fixed computation cost per chunk.</li>
+                      <li><strong>Memory Injection:</strong> A latent memory state \(m^k\) is updated after each chunk to influence the next step.</li>
                         <div class="content has-text-centered">
-                            $$p(\mathbf{x}_{1:N}) = \sum_{\mathbf{m}^{1:K-1}} \prod_{k=1}^{K}
-                            \underbrace{p(\mathbf{c}^k \mid \mathbf{m}^{k-1})}_{\text{read}} \cdot
-                            \underbrace{p(\mathbf{m}^k \mid \mathbf{c}^k, \mathbf{m}^{k-1})}_{\text{write}}$$
+                          $$p(\mathbf{x}_{1:N}) = \sum_{\mathbf{m}^{1:K-1}} \prod_{k=1}^{K}
+                          \underbrace{p(\mathbf{c}^k \mid \mathbf{m}^{k-1})}_{\text{read}} \cdot
+                          \underbrace{p(\mathbf{m}^k \mid \mathbf{c}^k, \mathbf{m}^{k-1})}_{\text{write}}$$
                         </div>
                     </ul>
-
+                    
                     
                     <p lang="zh"><strong>Memory Agent 核心架构：</strong></p>
                     <p lang="zh">
-                        为实现对任意长文本的线性处理能力，Memory Agent提出如下机制：
+                      Memory Agent 引入一种“分块+记忆”的机制，以线性复杂度支持任意长度文本：
                     </p>
                     <ul lang="zh">
-                        <li><strong>分块处理：</strong> 将输入序列划分为K个连续块 <span>$$(c^1, c^2, ..., c^K)$$</span>，每块不超过C个token。</li>
-                        <li><strong>循环处理：</strong> 按块顺序处理，每块的计算开销保持恒定。</li>
-                        <li><strong>引入记忆状态：</strong> 每一块处理后会更新潜在的记忆变量 <span>$$m^k$$</span>，作为下一块的输入。</li>
+                      <li><strong>分块处理：</strong> 将输入序列划分为 K 个连续块 <span>\((c^1, c^2, \ldots, c^K)\)</span>，每块最多包含 C 个 token。</li>
+                      <li><strong>顺序处理：</strong> 按顺序处理每一块，单块计算复杂度固定。</li>
+                      <li><strong>引入记忆：</strong> 每一块处理后更新潜在记忆状态 \(m^k\)，用于下一块生成。</li>
                         <div class="content has-text-centered">
-                            $$p(\mathbf{x}_{1:N}) = \sum_{\mathbf{m}^{1:K-1}} \prod_{k=1}^{K}
-                            \underbrace{p(\mathbf{c}^k \mid \mathbf{m}^{k-1})}_{\text{读取}} \cdot
-                            \underbrace{p(\mathbf{m}^k \mid \mathbf{c}^k, \mathbf{m}^{k-1})}_{\text{写入}}$$
+                          $$p(\mathbf{x}_{1:N}) = \sum_{\mathbf{m}^{1:K-1}} \prod_{k=1}^{K}
+                          \underbrace{p(\mathbf{c}^k \mid \mathbf{m}^{k-1})}_{\text{读取}} \cdot
+                          \underbrace{p(\mathbf{m}^k \mid \mathbf{c}^k, \mathbf{m}^{k-1})}_{\text{写入}}$$
                         </div>
                     </ul>
 
-                    
                     <h4 lang="en"><strong>Reinforcement Learning Optimization</strong></h4>
                     <h4 lang="zh"><strong>强化学习训练机制</strong></h4>
                     
