@@ -401,14 +401,37 @@
 
           <h4 lang="zh"><strong>RULER基准测试与OOD能力分析</strong></h4>
           <p lang="zh">
-            <strong>RULER基准测试：</strong> 这是当前长文本外推能力研究的标准测试集，其核心优势是可控长度生成任务，主要包含以下四大任务类型：
-            <ul>
-              <li><strong>大海捞针（Needle-in-a-Haystack）：</strong> 在超长文本中定位关键needle，包含8类干扰变体。</li>
-              <li><strong>变量追踪（Variable Tracking）：</strong> 模拟程序分析场景，追踪变量引用和赋值关系。</li>
-              <li><strong>聚合任务（Aggregation）：</strong> 汇总分散信息，评估模型对全局特征的掌握能力。</li>
-              <li><strong>问答任务（QA）：</strong> 进行多跳复杂推理，测试模型上下文理解与问答能力。</li>
-            </ul>
+            <strong>RULER基准测试：</strong> 这是当前长文本外推能力研究的标准测试集，其核心优势是可控长度生成任务。
           </p>
+
+          <div class="box" style="background: #f8f9fa; border: 1px solid #ddd; border-radius: 10px; padding: 1.5rem;">
+            <div class="columns is-multiline is-variable is-4">
+              <div class="column is-6">
+                <div class="box has-background-white-ter">
+                  <strong>大海捞针（Needle-in-a-Haystack）</strong>
+                  <p>在超长文本中定位关键needle，包含8类干扰变体。</p>
+                </div>
+              </div>
+              <div class="column is-6">
+                <div class="box has-background-white-ter">
+                  <strong>变量追踪（Variable Tracking）</strong>
+                  <p>模拟程序分析场景，追踪变量引用和赋值关系。</p>
+                </div>
+              </div>
+              <div class="column is-6">
+                <div class="box has-background-white-ter">
+                  <strong>聚合任务（Aggregation）</strong>
+                  <p>汇总分散信息，评估模型对全局特征的掌握能力。</p>
+                </div>
+              </div>
+              <div class="column is-6">
+                <div class="box has-background-white-ter">
+                  <strong>问答任务（QA）</strong>
+                  <p>进行多跳复杂推理，测试模型上下文理解与问答能力。</p>
+                </div>
+              </div>
+            </div>
+          </div>
 
           <p lang="zh">
             <strong>实验结果分析：</strong> 我们使用热力图可视化不同模型在不同长度区间和任务类型下的性能：
@@ -462,6 +485,7 @@
     </div>
   </div>
 </section>
+
 
 <section class="section" id="conclusion">
   <div class="container">
