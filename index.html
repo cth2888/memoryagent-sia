@@ -1,0 +1,552 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="description"
+        content="Enigmata: Scaling Logical Reasoning in Large Language Models with Synthetic Verifiable Puzzles" />
+    <meta name="keywords, puzzle, logical, reasoning, large lanuge model, LLM"
+        content="Enigmata" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Enigmata: Scaling Logical Reasoning in Large Language Models with Synthetic Verifiable Puzzles</title>
+
+    <link href="https://fonts.googleapis.com/css?family=Google+Sans|Noto+Sans|Castoro" rel="stylesheet" />
+    <link rel="stylesheet" href="./css/bulma.min.css" />
+    <link rel="stylesheet" href="./css/bulma-carousel.min.css" />
+    <link rel="stylesheet" href="./css/bulma-slider.min.css" />
+    <link rel="stylesheet" href="./css/fontawesome.all.min.css" />
+    <!-- <link rel="stylesheet" href="./css/fontawesome_6_7_2.all.css" /> -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/jpswalsh/academicons@1/css/academicons.min.css" />
+    <link rel="stylesheet" href="./css/index.css" />
+    <link rel="stylesheet" href="./css/enhanced-styles.css" />
+    <link rel="stylesheet" href="./css/final-enhancements.css" />
+    <link rel="stylesheet" href="./css/navbar-fix.css" />
+    <link rel="stylesheet" href="./css/navbar-alignment-fix.css" />
+    <link rel="stylesheet" href="./css/overlap-fix.css" />
+    <link rel="stylesheet" href="./css/spacing-fix.css" />
+    <link rel="stylesheet" href="./css/author-affiliation-styles.css" />
+    <link rel="icon" href="./assets/doubao.png" type="image/png" />
+    <!-- add page icon at 64 x 64-->
+    <!-- <link rel="icon" type="image/png" href="./assets/re.png" sizes="256x256" /> -->
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script defer src="./js/fontawesome.all.min.js"></script>
+    <script src="./js/bulma-carousel.min.js"></script>
+    <script src="./js/bulma-slider.min.js"></script>
+    <script src="./js/index.js"></script>
+    <script src="./js/enhanced-animations.js"></script>
+    <script src="./js/language-switcher.js"></script>
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+
+<body>
+    <!-- Enhanced Navigation Bar -->
+    <nav class="navbar is-fixed-top" role="navigation" aria-label="main navigation">
+        <div class="container">
+            <div class="navbar-brand">
+                <a class="navbar-item" href="#">
+                    🧩 Enigmata
+                </a>
+                <a role="button" class="navbar-burger" aria-label="menu" aria-expanded="false">
+                    <span aria-hidden="true"></span>
+                    <span aria-hidden="true"></span>
+                    <span aria-hidden="true"></span>
+                </a>
+            </div>
+            <div class="navbar-menu">
+                <div class="navbar-end">
+                    <a class="navbar-item" href="#introduction">
+                        <span lang="en">Introduction</span>
+                        <span lang="zh">介绍</span>
+                    </a>
+                    <a class="navbar-item" href="#data">
+                        <span lang="en">Data</span>
+                        <span lang="zh">数据</span>
+                    </a>
+                    <a class="navbar-item" href="#eval">
+                        <span lang="en">Evaluation</span>
+                        <span lang="zh">评估</span>
+                    </a>
+                    <a class="navbar-item" href="#model">
+                        <span lang="en">Model</span>
+                        <span lang="zh">模型</span>
+                    </a>
+                    <a class="navbar-item" href="#citation">
+                        <span lang="en">Citation</span>
+                        <span lang="zh">引用</span>
+                    </a>
+                    <button id="language-toggle" class="navbar-item language-toggle">中文</button>
+                </div>
+            </div>
+        </div>
+    </nav>
+    
+    <section class="hero">
+        <div class="hero-body">
+            <div class="container">
+                <div class="has-text-centered">
+                    <h1 class="publication-title">
+                        <span lang="en"><em class="dnerf">Enigmata</em>: Scaling Logical Reasoning in Large Language Models with Synthetic Verifiable Puzzles</span>
+                        <span lang="zh"><em class="dnerf">Enigmata</em>: 通过合成可验证谜题扩展大语言模型的逻辑推理能力</span>
+                    </h1>
+                    <div class="publication-authors">
+                        <span class="author-block">
+                            <span lang="en"><a href="https://jiangjiechen.github.io/">Jiangjie Chen</a><sup>1,6,*,†</sup></span>
+                            <span lang="zh"><a href="https://jiangjiechen.github.io/">陈江捷</a><sup>1,6,*,†</sup></span>
+                        </span>
+                        <span class="author-block">
+                            <span lang="en"><a href="https://abbey4799.github.io/">Qianyu He</a><sup>1,2,†</sup></span>
+                            <span lang="zh"><a href="https://abbey4799.github.io/">何千羽</a><sup>1,2,†</sup></span>
+                        </span>
+                        <span class="author-block">
+                            <span lang="en"><a href="https://siyuyuan.github.io/">Siyu Yuan</a><sup>1,2,†</sup></span>
+                            <span lang="zh"><a href="https://siyuyuan.github.io/">员司雨</a><sup>1,2,†</sup></span>
+                        </span>
+                        <span class="author-block">
+                            <span lang="en"><a href="https://scholar.google.com/citations?user=FAJzMAQAAAAJ&hl=zh-CN">Aili Chen</a><sup>2,†</sup></span>
+                            <span lang="zh"><a href="https://scholar.google.com/citations?user=FAJzMAQAAAAJ&hl=zh-CN">陈艾利</a><sup>2,†</sup></span>
+                        </span><br>
+                        <span class="author-block">
+                            <span lang="en"><a href="https://scholar.google.com/citations?hl=zh-CN&user=9wBz7NkAAAAJ">Zhicheng Cai</a><sup>6,4</sup></span>
+                            <span lang="zh"><a href="https://scholar.google.com/citations?hl=zh-CN&user=9wBz7NkAAAAJ">蔡志成</a><sup>6,4</sup></span>
+                        </span>
+                        <span class="author-block">
+                            <span lang="en"><a href="https://seed-enigmata.github.io/">Weinan Dai</a><sup>1,3,6</sup></span>
+                            <span lang="zh"><a href="https://seed-enigmata.github.io/">戴炜楠</a><sup>1,3,6</sup></span>
+                        </span>
+                        <span class="author-block">
+                            <span lang="en"><a href="https://seed-enigmata.github.io/">Hongli Yu</a><sup>1,3,6</sup></span>
+                            <span lang="zh"><a href="https://seed-enigmata.github.io/">于鸿利</a><sup>1,3,6</sup></span>
+                        </span>
+                        <span class="author-block">
+                            <span lang="en"><a href="https://yqy2001.github.io/">Qiying Yu</a><sup>1,3,6</sup></span>
+                            <span lang="zh"><a href="https://yqy2001.github.io/">禹棋赢</a><sup>1,3,6</sup></span>
+                        </span>
+                        <span class="author-block">
+                            <span lang="en"><a href="https://scholar.google.com/citations?user=DDRBbxgAAAAJ&hl=zh-CN">Xuefeng Li</a><sup>1,5</sup></span>
+                            <span lang="zh"><a href="https://scholar.google.com/citations?user=DDRBbxgAAAAJ&hl=zh-CN">李学峰</a><sup>1,5</sup></span>
+                        </span>
+                        <span class="author-block">
+                            <span lang="en"><a href="https://scholar.google.com/citations?user=Vt1j3kEAAAAJ&hl=zh-CN">Jiaze Chen</a><sup>1</sup></span>
+                            <span lang="zh"><a href="https://scholar.google.com/citations?user=Vt1j3kEAAAAJ&hl=zh-CN">陈家泽</a><sup>1</sup></span>
+                        </span>
+                        <span class="author-block">
+                            <span lang="en"><a href="https://zhouh.github.io/">Hao Zhou</a><sup>3,6</sup></span>
+                            <span lang="zh"><a href="https://zhouh.github.io/">周浩</a><sup>3,6</sup></span>
+                        </span>
+                        <span class="author-block">
+                            <span lang="en"><a href="https://mingxuan.github.io/">Mingxuan Wang</a><sup>1,6</sup></span>
+                            <span lang="zh"><a href="https://mingxuan.github.io/">王明轩</a><sup>1,6</sup></span>
+                        </span>
+                    </div>
+                    <div class="publication-affiliations">
+                        <span class="affiliation-block">
+                            <span lang="en"><sup>1</sup>ByteDance Seed</span>
+                            <span lang="zh"><sup>1</sup>字节跳动 Seed</span>
+                        </span><br>
+                        <span class="affiliation-block">
+                            <span lang="en"><sup>2</sup>Fudan University</span>
+                            <span lang="zh"><sup>2</sup>复旦大学</span>
+                        </span>
+                        <span class="affiliation-block">
+                            <span lang="en"><sup>3</sup>Institute for AI Industry Research (AIR), Tsinghua University</span>
+                            <span lang="zh"><sup>3</sup>清华大学 智能产业研究院（AIR）</span>
+                        </span><br>
+                        <span class="affiliation-block">
+                            <span lang="en"><sup>4</sup>Nanjing University</span>
+                            <span lang="zh"><sup>4</sup>南京大学</span>
+                        </span>
+                        <span class="affiliation-block">
+                            <span lang="en"><sup>5</sup>Shanghai Jiao Tong University</span>
+                            <span lang="zh"><sup>5</sup>上海交通大学</span>
+                        </span><br>
+                        <span class="affiliation-block">
+                            <span lang="en"><sup>6</sup>SIA-Lab of Tsinghua AIR and ByteDance Seed</span>
+                            <span lang="zh"><sup>6</sup>清华-字节联合实验室SIA-Lab</span>
+                        </span>
+                        <div class="affiliation-note">
+                            <span lang="en">*Project Lead; †Equal Contribution</span>
+                            <span lang="zh">*项目负责人; †同等贡献</span>
+                        </div>
+                        <div class="affiliation-note">
+                            <span lang="en">Contact: <a href="mailto:jiangjiec@bytedance.com">jiangjiec@bytedance.com</a></span>
+                            <span lang="zh">联系方式: <a href="mailto:jiangjiec@bytedance.com">jiangjiec@bytedance.com</a></span>
+                        </div>
+                    </div>
+                    <div class="publication-links">
+                        <span class="link-block">
+                            <a href="http://arxiv.org/abs/2505.19914" class="external-link button is-dark">
+                                <span class="icon">
+                                    <i class="fas fa-file-pdf"></i>
+                                </span>
+                                <span lang="en">Paper</span>
+                                <span lang="zh">论文</span>
+                            </a>
+                        </span>
+                        <span class="link-block">
+                            <a href="https://github.com/BytedTsinghua-SIA/Enigmata" class="external-link button is-dark">
+                                <span class="icon">
+                                    <i class="fas fa-database"></i>
+                                </span>
+                                <span lang="en">Code</span>
+                                <span lang="zh">代码</span>
+                            </a>
+                        </span>
+                        <span class="link-block">
+                            <a href="https://huggingface.co/datasets/BytedTsinghua-SIA/Enigmata-Eval" class="external-link button is-dark">
+                                <span class="icon">
+                                    <i class="fas fa-database"></i>
+                                </span>
+                                <span lang="en">Evaluation</span>
+                                <span lang="zh">评估</span>
+                            </a>
+                        </span>
+                        <span class="link-block">
+                            <a href="https://huggingface.co/BytedTsinghua-SIA/Enigmata-Qwen2.5-32B" class="external-link button is-dark">
+                                <span class="icon">
+                                    🤗
+                                </span>
+                                <span lang="en">Model</span>
+                                <span lang="zh">模型</span>
+                            </a>
+                        </span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="section" id="introduction">
+        <div class="container">
+
+            <div class="columns is-centered">
+                <div class="column is-10">
+                    <h2 class="title is-3">
+                        <span lang="en">Introduction</span>
+                        <span lang="zh">介绍</span>
+                    </h2>
+                    <div class="content">
+                        <p lang="en">
+                            We introduce <strong>Enigmata</strong>, the first comprehensive suite tailored for improving LLMs with puzzle reasoning skills, which integrates seamlessly with reinforcement learning using verifiable rule-based rewards.
+                        </p>
+                        <p lang="zh">
+                            我们推出了<strong>Enigmata</strong>，这是第一个专为提升大语言模型谜题推理能力而设计的综合套件，它与使用可验证的基于规则的奖励的强化学习无缝集成。
+                        </p>
+                        
+                        <p lang="en"> <strong>Enigmata-Data</strong> includes 36 tasks across 7 categories, each with: 1) a generator that produces unlimited examples with controllable difficulty, and 2) a rule-based verifier for automatic evaluation. This generator-verifier design supports scalable, multi-task RL training, fine-grained analysis, and seamless RLVR integration.
+                        We further propose <strong>Enigmata-Eval</strong>, a rigorous benchmark for assessing puzzle reasoning abilities and guiding research on generalizable reasoning models.                            
+                        </p>
+                        <p lang="zh"> <strong>Enigmata-Data</strong>包含7个类别的36个任务，每个任务都具有：1）一个能够生成无限样例且难度可控的生成器，以及2）一个用于自动评估的基于规则的验证器。这种生成器-验证器设计支持可扩展的多任务强化学习训练、细粒度分析和无缝的RLVR集成。
+                        我们进一步提出了<strong>Enigmata-Eval</strong>，这是一个严格的基准测试，用于评估谜题推理能力并指导可泛化推理模型的研究。                            
+                        </p>
+
+                        <p lang="en"><strong>Qwen2.5-32B-Enigmata</strong>, trained with RLVR, consistently surpasses o3-mini-high and o1 on the puzzle reasoning benchmarks like Enigmata-Eval, ARC-AGI, and ARC-AGI 2. It also generalizes well to out-of-domain puzzle benchmarks and mathematical reasoning, with little multitasking trade-off.</p>
+                        <p lang="zh"><strong>Qwen2.5-32B-Enigmata</strong>，通过RLVR训练，在Enigmata-Eval、ARC-AGI和ARC-AGI 2等谜题推理基准测试中持续超越o3-mini-high和o1。它还能很好地泛化到领域外的谜题基准测试和数学推理，几乎没有多任务权衡。</p>
+                        
+                        <p lang="en">When trained on <strong>larger models like Seed1.5-Thinking</strong> (20B activated parameters and 200B total parameters), puzzle data from Enigmata further boosts SoTA performance on advanced math and STEM reasoning tasks such as AIME (2024-2025), BeyondAIME and GPQA (Diamond), showing nice generalization benefits of Enigmata.
+                        </p>
+                        <p lang="zh">当在<strong>更大的模型（如Seed1.5-Thinking）</strong>（20B激活参数和200B总参数）上训练时，来自Enigmata的谜题数据进一步提升了在高级数学和STEM推理任务（如AIME（2024-2025）、BeyondAIME和GPQA（Diamond））上的最先进性能，展示了Enigmata良好的泛化优势。
+                        </p>
+                        
+                        <strong><em style="color: #3a76ed"><center lang="en">We hope Enigmata serves as a solid foundation for the community to push forth the research on reasoning models!</center></em></strong>
+                        <strong><em style="color: #3a76ed"><center lang="zh">我们希望Enigmata能够成为推动推理模型研究的坚实基础！</center></em></strong>
+                        <!-- <p>
+                            Our key contributions are:
+                            <ul>
+                                <li>We introduce Enigmata, the first suite for enabling LLMs with advanced and comprehensive logical reasoning abilities for solving puzzles.</li>
+                                <li>The Enigmata suite consists of Enigmata-Data, featuring <strong>36 distinct tasks across 7 categories</strong> with
+                                    controllable difficulty, scalable generation, and automatic verification, which seamlessly fit the RLVR
+                                    training paradigm.</li>
+                                <li>We establish Enigmata-Eval, a benchmark that rigorously and comprehensively evaluates puzzle
+                                    reasoning abilities, and propose the Enigmata-Model recipe that trains models with superior performance
+                                    on in-domain and OOD puzzle reasoning tasks.</li>
+                                </ul> -->
+
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </section>
+
+    <section class="section" id="data">
+        <div class="container">
+            <div class="columns is-centered">
+                <div class="column is-10">
+                    <h2 class="title is-3">
+                        <span lang="en">🧩 Enigmata-Data: Synthetic Verifiable Puzzle Generation</span>
+                        <span lang="zh">🧩 Enigmata-Data: 合成可验证谜题生成</span>
+                    </h2>
+                    <div class="content">
+                        <p lang="en"><strong>Enigmata-Data</strong> comprises <strong>36 distinct task types spanning 7 categories of logical reasoning puzzles</strong>. Each task is built with two core components: (1) <strong>Generator</strong>: Produces massive puzzle instances with precisely controllable difficulty parameters; (2) <strong>Verifier</strong>: Provides automatic, rule-based solution validation for reliable evaluation.</p>
+                        <p lang="zh"><strong>Enigmata-Data</strong>包含<strong>跨越7个逻辑推理谜题类别的36种不同任务类型</strong>。每个任务都由两个核心组件构建：(1) <strong>生成器</strong>：生成具有精确可控难度参数的大量谜题实例；(2) <strong>验证器</strong>：提供自动的、基于规则的解决方案验证，以进行可靠的评估。</p>
+                        <!-- <p>For comprehensive details on each task, please refer to our task documentation.</p> -->
+                    </div>
+                    <div
+                        style="background-color: #f8fafc; border-radius: 12px; border-left: 6px solid #3a76ed; padding: 1.2rem; margin-bottom: 1.5rem;">
+                            <div style="display: flex; flex-direction: column; gap: 0.8rem;">
+                                <div style="display: flex; align-items: flex-start; gap: 0.8rem;"> 
+                                    <div
+                                        style="background-color: #3a76ed; color: white; padding: 0.4rem; border-radius: 50%; font-size: 0.9rem; display: flex; align-items: center; justify-content: center; min-width: 2rem; height: 2rem;">
+                                        1
+                                    </div>
+                                    <div>
+                                        <p style="margin: 0; line-height: 1.4;" lang="en"><strong>Unlimited Self-Verifying Data: </strong>
+                                            It can generate an unlimited supply of self-verifying puzzle prompts, which plug seamlessly into the RLVR framework and support long chain-of-thought training.</p>
+                                        <p style="margin: 0; line-height: 1.4;" lang="zh"><strong>无限自验证数据: </strong>
+                                            它可以生成无限供应的自验证谜题提示，无缝插入RLVR框架并支持长思维链训练。</p>
+                                    </div>
+                                </div>
+                        
+                                <div style="display: flex; align-items: flex-start; gap: 0.8rem;">
+                                    <div
+                                        style="background-color: #3a76ed; color: white; padding: 0.4rem; border-radius: 50%; font-size: 0.9rem; display: flex; align-items: center; justify-content: center; min-width: 2rem; height: 2rem;">
+                                        2
+                                    </div>
+                                    <div>
+                                    <p style="margin: 0; line-height: 1.4;" lang="en"><strong>Controlled Difficulty:</strong> Programmatic difficulty control allows researchers to mix puzzles in desired difficulty ratios and to conduct fine-grained experiments on how curriculum design influences reinforcement learning.</p>
+                                    <p style="margin: 0; line-height: 1.4;" lang="zh"><strong>可控难度:</strong> 程序化难度控制允许研究人员按照所需的难度比例混合谜题，并对课程设计如何影响强化学习进行细粒度实验。</p>
+                                    </div>
+                                </div>
+
+                                <div style="display: flex; align-items: flex-start; gap: 0.8rem;">
+                                    <div
+                                        style="background-color: #3a76ed; color: white; padding: 0.4rem; border-radius: 50%; font-size: 0.9rem; display: flex; align-items: center; justify-content: center; min-width: 2rem; height: 2rem;">
+                                        3
+                                    </div>
+                                    <div>
+                                        <p style="margin: 0; line-height: 1.4;" lang="en"><strong>Flexible Task Sampling:</strong> Generators can emit arbitrary sample counts per task, enabling studies of task balancing and cross-task generalization.</p>
+                                        <p style="margin: 0; line-height: 1.4;" lang="zh"><strong>灵活的任务采样:</strong> 生成器可以为每个任务发出任意数量的样本，从而能够研究任务平衡和跨任务泛化。</p>
+                                    </div>
+                                </div>                                
+                        </div>
+                    </div>
+         
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="section" id="eval">
+        <div class="container">
+            <div class="columns is-centered">
+                <div class="column is-10">
+                    <h2 class="title is-3">
+                        <span lang="en">⚖️ Enigmata-Eval: Evaluating Logical Reasoning Capabilities</span>
+                        <span lang="zh">⚖️ Enigmata-Eval: 评估逻辑推理能力</span>
+                    </h2>
+                    <div class="content">
+                        <p lang="en">Enigmata-Eval is a comprehensive benchmark containing 4,758 puzzle instances across Easy, Medium, and Hard difficulty levels. Each task provides 50 instances per difficulty level where possible, with strict train-eval separation to prevent data leakage.</p>
+                        <p lang="zh">Enigmata-Eval是一个综合基准测试，包含4,758个跨越简单、中等和困难难度级别的谜题实例。每个任务尽可能提供每个难度级别50个实例，并严格分离训练和评估数据以防止数据泄漏。</p>
+
+                        <p lang="en">📥 <strong>Download Enigmata-Eval</strong>: <a href="https://huggingface.co/datasets/BytedTsinghua-SIA/Enigmata-Eval">HuggingFace Dataset</a></p>
+                        <p lang="zh">📥 <strong>下载Enigmata-Eval</strong>: <a href="https://huggingface.co/datasets/BytedTsinghua-SIA/Enigmata-Eval">HuggingFace数据集</a></p>
+                    
+         
+
+                
+                
+                
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <section class="section" id="model">
+        <div class="container">
+            <div class="columns is-centered">
+                <div class="column is-10">
+                    <h2 class="title is-3">
+                        <span lang="en">🤖 Enigmata-Model: The Training Recipe</span>
+                        <span lang="zh">🤖 Enigmata-Model: 训练方法</span>
+                    </h2>
+                    <div class="content">
+                        <p lang="en">Our training methodology follows a two-stage process designed to systematically build reasoning abilities: 
+                            (1) rejection fine-tuning to establish foundational reasoning patterns, and 
+                            (2) multi-task RL to develop general reasoning skills that transfer across diverse problem domains.</p>
+                        <p lang="zh">我们的训练方法遵循两阶段过程，旨在系统地构建推理能力：
+                            (1) 拒绝式微调以建立基础推理模式，以及
+                            (2) 多任务强化学习，以发展可在不同问题领域之间迁移的通用推理技能。</p>
+                    </div>
+                    <div class="content">
+                        <div
+                        style="background-color: #f8fafc; border-radius: 12px; border-left: 6px solid #3a76ed; padding: 1.2rem; margin-bottom: 1.5rem;">
+                            <div style="display: flex; flex-direction: column; gap: 0.8rem;">
+                                <div style="display: flex; align-items: flex-start; gap: 0.8rem;"> 
+                                    <div
+                                        style="background-color: #3a76ed; color: white; padding: 0.4rem; border-radius: 50%; font-size: 0.9rem; display: flex; align-items: center; justify-content: center; min-width: 2rem; height: 2rem;">
+                                        1
+                                    </div>
+                                    <div>
+                                        <p style="margin: 0; line-height: 1.4;" lang="en"><strong>Rejection Fine-tuning:</strong>
+                                            This initial stage focuses on building foundational reasoning by fine-tuning the model with high-quality solutions from a balanced mix of math and puzzle problems, including ARC-AGI.</p>
+                                        <p style="margin: 0; line-height: 1.4;" lang="zh"><strong>拒绝式微调:</strong>
+                                            这一初始阶段专注于通过使用来自数学和谜题问题（包括ARC-AGI）的平衡混合的高质量解决方案对模型进行微调，从而建立基础推理能力。</p>
+                                    </div>
+                                </div>
+                        
+                                <div style="display: flex; align-items: flex-start; gap: 0.8rem;">
+                                    <div
+                                        style="background-color: #3a76ed; color: white; padding: 0.4rem; border-radius: 50%; font-size: 0.9rem; display: flex; align-items: center; justify-content: center; min-width: 2rem; height: 2rem;">
+                                        2
+                                    </div>
+                                    <div>
+                                    <p style="margin: 0; line-height: 1.4;" lang="en"><strong>RL with Verifiable Puzzles:</strong> The model then undergoes reinforcement learning using VC-PPO, where an automated verifier for puzzles provides immediate rewards, enabling an automatic RL pipeline for puzzle reasoning.</p>
+                                    <p style="margin: 0; line-height: 1.4;" lang="zh"><strong>可验证谜题的强化学习:</strong> 然后，模型使用VC-PPO进行强化学习，其中谜题的自动验证器提供即时奖励，从而为谜题推理启用自动强化学习流程。</p>
+                                    </div>
+                                </div>
+
+                                <div style="display: flex; align-items: flex-start; gap: 0.8rem;">
+                                    <div
+                                        style="background-color: #3a76ed; color: white; padding: 0.4rem; border-radius: 50%; font-size: 0.9rem; display: flex; align-items: center; justify-content: center; min-width: 2rem; height: 2rem;">
+                                        3
+                                    </div>
+                                    <div>
+                                        <p style="margin: 0; line-height: 1.4;" lang="en"><strong>Multi-task Training:</strong> To develop general and transferable logical reasoning, the training incorporates multi-task methods like Mix-training RL and Multi-stage RL, combining diverse puzzle types (Enigmata, ARC-AGI) with challenging mathematical problems (AIME) while maintaining a balanced ratio.</p>
+                                        <p style="margin: 0; line-height: 1.4;" lang="zh"><strong>多任务训练:</strong> 为了发展通用和可迁移的逻辑推理，训练结合了多任务方法，如混合训练强化学习和多阶段强化学习，将各种谜题类型（Enigmata、ARC-AGI）与具有挑战性的数学问题（AIME）结合起来，同时保持平衡比例。</p>
+                                    </div>
+                                </div>                                
+                        </div>
+                    </div>
+                    </div>
+
+                    
+                    <div class="content">
+                        <h4>
+                            <span lang="en">👀 Experimental Results</span>
+                            <span lang="zh">👀 实验结果</span>
+                        </h4>
+                        <div class="content">
+                            <p lang="en">Our model, specifically the 32B parameter version, significantly outperforms most public models on Enigmata-Eval and ARC-AGI, showcasing enhanced general logical reasoning. This success stems from effective rejection fine-tuning (RFT) and multi-task RL strategies, which improve generalization while preserving existing math reasoning abilities.</p>
+                            <p lang="zh">我们的模型，特别是32B参数版本，在Enigmata-Eval和ARC-AGI上的表现显著优于大多数公开模型，展示了增强的通用逻辑推理能力。这一成功源于有效的拒绝式微调（RFT）和多任务强化学习策略，它们在保留现有数学推理能力的同时提高了泛化能力。</p>
+                        </div>
+                        <figure>
+                            <img src="./assets/main_results_1.png" alt="A descriptive alt text for your image" style="width: 600px;">
+                            <figcaption style="color: gray;">
+                                <span lang="en">Performance of reasoning, generic, and our trained LLMs on reasoning benchmarks</span>
+                                <span lang="zh">推理型、通用型和我们训练的大语言模型在推理基准测试上的表现</span>
+                            </figcaption>
+                          </figure>
+                        
+                          <div class="content">
+                            <p lang="en">On Enigmata-Eval, our Qwen2.5-32B-Enigmata model excels in Crypto, Arithmetic, and Logic tasks, indicating strong rule-based reasoning. It also performs competitively in search tasks, though spatial and sequential categories remain challenging.</p>
+                            <p lang="zh">在Enigmata-Eval上，我们的Qwen2.5-32B-Enigmata模型在加密、算术和逻辑任务中表现出色，表明其具有强大的基于规则的推理能力。它在搜索任务中也表现得很有竞争力，尽管空间和序列类别仍然具有挑战性。</p>
+                        </div>
+
+                          <figure>
+                            <img src="./assets/main_results2.png" alt="A descriptive alt text for your image" style="width: 600px;">
+                            <figcaption style="color: gray;">
+                                <span lang="en">Performance of reasoning LLMs, generic LLMs, and our trained LLMs on Enigmata-Eval</span>
+                                <span lang="zh">推理型大语言模型、通用型大语言模型和我们训练的大语言模型在Enigmata-Eval上的表现</span>
+                            </figcaption>
+                          </figure>
+
+                    </div>
+
+                    
+                    <div class="content">
+                        <h4>
+                            <span lang="en">🌟 Generalization with Scaling: Free Lunch from Enigmata</span>
+                            <span lang="zh">🌟 随规模扩展的泛化能力：Enigmata的免费午餐</span>
+                        </h4>
+                    <div class="content">
+                        <p lang="en">Incorporating the <strong>Enigmata-Data</strong> synthetic puzzle dataset into large-scale model training, e.g., <a href="https://arxiv.org/abs/2504.13914">Seed1.5-Thinking</a>, surprisingly improving performance on challenging benchmarks like AIME and GPQA Diamond. This demonstrates an unexpected <strong>generalization benefit</strong> for advanced reasoning models.</p>
+                        <p lang="zh">将<strong>Enigmata-Data</strong>合成谜题数据集纳入大规模模型训练，例如<a href="https://arxiv.org/abs/2504.13914">Seed1.5-Thinking</a>，令人惊讶地提高了在AIME和GPQA Diamond等具有挑战性的基准测试上的性能。这展示了高级推理模型的意外<strong>泛化优势</strong>。</p>
+                    </div>
+
+                      <figure>
+                        <img src="./assets/seed_thinking.png" alt="A descriptive alt text for your image" style="width: 600px;">
+                        <figcaption style="color: gray;">Results on benchmarks for general reasoning capabilities</figcaption>
+                      </figure>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+
+    <!-- <section class="section">
+        <div class="container">
+            <div class="columns is-centered">
+                <div class="column is-10">
+                    <h2 class="title is-3">Performance Results</h2>
+                    <div class="content">
+                        
+                       
+                            
+                        <div class="content">
+                            <p>Our model, specifically the 32B parameter version, significantly outperforms most public models on Enigmata-Eval and ARC-AGI, showcasing enhanced general logical reasoning. This success stems from effective rejection fine-tuning (RFT) and multi-task RL strategies, which improve generalization while preserving existing math reasoning abilities.</p>
+                        </div>
+                        <figure>
+                            <img src="./assets/main_results_1.png" alt="A descriptive alt text for your image" style="width: 600px;">
+                            <figcaption style="color: gray;">Performance of reasoning, generic, and our trained LLMs on reasoning benchmarks</figcaption>
+                          </figure>
+                        
+                          <div class="content">
+                            <p>On Enigmata-Eval, our Qwen2.5-32B-Enigmata model excels in Crypto, Arithmetic, and Logic tasks, indicating strong rule-based reasoning. It also performs competitively in search tasks, though spatial and sequential categories remain challenging.</p>
+                        </div>
+
+                          <figure>
+                            <img src="./assets/main_results2.png" alt="A descriptive alt text for your image" style="width: 600px;">
+                            <figcaption style="color: gray;">Performance of reasoning LLMs, generic LLMs, and our trained LLMs on Enigmata-Eval</figcaption>
+                          </figure>
+
+                          <div class="content">
+                            <p>Incorporating the <strong>Enigmata-Data</strong> synthetic puzzle dataset into large-scale model training significantly boosts general reasoning, including math and STEM, surprisingly improving performance on challenging benchmarks like AIME and GPQA Diamond. This demonstrates an unexpected <strong>generalization benefit</strong> for advanced reasoning models.</p>
+                        </div>
+
+                          <figure>
+                            <img src="./assets/seed_thinking.png" alt="A descriptive alt text for your image" style="width: 600px;">
+                            <figcaption style="color: gray;">
+                                <span lang="en">Results on benchmarks for general reasoning capabilities</span>
+                                <span lang="zh">通用推理能力基准测试的结果</span>
+                            </figcaption>
+                          </figure>
+
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section> -->
+
+    <section class="section" id="citation">
+        <div class="container">
+            <div class="columns is-centered">
+                <div class="column is-10">
+                    <h2 class="title is-3">
+                        <span lang="en">📝 Citation</span>
+                        <span lang="zh">📝 引用</span>
+                    </h2>
+                    <div class="content">
+                        <p lang="en">If you find this work useful, please cite our paper:</p>
+                        <p lang="zh">如果您发现这项工作有用，请引用我们的论文：</p>
+                        <pre><code class="latex">
+@article{chen2025enigmata,
+    title={Enigmata: Scaling Logical Reasoning in Large Language Models with Synthetic Verifiable Puzzles},
+    author={Chen, Jiangjie and He, Qianyu and Yuan, Siyu and Chen, Aili and Cai, Zhicheng and Dai, Weinan and Yu, Hongli and Yu, Qiying and Li, Xuefeng and Chen, Jiaze and others},
+    journal={arXiv preprint arXiv:2505.19914},
+    year={2025}
+}
+                        </code></pre>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer class="footer">
+        <div class="container">
+            <div class="has-text-centered">
+                <p>
+                    <span lang="en">© 2025 <a href="https://seed.bytedance.com">ByteDance Seed</a>. Modified from <a href="https://github.com/seed-enigmata/seed-enigmata.github.io">R2E-Gym</a>.</span>
+                    <span lang="zh">© 2025 <a href="https://seed.bytedance.com">字节跳动Seed</a>. 修改自 <a href="https://github.com/seed-enigmata/seed-enigmata.github.io">R2E-Gym</a>.</span>
+                </p>
+            </div>
+        </div>
+    </footer>
+
+
+</body>
+
+
+</html>
