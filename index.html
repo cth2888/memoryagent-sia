@@ -184,17 +184,17 @@
                 <div class="content">
 
                     <p lang="en">
-                        We present **RL-Memory Agent**, a novel framework for long-text processing that directly optimizes task performance through end-to-end reinforcement learning, without any architectural modifications to the base model.
+                        We present <strong>RL-Memory Agent</strong>, a novel framework for long-text processing that directly optimizes task performance through end-to-end reinforcement learning, without any architectural modifications to the base model.
                     </p>
                     <p lang="zh">
-                        我们推出了**RL-Memory Agent**，这是一个全新的长文本处理框架，能够通过端到端的强化学习直接优化长文本任务性能，而无需更改底层模型架构。
+                        我们推出了<strong>RL-Memory Agent</strong>，这是一个全新的长文本处理框架，能够通过端到端的强化学习直接优化长文本任务性能，而无需更改底层模型架构。
                     </p>
                     <p lang="en">
-                        **RL-Memory Agent** achieves three major breakthroughs:
+                        <strong>RL-Memory Agent</strong> achieves three major breakthroughs:
                     </p>
 
                     <p lang="zh">
-                        **RL-Memory Agent** 实现了三大核心突破：
+                        <strong>RL-Memory Agent</strong> 实现了三大核心突破：
                     </p>
                     <div
                         style="background-color: #f8fafc; border-radius: 12px; border-left: 6px solid #3a76ed; padding: 1.2rem; margin-bottom: 1.5rem;">
@@ -205,9 +205,9 @@
                                         1
                                     </div>
                                     <div>
-                                        <p style="margin: 0; line-height: 1.4;" lang="en">**Novel memory mechanism: **
+                                        <p style="margin: 0; line-height: 1.4;" lang="en"><strong>Novel memory mechanism: </strong>
                                             It introduces a notebook-style workflow where the agent reads input in segments and efficiently updates memory using an overwrite strategy. This enables handling virtually unlimited-length inputs within a fixed context window, fundamentally breaking the hard length limits of Transformer models.</p>
-                                        <p style="margin: 0; line-height: 1.4;" lang="zh">**新型记忆机制：**
+                                        <p style="margin: 0; line-height: 1.4;" lang="zh"><strong>新型记忆机制：</strong>
                                             我们引入了一种记事本式的工作流，Agent 以分段方式读取文本，并借助覆写策略高效更新记忆。该设计使得模型能够在固定上下文窗口内处理几乎任意长度的输入，从根本上突破了传统 Transformer 架构的窗口长度限制。</p>
                                     </div>
                                 </div>
@@ -218,8 +218,9 @@
                                         2
                                     </div>
                                     <div>
-                                    <p style="margin: 0; line-height: 1.4;" lang="en">**O(n) linear complexity:** The agent design decouples compute and memory cost from input length, reducing the processing burden from quadratic to linear with respect to input size.</p>
-                                    <p style="margin: 0; line-height: 1.4;" lang="zh">**O(n) 线性复杂度：**
+                                    <p style="margin: 0; line-height: 1.4;" lang="en"><strong>O(n) linear complexity:</strong> 
+                                        The agent design decouples compute and memory cost from input length, reducing the processing burden from quadratic to linear with respect to input size.</p>
+                                    <p style="margin: 0; line-height: 1.4;" lang="zh"><strong>O(n) 线性复杂度：</strong>
                                         这一创新性的 Agent 设计将计算与显存开销与文本长度解耦，使得处理长文本的复杂度由原本的二次方增长转变为线性增长。</p>
                                     </div>
                                 </div>
@@ -230,9 +231,9 @@
                                         3
                                     </div>
                                     <div>
-                                        <p style="margin: 0; line-height: 1.4;" lang="en">**RL-driven extrapolation:**
+                                        <p style="margin: 0; line-height: 1.4;" lang="en"><strong>RL-driven extrapolation:</strong>
                                             A modified GRPO algorithm supports training on multi-turn generation tasks with independent contexts. As a result, models trained with 32K contexts can extrapolate to 3.5M-token sequences with <5% performance drop.</p>
-                                        <p style="margin: 0; line-height: 1.4;" lang="zh">**强化学习驱动的外推能力:**
+                                        <p style="margin: 0; line-height: 1.4;" lang="zh"><strong>强化学习驱动的外推能力:</strong>
                                             我们改进了 GRPO 算法，使其支持独立上下文的多轮生成训练。基于此，训练出的 Memory Agent 在32K上下文长度的数据上训练后，能够无损外推至3.5M token的问答任务中，性能下降低于5%。</p>
                                     </div>
                                 </div>                                
@@ -246,8 +247,8 @@
                         我们以一种简洁而高效的方式，首次实现了真正意义上的、由强化学习赋予的可训练记忆能力，充分展现了强化学习在优化特定工作流方面的巨大潜力。
                     </p>
 
-                    **<em style="color: #3a76ed"><center lang="en">We believe RL-Memory Agent paves the way for the next generation of scalable long-context LLMs.</center></em>**
-                    **<em style="color: #3a76ed"><center lang="zh">我们相信，RL-Memory Agent 为下一代可扩展的长上下文大语言模型开辟了新路径。</center></em>**
+                    <strong><em style="color: #3a76ed"><center lang="en">We believe RL-Memory Agent paves the way for the next generation of scalable long-context LLMs.</center></em></strong>
+                    <strong><em style="color: #3a76ed"><center lang="zh">我们相信，RL-Memory Agent 为下一代可扩展的长上下文大语言模型开辟了新路径。</center></em></strong>
 
                 </div>
             </div>
@@ -266,25 +267,25 @@
                 <div class="content">
 
                     <p lang="en">
-                        Inspired by human strategies for long-text comprehension and neural memory models such as Neural Turing Machines and Memory Networks, we propose a novel architecture-free framework called **Memory Agent**, which equips LLMs with a dynamically updated memory module.
+                        Inspired by human strategies for long-text comprehension and neural memory models such as Neural Turing Machines and Memory Networks, we propose a novel architecture-free framework called <strong>Memory Agent</strong>, which equips LLMs with a dynamically updated memory module.
                     </p>
                     <p lang="zh">
-                        受人类处理长文本时的行为模式启发，并借鉴了Neural Turing Machine和Memory Network等神经网络与记忆机制结合的工作，我们提出了一种无需修改模型架构的长文处理新方案——**Memory Agent**，
+                        受人类处理长文本时的行为模式启发，并借鉴了Neural Turing Machine和Memory Network等神经网络与记忆机制结合的工作，我们提出了一种无需修改模型架构的长文处理新方案——<strong>Memory Agent</strong>，
                         <br><strong style="color:#3273dc;">|给LLM装上动态更新的记忆模块</strong>。
                     </p>
 
                     <p lang="en">
-                        **Memory Agent** introduces a fixed-size auxiliary memory panel that allows the model to read long texts in segments and update memory after each segment. This forms a new "local processing + global fusion" workflow. During inference, the memory is dynamically written and aggregated to generate the final output.
+                        <strong>Memory Agent</strong> introduces a fixed-size auxiliary memory panel that allows the model to read long texts in segments and update memory after each segment. This forms a new "local processing + global fusion" workflow. During inference, the memory is dynamically written and aggregated to generate the final output.
                     </p>
                     <p lang="zh">
-                        **Memory Agent**引入了一个固定长度的辅助记忆面板，允许模型在处理长文本时以分段方式读取输入，并在每一段后主动更新记忆状态，从而实现“局部处理 + 全局融合”的新型工作流。该记忆模块在推理过程中不断更新，并在所有段落处理完毕后聚合关键信息生成最终输出。
+                        <strong>Memory Agent</strong>引入了一个固定长度的辅助记忆面板，允许模型在处理长文本时以分段方式读取输入，并在每一段后主动更新记忆状态，从而实现“局部处理 + 全局融合”的新型工作流。该记忆模块在推理过程中不断更新，并在所有段落处理完毕后聚合关键信息生成最终输出。
                     </p>
 
                     <figure class="image" style="max-width: 800px; margin: 2rem auto;">
                         <img src="figs/method_00.png" alt="Memory Agent Architecture Overview">
                     </figure>
 
-                    <p lang="en">**Traditional Modeling:**</p>
+                    <p lang="en"><strong>Traditional Modeling:</strong></p>
                     <p lang="en">
                         Conventional autoregressive language models represent a token sequence of length N as:
                     </p>
@@ -295,7 +296,7 @@
                         This requires caching all historical tokens, leading to quadratic complexity in computation and memory usage.
                     </p>
                     
-                    <p lang="zh">**传统建模方式：**</p>
+                    <p lang="zh"><strong>传统建模方式：</strong></p>
                     <p lang="zh">
                         传统自回归语言模型通常对长度为N的token序列建模如下：
                     </p>
@@ -306,14 +307,14 @@
                         该方法需要缓存全部历史token，导致计算和显存消耗随序列长度呈二次方增长。
                     </p>
                     
-                    <p lang="en">**Memory Agent Architecture:**</p>
+                    <p lang="en"><strong>Memory Agent Architecture:</strong></p>
                     <p lang="en">
                         Memory Agent reformulates the decoding process by introducing a memory-augmented, segment-wise strategy:
                     </p>
                     <ul lang="en">
-                        <li>**Chunking:** The input is divided into K sequential chunks $$(c^1, c^2, ..., c^K)$$, each of length ≤ C.</li>
-                        <li>**Iterative Processing:** Chunks are processed sequentially, keeping computation per chunk constant.</li>
-                        <li>**Memory Augmentation:** A latent memory state $$m^k$$ is updated after each chunk.</li>
+                        <li><strong>Chunking:</strong> The input is divided into K sequential chunks $$(c^1, c^2, ..., c^K)$$, each of length ≤ C.</li>
+                        <li><strong>Iterative Processing:</strong> Chunks are processed sequentially, keeping computation per chunk constant.</li>
+                        <li><strong>Memory Augmentation:</strong> A latent memory state $$m^k$$ is updated after each chunk.</li>
                     </ul>
                     <div class="content has-text-centered">
                         $$p(\mathbf{x}_{1:N}) = \sum_{\mathbf{m}^{1:K-1}} \prod_{k=1}^{K}
@@ -321,14 +322,14 @@
                         \underbrace{p(\mathbf{m}^k \mid \mathbf{c}^k, \mathbf{m}^{k-1})}_{\text{write}}$$
                     </div>
                     
-                    <p lang="zh">**Memory Agent 核心架构：**</p>
+                    <p lang="zh"><strong>Memory Agent 核心架构：</strong></p>
                     <p lang="zh">
                         为实现对任意长文本的线性处理能力，Memory Agent提出如下机制：
                     </p>
                     <ul lang="zh">
-                        <li>**分块处理：** 将输入序列划分为K个连续块 $$(c^1, c^2, ..., c^K)$$，每块不超过C个token。</li>
-                        <li>**循环处理：** 按块顺序处理，每块的计算开销保持恒定。</li>
-                        <li>**引入记忆状态：** 每一块处理后会更新潜在的记忆变量 $$m^k$$，作为下一块的输入。</li>
+                        <li><strong>分块处理：</strong> 将输入序列划分为K个连续块 $$(c^1, c^2, ..., c^K)$$，每块不超过C个token。</li>
+                        <li><strong>循环处理：</strong> 按块顺序处理，每块的计算开销保持恒定。</li>
+                        <li><strong>引入记忆状态：</strong> 每一块处理后会更新潜在的记忆变量 $$m^k$$，作为下一块的输入。</li>
                     </ul>
                     <div class="content has-text-centered">
                         $$p(\mathbf{x}_{1:N}) = \sum_{\mathbf{m}^{1:K-1}} \prod_{k=1}^{K}
@@ -336,8 +337,8 @@
                         \underbrace{p(\mathbf{m}^k \mid \mathbf{c}^k, \mathbf{m}^{k-1})}_{\text{写入}}$$
                     </div>
                     
-                    <h4 lang="en">**Reinforcement Learning Optimization**</h4>
-                    <h4 lang="zh">**强化学习训练机制**</h4>
+                    <h4 lang="en"><strong>Reinforcement Learning Optimization</strong></h4>
+                    <h4 lang="zh"><strong>强化学习训练机制</strong></h4>
                     
                     <p lang="en">
                         We adopt Reinforcement Learning with Verifiable Results (RLVR), a method proven effective in reasoning, to train Memory Agent. Instead of conventional fine-tuning or instruction engineering, we extend the GRPO algorithm to support end-to-end optimization of multi-turn dialogue workflows.
@@ -349,19 +350,19 @@
                     <div class="columns is-vcentered">
                         <div class="column">
                             <figure class="image">
-                                <img src="figs/algo_00.png" alt="RL Flow" style="max-width: 100%;">
+                                <img src="figs/algo_00.png" alt="RL Flow">
                             </figure>
                         </div>
                         <div class="column">
                             <figure class="image">
-                                <img src="figs/template.png" alt="RL Template" style="max-width: 100%;">
+                                <img src="figs/template.png" alt="RL Template">
                             </figure>
                         </div>
                     </div>
 
 
-                    <h4 lang="en">**Multi-Turn Dialog RL Training**</h4>
-                    <h4 lang="zh">**多轮对话强化学习机制**</h4>
+                    <h4 lang="en"><strong>Multi-Turn Dialog RL Training</strong></h4>
+                    <h4 lang="zh"><strong>多轮对话强化学习机制</strong></h4>
 
                     <p lang="en">
                         For each sample, multiple independent dialog sequences are generated in parallel. The final answer is selected to compute a reward, which is then distributed intelligently across all related dialogues. Chunk-level token losses are computed under a 3D optimization structure: (group, turn, token).
@@ -371,7 +372,7 @@
                     </p>
                     
                     <div class="content has-text-centered">
-                        $$
+                        $$ 
                         \begin{aligned}
                         \mathcal{J}_{\text{GRPO}}(\theta) =\quad &\mathbb{E}_{(q,a)\sim \mathcal{D}, \{o_{i,j}\}_{i=1}^G\sim \pi_{\theta_\text{old}}(\cdot\mid q,~o_{i,j-1})} \\
                         &\Bigg[\frac{1}{\sum_{i=1}^{G}\sum_{j=1}^{n_i}|o_{i,j}|}\sum_{i=1}^{G}\sum_{j=1}^{n_i}\sum_{t=1}^{|o_{i,j}|}
@@ -398,11 +399,11 @@
         </h2>
         <div class="content">
 
-          <h4 lang="en">**Main Results**</h4>
-          <h4 lang="zh">**主实验结果**</h4>
+          <h4 lang="en"><strong>Main Results</strong></h4>
+          <h4 lang="zh"><strong>主实验结果</strong></h4>
 
           <p lang="zh">
-            **基线模型：** 实验显示，现有长文本模型在超长序列上普遍存在严重的性能退化：
+            <strong>基线模型：</strong> 实验显示，现有长文本模型在超长序列上普遍存在严重的性能退化：
             <ul>
               <li>QwenLong-L1系列：在文本长度超过56K后准确率急剧下降，降幅超过40个百分点。</li>
               <li>Qwen2.5-Instruct-1M系列：标称支持1M，但在896K时性能降为0。</li>
@@ -411,9 +412,9 @@
           </p>
 
           <p lang="zh">
-            **RL-Memory Agent：** 在超长文本处理任务中表现出极高稳定性：
+            <strong>RL-Memory Agent：</strong> 在超长文本处理任务中表现出极高稳定性：
             <ul>
-              <li>RL-Memory Agent-14B：在3.5M超长文本测试中仅出现&lt;5%的边际性能下降，实现了无损外推。</li>
+              <li>RL-Memory Agent-14B：在3.5M超长文本测试中仅出现<5%的边际性能下降，实现了无损外推。</li>
               <li>RL-Memory Agent-7B：在最长文本上虽略有性能下降，但总体表现远超其他模型。</li>
             </ul>
           </p>
@@ -422,13 +423,13 @@
             <img src="figs/main_result_00.png" alt="Main Results">
           </figure>
 
-          <h4 lang="zh">**消融实验**</h4>
+          <h4 lang="zh"><strong>消融实验</strong></h4>
           <p lang="zh">
             为验证Memory Agent各组件的贡献，我们开展了系统的消融实验：
             <ol>
-              <li>**基础模型：** 在超出训练窗口后，信息缺失导致性能急剧下降，无法实现外推。</li>
-              <li>**Memory Agent（未RL训练）：** 具备一定处理能力，但在长文本任务下仍出现明显性能损失。</li>
-              <li>**RL-Memory Agent：** 强化学习训练显著提升外推能力，达到近乎无损性能。</li>
+              <li><strong>基础模型：</strong> 在超出训练窗口后，信息缺失导致性能急剧下降，无法实现外推。</li>
+              <li><strong>Memory Agent（未RL训练）：</strong> 具备一定处理能力，但在长文本任务下仍出现明显性能损失。</li>
+              <li><strong>RL-Memory Agent：</strong> 强化学习训练显著提升外推能力，达到近乎无损性能。</li>
             </ol>
           </p>
 
@@ -436,34 +437,34 @@
             <img src="figs/ablation_00.png" alt="Ablation Study">
           </figure>
 
-          <h4 lang="zh">**RULER基准测试与OOD能力分析**</h4>
+          <h4 lang="zh"><strong>RULER基准测试与OOD能力分析</strong></h4>
           <p lang="zh">
-            **RULER基准测试：** 这是当前长文本外推能力研究的标准测试集，其核心优势是可控长度生成任务。
+            <strong>RULER基准测试：</strong> 这是当前长文本外推能力研究的标准测试集，其核心优势是可控长度生成任务。
           </p>
 
           <div class="box" style="background: #f8f9fa; border: 1px solid #ddd; border-radius: 10px; padding: 1.5rem;">
             <div class="columns is-multiline is-variable is-4">
               <div class="column is-6">
                 <div class="box has-background-white-ter">
-                  **大海捞针（Needle-in-a-Haystack）**
+                  <strong>大海捞针（Needle-in-a-Haystack）</strong>
                   <p>在超长文本中定位关键needle，包含8类干扰变体。</p>
                 </div>
               </div>
               <div class="column is-6">
                 <div class="box has-background-white-ter">
-                  **变量追踪（Variable Tracking）**
+                  <strong>变量追踪（Variable Tracking）</strong>
                   <p>模拟程序分析场景，追踪变量引用和赋值关系。</p>
                 </div>
               </div>
               <div class="column is-6">
                 <div class="box has-background-white-ter">
-                  **聚合任务（Aggregation）**
+                  <strong>聚合任务（Aggregation）</strong>
                   <p>汇总分散信息，评估模型对全局特征的掌握能力。</p>
                 </div>
               </div>
               <div class="column is-6">
                 <div class="box has-background-white-ter">
-                  **问答任务（QA）**
+                  <strong>问答任务（QA）</strong>
                   <p>进行多跳复杂推理，测试模型上下文理解与问答能力。</p>
                 </div>
               </div>
@@ -471,49 +472,49 @@
           </div>
 
           <p lang="zh">
-            **实验结果分析：** 我们使用热力图可视化不同模型在不同长度区间和任务类型下的性能：
+            <strong>实验结果分析：</strong> 我们使用热力图可视化不同模型在不同长度区间和任务类型下的性能：
             <ul>
-              <li>**RL-Memory Agent：** 所有任务类型上均优于现有模型，展现显著性能优势。</li>
-              <li>**Memory Agent（未训练）：** 在大多数情况下优于基础模型，但外推长度上仍出现性能下降。</li>
-              <li>**基础模型：** Distill/Instruct系列在超长文本任务中普遍失败。</li>
-              <li>**QwenLong系列：** 在超长文本下性能剧降，甚至不如基础模型。</li>
-              <li>**Qwen-1M系列：** 在简单任务上表现尚可，但在复杂推理任务中急剧下降。</li>
+              <li><strong>RL-Memory Agent：</strong> 所有任务类型上均优于现有模型，展现显著性能优势。</li>
+              <li><strong>Memory Agent（未训练）：</strong> 在大多数情况下优于基础模型，但外推长度上仍出现性能下降。</li>
+              <li><strong>基础模型：</strong> Distill/Instruct系列在超长文本任务中普遍失败。</li>
+              <li><strong>QwenLong系列：</strong> 在超长文本下性能剧降，甚至不如基础模型。</li>
+              <li><strong>Qwen-1M系列：</strong> 在简单任务上表现尚可，但在复杂推理任务中急剧下降。</li>
             </ul>
           </p>
 
-          <div class="columns is-multiline is-variable is-2">
+          <div class="columns is-multiline">
             <div class="column is-4">
-              <figure class="image"><img src="figs/niah_single_1_00.png" alt="NIAH Single 1" style="max-width: 100%;"></figure>
+              <figure class="image"><img src="figs/niah_single_1_00.png" alt="NIAH Single 1"></figure>
             </div>
             <div class="column is-4">
-              <figure class="image"><img src="figs/niah_single_2_00.png" alt="NIAH Single 2" style="max-width: 100%;"></figure>
+              <figure class="image"><img src="figs/niah_single_2_00.png" alt="NIAH Single 2"></figure>
             </div>
             <div class="column is-4">
-              <figure class="image"><img src="figs/niah_single_3_00.png" alt="NIAH Single 3" style="max-width: 100%;"></figure>
+              <figure class="image"><img src="figs/niah_single_3_00.png" alt="NIAH Single 3"></figure>
             </div>
 
             <div class="column is-4">
-              <figure class="image"><img src="figs/niah_multikey_1_00.png" alt="NIAH Multi 1" style="max-width: 100%;"></figure>
+              <figure class="image"><img src="figs/niah_multikey_1_00.png" alt="NIAH Multi 1"></figure>
             </div>
             <div class="column is-4">
-              <figure class="image"><img src="figs/niah_multikey_2_00.png" alt="NIAH Multi 2" style="max-width: 100%;"></figure>
+              <figure class="image"><img src="figs/niah_multikey_2_00.png" alt="NIAH Multi 2"></figure>
             </div>
             <div class="column is-4">
-              <figure class="image"><img src="figs/niah_multikey_3_00.png" alt="NIAH Multi 3" style="max-width: 100%;"></figure>
+              <figure class="image"><img src="figs/niah_multikey_3_00.png" alt="NIAH Multi 3"></figure>
             </div>
 
             <div class="column is-6">
-              <figure class="image"><img src="figs/niah_multiquery_00.png" alt="Multi-query" style="max-width: 100%;"></figure>
+              <figure class="image"><img src="figs/niah_multiquery_00.png" alt="Multi-query"></figure>
             </div>
             <div class="column is-6">
-              <figure class="image"><img src="figs/niah_multivalue_00.png" alt="Multi-value" style="max-width: 100%;"></figure>
+              <figure class="image"><img src="figs/niah_multivalue_00.png" alt="Multi-value"></figure>
             </div>
 
             <div class="column is-6">
-              <figure class="image"><img src="figs/fwe_00.png" alt="FWE" style="max-width: 100%;"></figure>
+              <figure class="image"><img src="figs/fwe_00.png" alt="FWE"></figure>
             </div>
             <div class="column is-6">
-              <figure class="image"><img src="figs/vt_00.png" alt="VT" style="max-width: 100%;"></figure>
+              <figure class="image"><img src="figs/vt_00.png" alt="VT"></figure>
             </div>
           </div>
         </div>
@@ -533,12 +534,12 @@
         </h2>
         <div class="content">
           <p lang="zh">
-            本研究提出了一种全新的长文本处理框架 **RL-Memory Agent**，在以下三个关键维度实现了重要突破：
+            本研究提出了一种全新的长文本处理框架 <strong>RL-Memory Agent</strong>，在以下三个关键维度实现了重要突破：
           </p>
           <ul>
-            <li>**技术架构突破：** 提出一种创新机制，使大语言模型在固定窗口限制下仍能以 **线性复杂度**处理任意长度文本，从根本上突破传统Transformer的计算瓶颈。</li>
-            <li>**智能体训练方法：** 构建了一整套强化学习驱动的智能体工作流，基于 **多对话GRPO** 实现端到端训练机制。</li>
-            <li>**性能外推验证：** 大量实验表明，RL训练能够帮助模型外推至远超训练窗口的任务中，**性能下降&lt;5%**，显著扩展LLM能力边界。</li>
+            <li><strong>技术架构突破：</strong> 提出一种创新机制，使大语言模型在固定窗口限制下仍能以 <strong>线性复杂度</strong>处理任意长度文本，从根本上突破传统Transformer的计算瓶颈。</li>
+            <li><strong>智能体训练方法：</strong> 构建了一整套强化学习驱动的智能体工作流，基于 <strong>多对话GRPO</strong> 实现端到端训练机制。</li>
+            <li><strong>性能外推验证：</strong> 大量实验表明，RL训练能够帮助模型外推至远超训练窗口的任务中，<strong>性能下降<5%</strong>，显著扩展LLM能力边界。</li>
           </ul>
         </div>
       </div>
@@ -556,12 +557,12 @@
         </h2>
         <div class="content">
           <p lang="zh">
-            **RL-Memory Agent** 的成功不仅依赖于理论方法，还得益于工程系统的创新性支持。我们提出了一种适配大模型训练的新型异步架构，并实现了接口统一，显著提升了训练效率与易用性。
+            <strong>RL-Memory Agent</strong> 的成功不仅依赖于理论方法，还得益于工程系统的创新性支持。我们提出了一种适配大模型训练的新型异步架构，并实现了接口统一，显著提升了训练效率与易用性。
           </p>
           <ul>
-            <li>**纯异步流水线：** GPU/CPU资源解耦，<code>AsyncLLMEngine</code> 负责多节点推理，<code>Ray Worker</code>管理常驻CPU任务池，通过协程完成资源调度。</li>
-            <li>**统一API接口：** 兼容 OpenAI API 与 vLLM 推理，支持 **多轮工具调用、多Agent并行、多任务训练**，真正消除传统状态机地狱。</li>
-            <li>**易用性显著提升：** 训练流程只需编写一个标准 OpenAI 接口函数，即可完成复杂上下文拼接、token处理与状态管理。</li>
+            <li><strong>纯异步流水线：</strong> GPU/CPU资源解耦，<code>AsyncLLMEngine</code> 负责多节点推理，<code>Ray Worker</code>管理常驻CPU任务池，通过协程完成资源调度。</li>
+            <li><strong>统一API接口：</strong> 兼容 OpenAI API 与 vLLM 推理，支持 <strong>多轮工具调用、多Agent并行、多任务训练</strong>，真正消除传统状态机地狱。</li>
+            <li><strong>易用性显著提升：</strong> 训练流程只需编写一个标准 OpenAI 接口函数，即可完成复杂上下文拼接、token处理与状态管理。</li>
           </ul>
 
           <figure class="image" style="max-width: 800px; margin: 2rem auto;">
@@ -605,61 +606,16 @@
     <footer class="footer">
         <div class="container">
             <div class="has-text-centered">
-                </div>
+                <p>
+                    <span lang="en">© 2025 <a href="https://seed.bytedance.com">ByteDance Seed</a>. Modified from <a href="https://github.com/seed-enigmata/seed-enigmata.github.io">R2E-Gym</a>.</span>
+                    <span lang="zh">© 2025 <a href="https://seed.bytedance.com">字节跳动Seed</a>. 修改自 <a href="https://github.com/seed-enigmata/seed-enigmata.github.io">R2E-Gym</a>.</span>
+                </p>
+            </div>
         </div>
     </footer>
 
-    <script>
-        document.addEventListener('DOMContentLoaded', () => {
-            // Smooth scrolling for internal links
-            document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-                anchor.addEventListener('click', function (e) {
-                    e.preventDefault();
 
-                    document.querySelector(this.getAttribute('href')).scrollIntoView({
-                        behavior: 'smooth'
-                    });
-
-                    // Close the mobile menu after clicking a link
-                    const navbarBurger = document.querySelector('.navbar-burger');
-                    const navbarMenu = document.querySelector('.navbar-menu');
-                    if (navbarBurger.classList.contains('is-active')) {
-                        navbarBurger.classList.remove('is-active');
-                        navbarMenu.classList.remove('is-active');
-                    }
-                });
-            });
-
-            // Navbar burger for mobile
-            const navbarBurger = document.querySelector('.navbar-burger');
-            const navbarMenu = document.querySelector('.navbar-menu');
-
-            if (navbarBurger) {
-                navbarBurger.addEventListener('click', () => {
-                    navbarBurger.classList.toggle('is-active');
-                    navbarMenu.classList.toggle('is-active');
-                });
-            }
-
-            // Highlight active navbar item on scroll
-            const sections = document.querySelectorAll('section[id]');
-            window.addEventListener('scroll', () => {
-                let current = '';
-                sections.forEach(section => {
-                    const sectionTop = section.offsetTop - $('.navbar').height(); // Adjust for fixed navbar height
-                    if (scrollY >= sectionTop) {
-                        current = section.getAttribute('id');
-                    }
-                });
-
-                document.querySelectorAll('.navbar-item').forEach(item => {
-                    item.classList.remove('is-active');
-                    if (item.getAttribute('href') && item.getAttribute('href').includes(current)) {
-                        item.classList.add('is-active');
-                    }
-                });
-            });
-        });
-    </script>
 </body>
+
+
 </html>
