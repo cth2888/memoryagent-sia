@@ -303,10 +303,10 @@
                     <h4 lang="zh"><strong>强化学习训练机制</strong></h4>
 
                     <p lang="en">
-                        Memory Agent faces two challenges during training: 1) Non-differentiability of memory operations hinders standard backpropagation; 2) The memory sequence is latent and lacks explicit supervision. We adopt reinforcement learning to optimize memory control.
+
                     </p>
                     <p lang="zh">
-                        Memory Agent在训练时面临两个挑战：1）无法通过标准梯度优化进行端到端训练；2）引入的记忆序列是潜在变量，缺乏显式监督。为此，我们采用强化学习方式训练模型的记忆能力。
+                        我们使用目前在推理领域表现出卓越性能的基于可验证结果的强化学习（RLVR)来训练Memory agent，而非简单的进行微调或指令工程。为此，我们扩展了现有的DAPO算法，使其进一步支持了具有多轮独立对话的AgentWorkflow的端到端优化。
                     </p>
 
                     <div class="columns">
@@ -463,164 +463,59 @@
   </div>
 </section>
 
-    
-    <section class="section" id="model">
-        <div class="container">
-            <div class="columns is-centered">
-                <div class="column is-10">
-                    <h2 class="title is-3">
-                        <span lang="en">🤖 Enigmata-Model: The Training Recipe</span>
-                        <span lang="zh">🤖 Enigmata-Model: 训练方法</span>
-                    </h2>
-                    <div class="content">
-                        <p lang="en">Our training methodology follows a two-stage process designed to systematically build reasoning abilities: 
-                            (1) rejection fine-tuning to establish foundational reasoning patterns, and 
-                            (2) multi-task RL to develop general reasoning skills that transfer across diverse problem domains.</p>
-                        <p lang="zh">我们的训练方法遵循两阶段过程，旨在系统地构建推理能力：
-                            (1) 拒绝式微调以建立基础推理模式，以及
-                            (2) 多任务强化学习，以发展可在不同问题领域之间迁移的通用推理技能。</p>
-                    </div>
-                    <div class="content">
-                        <div
-                        style="background-color: #f8fafc; border-radius: 12px; border-left: 6px solid #3a76ed; padding: 1.2rem; margin-bottom: 1.5rem;">
-                            <div style="display: flex; flex-direction: column; gap: 0.8rem;">
-                                <div style="display: flex; align-items: flex-start; gap: 0.8rem;"> 
-                                    <div
-                                        style="background-color: #3a76ed; color: white; padding: 0.4rem; border-radius: 50%; font-size: 0.9rem; display: flex; align-items: center; justify-content: center; min-width: 2rem; height: 2rem;">
-                                        1
-                                    </div>
-                                    <div>
-                                        <p style="margin: 0; line-height: 1.4;" lang="en"><strong>Rejection Fine-tuning:</strong>
-                                            This initial stage focuses on building foundational reasoning by fine-tuning the model with high-quality solutions from a balanced mix of math and puzzle problems, including ARC-AGI.</p>
-                                        <p style="margin: 0; line-height: 1.4;" lang="zh"><strong>拒绝式微调:</strong>
-                                            这一初始阶段专注于通过使用来自数学和谜题问题（包括ARC-AGI）的平衡混合的高质量解决方案对模型进行微调，从而建立基础推理能力。</p>
-                                    </div>
-                                </div>
-                        
-                                <div style="display: flex; align-items: flex-start; gap: 0.8rem;">
-                                    <div
-                                        style="background-color: #3a76ed; color: white; padding: 0.4rem; border-radius: 50%; font-size: 0.9rem; display: flex; align-items: center; justify-content: center; min-width: 2rem; height: 2rem;">
-                                        2
-                                    </div>
-                                    <div>
-                                    <p style="margin: 0; line-height: 1.4;" lang="en"><strong>RL with Verifiable Puzzles:</strong> The model then undergoes reinforcement learning using VC-PPO, where an automated verifier for puzzles provides immediate rewards, enabling an automatic RL pipeline for puzzle reasoning.</p>
-                                    <p style="margin: 0; line-height: 1.4;" lang="zh"><strong>可验证谜题的强化学习:</strong> 然后，模型使用VC-PPO进行强化学习，其中谜题的自动验证器提供即时奖励，从而为谜题推理启用自动强化学习流程。</p>
-                                    </div>
-                                </div>
-
-                                <div style="display: flex; align-items: flex-start; gap: 0.8rem;">
-                                    <div
-                                        style="background-color: #3a76ed; color: white; padding: 0.4rem; border-radius: 50%; font-size: 0.9rem; display: flex; align-items: center; justify-content: center; min-width: 2rem; height: 2rem;">
-                                        3
-                                    </div>
-                                    <div>
-                                        <p style="margin: 0; line-height: 1.4;" lang="en"><strong>Multi-task Training:</strong> To develop general and transferable logical reasoning, the training incorporates multi-task methods like Mix-training RL and Multi-stage RL, combining diverse puzzle types (Enigmata, ARC-AGI) with challenging mathematical problems (AIME) while maintaining a balanced ratio.</p>
-                                        <p style="margin: 0; line-height: 1.4;" lang="zh"><strong>多任务训练:</strong> 为了发展通用和可迁移的逻辑推理，训练结合了多任务方法，如混合训练强化学习和多阶段强化学习，将各种谜题类型（Enigmata、ARC-AGI）与具有挑战性的数学问题（AIME）结合起来，同时保持平衡比例。</p>
-                                    </div>
-                                </div>                                
-                        </div>
-                    </div>
-                    </div>
-
-                    
-                    <div class="content">
-                        <h4>
-                            <span lang="en">👀 Experimental Results</span>
-                            <span lang="zh">👀 实验结果</span>
-                        </h4>
-                        <div class="content">
-                            <p lang="en">Our model, specifically the 32B parameter version, significantly outperforms most public models on Enigmata-Eval and ARC-AGI, showcasing enhanced general logical reasoning. This success stems from effective rejection fine-tuning (RFT) and multi-task RL strategies, which improve generalization while preserving existing math reasoning abilities.</p>
-                            <p lang="zh">我们的模型，特别是32B参数版本，在Enigmata-Eval和ARC-AGI上的表现显著优于大多数公开模型，展示了增强的通用逻辑推理能力。这一成功源于有效的拒绝式微调（RFT）和多任务强化学习策略，它们在保留现有数学推理能力的同时提高了泛化能力。</p>
-                        </div>
-                        <figure>
-                            <img src="./assets/main_results_1.png" alt="A descriptive alt text for your image" style="width: 600px;">
-                            <figcaption style="color: gray;">
-                                <span lang="en">Performance of reasoning, generic, and our trained LLMs on reasoning benchmarks</span>
-                                <span lang="zh">推理型、通用型和我们训练的大语言模型在推理基准测试上的表现</span>
-                            </figcaption>
-                          </figure>
-                        
-                          <div class="content">
-                            <p lang="en">On Enigmata-Eval, our Qwen2.5-32B-Enigmata model excels in Crypto, Arithmetic, and Logic tasks, indicating strong rule-based reasoning. It also performs competitively in search tasks, though spatial and sequential categories remain challenging.</p>
-                            <p lang="zh">在Enigmata-Eval上，我们的Qwen2.5-32B-Enigmata模型在加密、算术和逻辑任务中表现出色，表明其具有强大的基于规则的推理能力。它在搜索任务中也表现得很有竞争力，尽管空间和序列类别仍然具有挑战性。</p>
-                        </div>
-
-                          <figure>
-                            <img src="./assets/main_results2.png" alt="A descriptive alt text for your image" style="width: 600px;">
-                            <figcaption style="color: gray;">
-                                <span lang="en">Performance of reasoning LLMs, generic LLMs, and our trained LLMs on Enigmata-Eval</span>
-                                <span lang="zh">推理型大语言模型、通用型大语言模型和我们训练的大语言模型在Enigmata-Eval上的表现</span>
-                            </figcaption>
-                          </figure>
-
-                    </div>
-
-                    
-                    <div class="content">
-                        <h4>
-                            <span lang="en">🌟 Generalization with Scaling: Free Lunch from Enigmata</span>
-                            <span lang="zh">🌟 随规模扩展的泛化能力：Enigmata的免费午餐</span>
-                        </h4>
-                    <div class="content">
-                        <p lang="en">Incorporating the <strong>Enigmata-Data</strong> synthetic puzzle dataset into large-scale model training, e.g., <a href="https://arxiv.org/abs/2504.13914">Seed1.5-Thinking</a>, surprisingly improving performance on challenging benchmarks like AIME and GPQA Diamond. This demonstrates an unexpected <strong>generalization benefit</strong> for advanced reasoning models.</p>
-                        <p lang="zh">将<strong>Enigmata-Data</strong>合成谜题数据集纳入大规模模型训练，例如<a href="https://arxiv.org/abs/2504.13914">Seed1.5-Thinking</a>，令人惊讶地提高了在AIME和GPQA Diamond等具有挑战性的基准测试上的性能。这展示了高级推理模型的意外<strong>泛化优势</strong>。</p>
-                    </div>
-
-                      <figure>
-                        <img src="./assets/seed_thinking.png" alt="A descriptive alt text for your image" style="width: 600px;">
-                        <figcaption style="color: gray;">Results on benchmarks for general reasoning capabilities</figcaption>
-                      </figure>
-                    </div>
-                </div>
-            </div>
+<section class="section" id="conclusion">
+  <div class="container">
+    <div class="columns is-centered">
+      <div class="column is-10">
+        <h2 class="title is-3">
+          <span lang="en">Conclusion</span>
+          <span lang="zh">总结</span>
+        </h2>
+        <div class="content">
+          <p lang="zh">
+            本研究提出了一种全新的长文本处理框架 <strong>RL-Memory Agent</strong>，在以下三个关键维度实现了重要突破：
+          </p>
+          <ul>
+            <li><strong>技术架构突破：</strong> 提出一种创新机制，使大语言模型在固定窗口限制下仍能以 <strong>线性复杂度</strong>处理任意长度文本，从根本上突破传统Transformer的计算瓶颈。</li>
+            <li><strong>智能体训练方法：</strong> 构建了一整套强化学习驱动的智能体工作流，基于 <strong>多对话GRPO</strong> 实现端到端训练机制。</li>
+            <li><strong>性能外推验证：</strong> 大量实验表明，RL训练能够帮助模型外推至远超训练窗口的任务中，<strong>性能下降<5%</strong>，显著扩展LLM能力边界。</li>
+          </ul>
         </div>
-    </section>
+      </div>
+    </div>
+  </div>
+</section>
 
+<section class="section" id="engineering">
+  <div class="container">
+    <div class="columns is-centered">
+      <div class="column is-10">
+        <h2 class="title is-3">
+          <span lang="en">Engineering Bonus</span>
+          <span lang="zh">工程彩蛋</span>
+        </h2>
+        <div class="content">
+          <p lang="zh">
+            <strong>RL-Memory Agent</strong> 的成功不仅依赖于理论方法，还得益于工程系统的创新性支持。我们提出了一种适配大模型训练的新型异步架构，并实现了接口统一，显著提升了训练效率与易用性。
+          </p>
+          <ul>
+            <li><strong>纯异步流水线：</strong> GPU/CPU资源解耦，<code>AsyncLLMEngine</code> 负责多节点推理，<code>Ray Worker</code>管理常驻CPU任务池，通过协程完成资源调度。</li>
+            <li><strong>统一API接口：</strong> 兼容 OpenAI API 与 vLLM 推理，支持 <strong>多轮工具调用、多Agent并行、多任务训练</strong>，真正消除传统状态机地狱。</li>
+            <li><strong>易用性显著提升：</strong> 训练流程只需编写一个标准 OpenAI 接口函数，即可完成复杂上下文拼接、token处理与状态管理。</li>
+          </ul>
 
-    <!-- <section class="section">
-        <div class="container">
-            <div class="columns is-centered">
-                <div class="column is-10">
-                    <h2 class="title is-3">Performance Results</h2>
-                    <div class="content">
-                        
-                       
-                            
-                        <div class="content">
-                            <p>Our model, specifically the 32B parameter version, significantly outperforms most public models on Enigmata-Eval and ARC-AGI, showcasing enhanced general logical reasoning. This success stems from effective rejection fine-tuning (RFT) and multi-task RL strategies, which improve generalization while preserving existing math reasoning abilities.</p>
-                        </div>
-                        <figure>
-                            <img src="./assets/main_results_1.png" alt="A descriptive alt text for your image" style="width: 600px;">
-                            <figcaption style="color: gray;">Performance of reasoning, generic, and our trained LLMs on reasoning benchmarks</figcaption>
-                          </figure>
-                        
-                          <div class="content">
-                            <p>On Enigmata-Eval, our Qwen2.5-32B-Enigmata model excels in Crypto, Arithmetic, and Logic tasks, indicating strong rule-based reasoning. It also performs competitively in search tasks, though spatial and sequential categories remain challenging.</p>
-                        </div>
-
-                          <figure>
-                            <img src="./assets/main_results2.png" alt="A descriptive alt text for your image" style="width: 600px;">
-                            <figcaption style="color: gray;">Performance of reasoning LLMs, generic LLMs, and our trained LLMs on Enigmata-Eval</figcaption>
-                          </figure>
-
-                          <div class="content">
-                            <p>Incorporating the <strong>Enigmata-Data</strong> synthetic puzzle dataset into large-scale model training significantly boosts general reasoning, including math and STEM, surprisingly improving performance on challenging benchmarks like AIME and GPQA Diamond. This demonstrates an unexpected <strong>generalization benefit</strong> for advanced reasoning models.</p>
-                        </div>
-
-                          <figure>
-                            <img src="./assets/seed_thinking.png" alt="A descriptive alt text for your image" style="width: 600px;">
-                            <figcaption style="color: gray;">
-                                <span lang="en">Results on benchmarks for general reasoning capabilities</span>
-                                <span lang="zh">通用推理能力基准测试的结果</span>
-                            </figcaption>
-                          </figure>
-
-
-                    </div>
-                </div>
-            </div>
+          <figure>
+            <img src="figs/workflow1.png" alt="Async Engine Workflow 1">
+          </figure>
+          <figure>
+            <img src="figs/workflow2.png" alt="Async Engine Workflow 2">
+          </figure>
         </div>
-    </section> -->
+      </div>
+    </div>
+  </div>
+</section>
+
 
     <section class="section" id="citation">
         <div class="container">
