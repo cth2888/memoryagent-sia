@@ -272,7 +272,7 @@
                     </p>
                     <p lang="zh">
                         受人类处理长文本时的行为模式启发，并借鉴了Neural Turing Machine和Memory Network等神经网络与记忆机制结合的工作，我们提出了一种无需修改模型架构的长文处理新方案——<strong>Memory Agent</strong>，
-                        <br><strong style="color:#3273dc;">|给LLM装上动态更新的记忆模块</strong>。
+                        <br><strong style="color:#3273dc;">| 给LLM装上动态更新的记忆模块</strong>。
                     </p>
 
                     <p lang="en">
@@ -347,6 +347,20 @@
                     <p lang="zh">
                         我们采用强化学习方案RLVR（基于可验证结果的强化学习），而非简单微调或指令工程，来训练Memory Agent。我们对现有GRPO算法进行了扩展，使其支持多轮独立对话Agent工作流的端到端优化。
                     </p>
+                    
+                    <div class="columns is-vcentered">
+                        <div class="column">
+                            <figure class="image">
+                                <img src="figs/algo_00.png" alt="RL Flow">
+                            </figure>
+                        </div>
+                        <div class="column">
+                            <figure class="image">
+                                <img src="figs/template.png" alt="RL Template">
+                            </figure>
+                        </div>
+                    </div>
+
                     
                     <div class="columns is-vcentered">
                         <div class="column">
