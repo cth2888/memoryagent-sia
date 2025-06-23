@@ -272,7 +272,8 @@
                         Inspired by human strategies for long-text comprehension and neural memory models such as Neural Turing Machines and Memory Networks, we propose a novel architecture-free framework called <strong>Memory Agent</strong>, which equips LLMs with a dynamically updated memory module.
                     </p>
                     <p lang="zh">
-                        受人类处理长文本时的行为模式启发，并借鉴了Neural Turing Machine和Memory Network等神经网络与记忆机制结合的工作，我们提出了一种无需修改模型架构的长文处理新方案——<strong>Memory Agent</strong>，即“给LLM装上动态更新的记忆模块”。
+                        受人类处理长文本时的行为模式启发，并借鉴了Neural Turing Machine和Memory Network等神经网络与记忆机制结合的工作，我们提出了一种无需修改模型架构的长文处理新方案——<strong>Memory Agent</strong>，
+                        <br><strong style="color:#3273dc;">给LLM装上动态更新的记忆模块</strong>。
                     </p>
 
                     <p lang="en">
@@ -283,32 +284,28 @@
                     </p>
 
                     <figure>
-                        <img src="path_to_image_1.png" alt="Memory Agent Architecture Overview">
+                        <img src="figs/method_00.png" alt="Memory Agent Architecture Overview">
                     </figure>
 
                     <p lang="en">
-                        <strong>Traditional Modeling:</strong> Conventional autoregressive LMs model the joint probability of a length-N token sequence as:
-                        <br>
+                        <strong>Traditional Modeling:</strong><br>
                         $$p(\mathbf{x}_{1:N})=p(x_1)\prod_{n=2}^N p(x_n \mid \mathbf{x}_{1:n-1})$$
                         This requires caching all previous tokens, leading to quadratic complexity.
                     </p>
                     <p lang="zh">
-                        <strong>传统建模方式：</strong> 传统自回归语言模型通过以下方式建模长度为N的token序列：
-                        <br>
+                        <strong>传统建模方式：</strong><br>
                         $$p(\mathbf{x}_{1:N})=p(x_1)\prod_{n=2}^N p(x_n \mid \mathbf{x}_{1:n-1})$$
                         这种方式需要缓存全部历史token，导致计算与显存开销呈二次方增长。
                     </p>
 
                     <p lang="en">
-                        <strong>Memory Agent Process:</strong> Input sequence is divided into K chunks $$(c^1, c^2, ..., c^K)$$, each with ≤C tokens. We introduce latent memory states $$m^{1:K-1}$$ with $$m^0 = ∅$$ and reformulate the generation as:
-                        <br>
+                        <strong>Memory Agent Process:</strong><br>
                         $$p(\mathbf{x}_{1:N}) = \sum_{\mathbf{m}^{1:K-1}} \prod_{k=1}^{K}
                         \underbrace{p(\mathbf{c}^k \mid \mathbf{m}^{k-1})}_{\text{read}} \cdot
                         \underbrace{p(\mathbf{m}^k \mid \mathbf{c}^k, \mathbf{m}^{k-1})}_{\text{write}}$$
                     </p>
                     <p lang="zh">
-                        <strong>Memory Agent 核心流程：</strong> 将输入序列分为 K 个块 $$(c^1, c^2, ..., c^K)$$，每块最多包含 $$C$$ 个token。我们引入潜在的记忆变量 $$m^{1:K-1}$$ 和初始状态 $$m^0 = ∅$$，重新建模生成过程为：
-                        <br>
+                        <strong>Memory Agent 核心流程：</strong><br>
                         $$p(\mathbf{x}_{1:N}) = \sum_{\mathbf{m}^{1:K-1}} \prod_{k=1}^{K}
                         \underbrace{p(\mathbf{c}^k \mid \mathbf{m}^{k-1})}_{\text{读取}} \cdot
                         \underbrace{p(\mathbf{m}^k \mid \mathbf{c}^k, \mathbf{m}^{k-1})}_{\text{写入}}$$
@@ -324,9 +321,18 @@
                         Memory Agent在训练时面临两个挑战：1）无法通过标准梯度优化进行端到端训练；2）引入的记忆序列是潜在变量，缺乏显式监督。为此，我们采用强化学习方式训练模型的记忆能力。
                     </p>
 
-                    <figure>
-                        <img src="path_to_image_2.png" alt="RL Optimization Overview">
-                    </figure>
+                    <div class="columns">
+                        <div class="column">
+                            <figure>
+                                <img src="figs/algo_00.png" alt="RL Flow">
+                            </figure>
+                        </div>
+                        <div class="column">
+                            <figure>
+                                <img src="figs/template.png" alt="RL Template">
+                            </figure>
+                        </div>
+                    </div>
 
                     <h4 lang="en"><strong>Multi-Turn Dialog RL Training</strong></h4>
                     <h4 lang="zh"><strong>多轮对话强化学习机制</strong></h4>
@@ -338,15 +344,24 @@
                         在训练过程中，每个输入样本会并行生成多组独立的对话序列。系统根据最终的回答确定奖励值，并通过组归一化方式将其智能分配到所有相关对话中。损失以chunk为单位计算，优化结构包含“组别-对话轮次-token”三维。
                     </p>
 
-                    <figure>
-                        <img src="path_to_image_3.png" alt="Multi-turn Optimization Scheme">
-                    </figure>
+                    <p>
+                        $$ 
+                        \begin{aligned}
+                        \mathcal{J}_{\text{GRPO}}(\theta) =\quad &\mathbb{E}_{(q,a)\sim \mathcal{D}, \{o_{i,j}\}_{i=1}^G\sim \pi_{\theta_\text{old}}(\cdot\mid q,~o_{i,j-1})} \\
+                        &\Bigg[\frac{1}{\sum_{i=1}^{G}\sum_{j=1}^{n_i}|o_{i,j}|}\sum_{i=1}^{G}\sum_{j=1}^{n_i}\sum_{t=1}^{|o_{i,j}|}
+                        \Big(\mathcal{C}_{i,j,t} - \beta D_{\text{KL}}(\pi_{\theta} || \pi_{\text{ref}} )\Big) \Bigg] \\
+                        \text{where\quad} \mathcal{C}_{i,j,t} = &\min\Big(r_{i,j,t}(\theta) \hat{A}_{i,j,t},  
+                        \ \text{clip} \Big( r_{i,j,t}(\theta), 1 - {\varepsilon}, 1 + {\varepsilon} \Big) \hat{A}_{i,j,t}\Big)
+                        \end{aligned}
+                        $$
+                    </p>
 
                 </div>
             </div>
         </div>
     </div>
 </section>
+
 
     
     <section class="section" id="eval">
