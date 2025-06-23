@@ -231,7 +231,49 @@
                     <p lang="zh">
                         我们推出了<strong>RL-Memory Agent</strong>，这是一个全新的长文本处理框架，能够通过端到端的强化学习直接优化长文本任务性能，而无需更改底层模型架构。
                     </p>
+                    <div
+                        style="background-color: #f8fafc; border-radius: 12px; border-left: 6px solid #3a76ed; padding: 1.2rem; margin-bottom: 1.5rem;">
+                            <div style="display: flex; flex-direction: column; gap: 0.8rem;">
+                                <div style="display: flex; align-items: flex-start; gap: 0.8rem;"> 
+                                    <div
+                                        style="background-color: #3a76ed; color: white; padding: 0.4rem; border-radius: 50%; font-size: 0.9rem; display: flex; align-items: center; justify-content: center; min-width: 2rem; height: 2rem;">
+                                        1
+                                    </div>
+                                    <div>
+                                        <p style="margin: 0; line-height: 1.4;" lang="en"><strong>Novel memory mechanism: </strong>
+                                            It introduces a notebook-style workflow where the agent reads input in segments and efficiently updates memory using an overwrite strategy. This enables handling virtually unlimited-length inputs within a fixed context window, fundamentally breaking the hard length limits of Transformer models.</p>
+                                        <p style="margin: 0; line-height: 1.4;" lang="zh"><strong>新型记忆机制：</strong>
+                                            我们引入了一种记事本式的工作流，Agent 以分段方式读取文本，并借助覆写策略高效更新记忆。该设计使得模型能够在固定上下文窗口内处理几乎任意长度的输入，从根本上突破了传统 Transformer 架构的窗口长度限制。</p>
+                                    </div>
+                                </div>
+                        
+                                <div style="display: flex; align-items: flex-start; gap: 0.8rem;">
+                                    <div
+                                        style="background-color: #3a76ed; color: white; padding: 0.4rem; border-radius: 50%; font-size: 0.9rem; display: flex; align-items: center; justify-content: center; min-width: 2rem; height: 2rem;">
+                                        2
+                                    </div>
+                                    <div>
+                                    <p style="margin: 0; line-height: 1.4;" lang="en"><strong>O(n) linear complexity:</strong> 
+                                        The agent design decouples compute and memory cost from input length, reducing the processing burden from quadratic to linear with respect to input size.</p>
+                                    <p style="margin: 0; line-height: 1.4;" lang="zh"><strong>O(n) 线性复杂度：</strong>
+                                        这一创新性的 Agent 设计将计算与显存开销与文本长度解耦，使得处理长文本的复杂度由原本的二次方增长转变为线性增长。</p>
+                                    </div>
+                                </div>
 
+                                <div style="display: flex; align-items: flex-start; gap: 0.8rem;">
+                                    <div
+                                        style="background-color: #3a76ed; color: white; padding: 0.4rem; border-radius: 50%; font-size: 0.9rem; display: flex; align-items: center; justify-content: center; min-width: 2rem; height: 2rem;">
+                                        3
+                                    </div>
+                                    <div>
+                                        <p style="margin: 0; line-height: 1.4;" lang="en"><strong>RL-driven extrapolation:</strong>
+                                            A modified GRPO algorithm supports training on multi-turn generation tasks with independent contexts. As a result, models trained with 32K contexts can extrapolate to 3.5M-token sequences with <5% performance drop.</p>
+                                        <p style="margin: 0; line-height: 1.4;" lang="zh"><strong>强化学习驱动的外推能力:</strong>
+                                            我们改进了 GRPO 算法，使其支持独立上下文的多轮生成训练。基于此，训练出的 Memory Agent 在32K上下文长度的数据上训练后，能够无损外推至3.5M token的问答任务中，性能下降低于5%。</p>
+                                    </div>
+                                </div>                                
+                        </div>
+                    </div>
                     <p lang="en">
                         <strong>RL-Memory Agent</strong> achieves three major breakthroughs:
                         <br><br>
