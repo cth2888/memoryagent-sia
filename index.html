@@ -272,7 +272,7 @@
                     </p>
                     <p lang="zh">
                         受人类处理长文本时的行为模式启发，并借鉴了Neural Turing Machine和Memory Network等神经网络与记忆机制结合的工作，我们提出了一种无需修改模型架构的长文处理新方案——<strong>Memory Agent</strong>，
-                        <br><strong style="color:#3273dc;">| 给LLM装上动态更新的记忆模块</strong>。
+                        <br><strong style="color:#3273dc;">给LLM装上动态更新的记忆模块</strong>。
                     </p>
 
                     <p lang="en">
@@ -282,96 +282,56 @@
                         <strong>Memory Agent</strong>引入了一个固定长度的辅助记忆面板，允许模型在处理长文本时以分段方式读取输入，并在每一段后主动更新记忆状态，从而实现“局部处理 + 全局融合”的新型工作流。该记忆模块在推理过程中不断更新，并在所有段落处理完毕后聚合关键信息生成最终输出。
                     </p>
 
-                    <figure class="image" style="max-width: 800px; margin: 2rem auto;">
+                    <figure>
                         <img src="figs/method_00.png" alt="Memory Agent Architecture Overview">
                     </figure>
 
-                    <p lang="en"><strong>Traditional Modeling:</strong></p>
                     <p lang="en">
-                        Conventional autoregressive language models represent a token sequence of length N as:
+                        <strong>Traditional Modeling:</strong><br>
+                        $$p(\mathbf{x}_{1:N})=p(x_1)\prod_{n=2}^N p(x_n \mid \mathbf{x}_{1:n-1})$$
+                        This requires caching all previous tokens, leading to quadratic complexity.
+                    </p>
+                    <p lang="zh">
+                        <strong>传统建模方式：</strong><br>
+                        $$p(\mathbf{x}_{1:N})=p(x_1)\prod_{n=2}^N p(x_n \mid \mathbf{x}_{1:n-1})$$
+                        这种方式需要缓存全部历史token，导致计算与显存开销呈二次方增长。
                     </p>
 
-                    <p lang="zh"><strong>传统建模方式：</strong></p>
-                    <p lang="zh">
-                        传统自回归语言模型通常对长度为N的token序列建模如下：
-                    </p>
-                    <div class="content has-text-centered">
-                        $$p(\mathbf{x}_{1:N}) = p(x_1) \prod_{n=2}^{N} p(x_n \mid \mathbf{x}_{1:n-1})$$
-                    </div>
                     <p lang="en">
-                        This requires caching all historical tokens, leading to quadratic complexity in computation and memory usage.
-                    </p>
-                    <p lang="zh">
-                        该方法需要缓存全部历史token，导致计算和显存消耗随序列长度呈二次方增长。
-                    </p>
-                    
-                    <p lang="en"><strong>Memory Agent Architecture:</strong></p>
-                    <p lang="en">
-                        Memory Agent reformulates the decoding process by introducing a memory-augmented, segment-wise strategy:
-                    </p>
-                    <ul lang="en">
-                        <li><strong>Chunking:</strong> The input is divided into K sequential chunks $(c^1, c^2, ..., c^K)$ ,each of length ≤ C.</li>
-                        <li><strong>Iterative Processing:</strong> Chunks are processed sequentially, keeping computation per chunk constant.</li>
-                        <li><strong>Memory Augmentation:</strong> A latent memory state $m^k$ is updated after each chunk.</li>
-                    </ul>
-                    <div class="content has-text-centered">
+                        <strong>Memory Agent Process:</strong><br>
                         $$p(\mathbf{x}_{1:N}) = \sum_{\mathbf{m}^{1:K-1}} \prod_{k=1}^{K}
                         \underbrace{p(\mathbf{c}^k \mid \mathbf{m}^{k-1})}_{\text{read}} \cdot
                         \underbrace{p(\mathbf{m}^k \mid \mathbf{c}^k, \mathbf{m}^{k-1})}_{\text{write}}$$
-                    </div>
-                    
-                    <p lang="zh"><strong>Memory Agent 核心架构：</strong></p>
-                    <p lang="zh">
-                        为实现对任意长文本的线性处理能力，Memory Agent提出如下机制：
                     </p>
-                    <ul lang="zh">
-                        <li><strong>分块处理：</strong> 将输入序列划分为K个连续块 $$(c^1, c^2, ..., c^K)$$，每块不超过C个token。</li>
-                        <li><strong>循环处理：</strong> 按块顺序处理，每块的计算开销保持恒定。</li>
-                        <li><strong>引入记忆状态：</strong> 每一块处理后会更新潜在的记忆变量 $$m^k$$，作为下一块的输入。</li>
-                    </ul>
-                    <div class="content has-text-centered">
+                    <p lang="zh">
+                        <strong>Memory Agent 核心流程：</strong><br>
                         $$p(\mathbf{x}_{1:N}) = \sum_{\mathbf{m}^{1:K-1}} \prod_{k=1}^{K}
                         \underbrace{p(\mathbf{c}^k \mid \mathbf{m}^{k-1})}_{\text{读取}} \cdot
                         \underbrace{p(\mathbf{m}^k \mid \mathbf{c}^k, \mathbf{m}^{k-1})}_{\text{写入}}$$
-                    </div>
-                    
+                    </p>
+
                     <h4 lang="en"><strong>Reinforcement Learning Optimization</strong></h4>
                     <h4 lang="zh"><strong>强化学习训练机制</strong></h4>
-                    
+
                     <p lang="en">
-                        We adopt Reinforcement Learning with Verifiable Results (RLVR), a method proven effective in reasoning, to train Memory Agent. Instead of conventional fine-tuning or instruction engineering, we extend the GRPO algorithm to support end-to-end optimization of multi-turn dialogue workflows.
+                        Memory Agent faces two challenges during training: 1) Non-differentiability of memory operations hinders standard backpropagation; 2) The memory sequence is latent and lacks explicit supervision. We adopt reinforcement learning to optimize memory control.
                     </p>
                     <p lang="zh">
-                        我们采用强化学习方案RLVR（基于可验证结果的强化学习），而非简单微调或指令工程，来训练Memory Agent。我们对现有GRPO算法进行了扩展，使其支持多轮独立对话Agent工作流的端到端优化。
+                        Memory Agent在训练时面临两个挑战：1）无法通过标准梯度优化进行端到端训练；2）引入的记忆序列是潜在变量，缺乏显式监督。为此，我们采用强化学习方式训练模型的记忆能力。
                     </p>
-                    
-                    <div class="columns is-vcentered">
+
+                    <div class="columns">
                         <div class="column">
-                            <figure class="image">
+                            <figure>
                                 <img src="figs/algo_00.png" alt="RL Flow">
                             </figure>
                         </div>
                         <div class="column">
-                            <figure class="image">
+                            <figure>
                                 <img src="figs/template.png" alt="RL Template">
                             </figure>
                         </div>
                     </div>
-
-                    
-                    <div class="columns is-vcentered">
-                        <div class="column">
-                            <figure class="image">
-                                <img src="figs/algo_00.png" alt="RL Flow">
-                            </figure>
-                        </div>
-                        <div class="column">
-                            <figure class="image">
-                                <img src="figs/template.png" alt="RL Template">
-                            </figure>
-                        </div>
-                    </div>
-
 
                     <h4 lang="en"><strong>Multi-Turn Dialog RL Training</strong></h4>
                     <h4 lang="zh"><strong>多轮对话强化学习机制</strong></h4>
@@ -382,8 +342,8 @@
                     <p lang="zh">
                         在训练过程中，每个输入样本会并行生成多组独立的对话序列。系统根据最终的回答确定奖励值，并通过组归一化方式将其智能分配到所有相关对话中。损失以chunk为单位计算，优化结构包含“组别-对话轮次-token”三维。
                     </p>
-                    
-                    <div class="text-align: center; margin: 1em 0;">
+
+                    <p>
                         $$ 
                         \begin{aligned}
                         \mathcal{J}_{\text{GRPO}}(\theta) =\quad &\mathbb{E}_{(q,a)\sim \mathcal{D}, \{o_{i,j}\}_{i=1}^G\sim \pi_{\theta_\text{old}}(\cdot\mid q,~o_{i,j-1})} \\
@@ -393,7 +353,8 @@
                         \ \text{clip} \Big( r_{i,j,t}(\theta), 1 - {\varepsilon}, 1 + {\varepsilon} \Big) \hat{A}_{i,j,t}\Big)
                         \end{aligned}
                         $$
-                    </div>
+                    </p>
+
                 </div>
             </div>
         </div>
@@ -401,7 +362,8 @@
 </section>
 
 
-<section class="section" id="eval">
+
+<section class="section" id="Experiments">
   <div class="container">
     <div class="columns is-centered">
       <div class="column is-10">
