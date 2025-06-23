@@ -94,20 +94,8 @@
                             <span lang="zh"><a href="https://seed-enigmata.github.io/">于鸿利</a><sup>1,3,6</sup></span>
                         </span>
                         <span class="author-block">
-                            <span lang="en"><a href="https://scholar.google.com/citations?user=DDRBbxgAAAAJ&hl=zh-CN">Xuefeng Li</a><sup>1,5</sup></span>
-                            <span lang="zh"><a href="https://scholar.google.com/citations?user=DDRBbxgAAAAJ&hl=zh-CN">李学峰</a><sup>1,5</sup></span>
-                        </span>
-                        <span class="author-block">
-                            <span lang="en"><a href="https://scholar.google.com/citations?user=Vt1j3kEAAAAJ&hl=zh-CN">Jiaze Chen</a><sup>1</sup></span>
-                            <span lang="zh"><a href="https://scholar.google.com/citations?user=Vt1j3kEAAAAJ&hl=zh-CN">陈家泽</a><sup>1</sup></span>
-                        </span>
-                        <span class="author-block">
                             <span lang="en"><a href="https://zhouh.github.io/">Hao Zhou</a><sup>3,6</sup></span>
                             <span lang="zh"><a href="https://zhouh.github.io/">周浩</a><sup>3,6</sup></span>
-                        </span>
-                        <span class="author-block">
-                            <span lang="en"><a href="https://mingxuan.github.io/">Mingxuan Wang</a><sup>1,6</sup></span>
-                            <span lang="zh"><a href="https://mingxuan.github.io/">王明轩</a><sup>1,6</sup></span>
                         </span>
                     </div>
                     <div class="publication-affiliations">
@@ -181,7 +169,7 @@
             <div class="column is-10">
                 <h2 class="title is-3">
                     <span lang="en">Introduction</span>
-                    <span lang="zh">介绍</span>
+                    <span lang="zh">引言</span>
                 </h2>
                 <div class="content">
 
@@ -363,31 +351,118 @@
 </section>
 
 
-    
-    <section class="section" id="eval">
-        <div class="container">
-            <div class="columns is-centered">
-                <div class="column is-10">
-                    <h2 class="title is-3">
-                        <span lang="en">⚖️ Enigmata-Eval: Evaluating Logical Reasoning Capabilities</span>
-                        <span lang="zh">⚖️ Enigmata-Eval: 评估逻辑推理能力</span>
-                    </h2>
-                    <div class="content">
-                        <p lang="en">Enigmata-Eval is a comprehensive benchmark containing 4,758 puzzle instances across Easy, Medium, and Hard difficulty levels. Each task provides 50 instances per difficulty level where possible, with strict train-eval separation to prevent data leakage.</p>
-                        <p lang="zh">Enigmata-Eval是一个综合基准测试，包含4,758个跨越简单、中等和困难难度级别的谜题实例。每个任务尽可能提供每个难度级别50个实例，并严格分离训练和评估数据以防止数据泄漏。</p>
+<section class="section" id="experiments">
+  <div class="container">
+    <div class="columns is-centered">
+      <div class="column is-10">
+        <h2 class="title is-3">
+          <span lang="en">Experiments</span>
+          <span lang="zh">实验分析</span>
+        </h2>
+        <div class="content">
 
-                        <p lang="en">📥 <strong>Download Enigmata-Eval</strong>: <a href="https://huggingface.co/datasets/BytedTsinghua-SIA/Enigmata-Eval">HuggingFace Dataset</a></p>
-                        <p lang="zh">📥 <strong>下载Enigmata-Eval</strong>: <a href="https://huggingface.co/datasets/BytedTsinghua-SIA/Enigmata-Eval">HuggingFace数据集</a></p>
-                    
-         
+          <h4 lang="en"><strong>Main Results</strong></h4>
+          <h4 lang="zh"><strong>主实验结果</strong></h4>
 
-                
-                
-                
-                </div>
+          <p lang="zh">
+            <strong>基线模型：</strong> 实验显示，现有长文本模型在超长序列上普遍存在严重的性能退化：
+            <ul>
+              <li>QwenLong-L1系列：在文本长度超过56K后准确率急剧下降，降幅超过40个百分点。</li>
+              <li>Qwen2.5-Instruct-1M系列：标称支持1M，但在896K时性能降为0。</li>
+              <li>DS-distill系列：性能随长度呈指数级衰减，在224K时几乎完全失效。</li>
+            </ul>
+          </p>
+
+          <p lang="zh">
+            <strong>RL-Memory Agent：</strong> 在超长文本处理任务中表现出极高稳定性：
+            <ul>
+              <li>RL-Memory Agent-14B：在3.5M超长文本测试中仅出现<5%的边际性能下降，实现了无损外推。</li>
+              <li>RL-Memory Agent-7B：在最长文本上虽略有性能下降，但总体表现远超其他模型。</li>
+            </ul>
+          </p>
+
+          <figure>
+            <img src="figs/main_result_00.png" alt="Main Results">
+          </figure>
+
+          <h4 lang="zh"><strong>消融实验</strong></h4>
+          <p lang="zh">
+            为验证Memory Agent各组件的贡献，我们开展了系统的消融实验：
+            <ol>
+              <li><strong>基础模型：</strong> 在超出训练窗口后，信息缺失导致性能急剧下降，无法实现外推。</li>
+              <li><strong>Memory Agent（未RL训练）：</strong> 具备一定处理能力，但在长文本任务下仍出现明显性能损失。</li>
+              <li><strong>RL-Memory Agent：</strong> 强化学习训练显著提升外推能力，达到近乎无损性能。</li>
+            </ol>
+          </p>
+
+          <figure>
+            <img src="figs/ablation_00.png" alt="Ablation Study">
+          </figure>
+
+          <h4 lang="zh"><strong>RULER基准测试与OOD能力分析</strong></h4>
+          <p lang="zh">
+            <strong>RULER基准测试：</strong> 这是当前长文本外推能力研究的标准测试集，其核心优势是可控长度生成任务，主要包含以下四大任务类型：
+            <ul>
+              <li><strong>大海捞针（Needle-in-a-Haystack）：</strong> 在超长文本中定位关键needle，包含8类干扰变体。</li>
+              <li><strong>变量追踪（Variable Tracking）：</strong> 模拟程序分析场景，追踪变量引用和赋值关系。</li>
+              <li><strong>聚合任务（Aggregation）：</strong> 汇总分散信息，评估模型对全局特征的掌握能力。</li>
+              <li><strong>问答任务（QA）：</strong> 进行多跳复杂推理，测试模型上下文理解与问答能力。</li>
+            </ul>
+          </p>
+
+          <p lang="zh">
+            <strong>实验结果分析：</strong> 我们使用热力图可视化不同模型在不同长度区间和任务类型下的性能：
+            <ul>
+              <li><strong>RL-Memory Agent：</strong> 所有任务类型上均优于现有模型，展现显著性能优势。</li>
+              <li><strong>Memory Agent（未训练）：</strong> 在大多数情况下优于基础模型，但外推长度上仍出现性能下降。</li>
+              <li><strong>基础模型：</strong> Distill/Instruct系列在超长文本任务中普遍失败。</li>
+              <li><strong>QwenLong系列：</strong> 在超长文本下性能剧降，甚至不如基础模型。</li>
+              <li><strong>Qwen-1M系列：</strong> 在简单任务上表现尚可，但在复杂推理任务中急剧下降。</li>
+            </ul>
+          </p>
+
+          <div class="columns is-multiline">
+            <div class="column is-4">
+              <figure><img src="figs/niah_single_1_00.png" alt="NIAH Single 1"></figure>
             </div>
+            <div class="column is-4">
+              <figure><img src="figs/niah_single_2_00.png" alt="NIAH Single 2"></figure>
+            </div>
+            <div class="column is-4">
+              <figure><img src="figs/niah_single_3_00.png" alt="NIAH Single 3"></figure>
+            </div>
+
+            <div class="column is-4">
+              <figure><img src="figs/niah_multikey_1_00.png" alt="NIAH Multi 1"></figure>
+            </div>
+            <div class="column is-4">
+              <figure><img src="figs/niah_multikey_2_00.png" alt="NIAH Multi 2"></figure>
+            </div>
+            <div class="column is-4">
+              <figure><img src="figs/niah_multikey_3_00.png" alt="NIAH Multi 3"></figure>
+            </div>
+
+            <div class="column is-6">
+              <figure><img src="figs/niah_multiquery_00.png" alt="Multi-query"></figure>
+            </div>
+            <div class="column is-6">
+              <figure><img src="figs/niah_multivalue_00.png" alt="Multi-value"></figure>
+            </div>
+
+            <div class="column is-6">
+              <figure><img src="figs/fwe_00.png" alt="FWE"></figure>
+            </div>
+            <div class="column is-6">
+              <figure><img src="figs/vt_00.png" alt="VT"></figure>
+            </div>
+          </div>
+
         </div>
-    </section>
+      </div>
+    </div>
+  </div>
+</section>
+
     
     <section class="section" id="model">
         <div class="container">
