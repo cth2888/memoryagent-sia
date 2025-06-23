@@ -191,6 +191,13 @@
                     <p lang="zh">
                         我们推出了<strong>RL-Memory Agent</strong>，这是一个全新的长文本处理框架，能够通过端到端的强化学习直接优化长文本任务性能，而无需更改底层模型架构。
                     </p>
+                    <p lang="en">
+                        <strong>RL-Memory Agent</strong> achieves three major breakthroughs:
+                    </p>
+
+                    <p lang="zh">
+                        <strong>RL-Memory Agent</strong> 实现了三大核心突破：
+                    </p>
                     <div
                         style="background-color: #f8fafc; border-radius: 12px; border-left: 6px solid #3a76ed; padding: 1.2rem; margin-bottom: 1.5rem;">
                             <div style="display: flex; flex-direction: column; gap: 0.8rem;">
@@ -234,25 +241,6 @@
                                 </div>                                
                         </div>
                     </div>
-                    <p lang="en">
-                        <strong>RL-Memory Agent</strong> achieves three major breakthroughs:
-                        <br><br>
-                        - <em>Novel memory mechanism:</em> It introduces a notebook-style workflow where the agent reads input in segments and efficiently updates memory using an overwrite strategy. This enables handling virtually unlimited-length inputs within a fixed context window, fundamentally breaking the hard length limits of Transformer models.
-                        <br>
-                        - <em>O(n) linear complexity:</em> The agent design decouples compute and memory cost from input length, reducing the processing burden from quadratic to linear with respect to input size.
-                        <br>
-                        - <em>RL-driven extrapolation:</em> A modified GRPO algorithm supports training on multi-turn generation tasks with independent contexts. As a result, models trained with 32K contexts can extrapolate to 3.5M-token sequences with <5% performance drop.
-                    </p>
-
-                    <p lang="zh">
-                        <strong>RL-Memory Agent</strong> 实现了三大核心突破：
-                        <br><br>
-                        - <em>新型记忆机制：</em> 我们引入了一种记事本式的工作流，Agent 以分段方式读取文本，并借助覆写策略高效更新记忆。该设计使得模型能够在固定上下文窗口内处理几乎任意长度的输入，从根本上突破了传统 Transformer 架构的窗口长度限制。
-                        <br>
-                        - <em>O(n) 线性复杂度：</em> 这一创新性的 Agent 设计将计算与显存开销与文本长度解耦，使得处理长文本的复杂度由原本的二次方增长转变为线性增长。
-                        <br>
-                        - <em>强化学习驱动的外推能力：</em> 我们改进了 GRPO 算法，使其支持独立上下文的多轮生成训练。基于此，训练出的 Memory Agent 在32K上下文长度的数据上训练后，能够无损外推至3.5M token的问答任务中，性能下降低于5%。
-                    </p>
 
                     <p lang="en">
                         In a simple yet effective way, we demonstrate—for the first time—a trainable memory ability empowered by reinforcement learning. RL-Memory Agent showcases the untapped potential of optimizing specialized workflows via policy learning rather than architectural changes.
@@ -270,65 +258,97 @@
     </div>
 </section>
 
+<section class="section" id="method">
+    <div class="container">
+        <div class="columns is-centered">
+            <div class="column is-10">
+                <h2 class="title is-3">
+                    <span lang="en">Method</span>
+                    <span lang="zh">方法介绍</span>
+                </h2>
+                <div class="content">
 
-    <section class="section" id="data">
-        <div class="container">
-            <div class="columns is-centered">
-                <div class="column is-10">
-                    <h2 class="title is-3">
-                        <span lang="en">🧩 Enigmata-Data: Synthetic Verifiable Puzzle Generation</span>
-                        <span lang="zh">🧩 Enigmata-Data: 合成可验证谜题生成</span>
-                    </h2>
-                    <div class="content">
-                        <p lang="en"><strong>Enigmata-Data</strong> comprises <strong>36 distinct task types spanning 7 categories of logical reasoning puzzles</strong>. Each task is built with two core components: (1) <strong>Generator</strong>: Produces massive puzzle instances with precisely controllable difficulty parameters; (2) <strong>Verifier</strong>: Provides automatic, rule-based solution validation for reliable evaluation.</p>
-                        <p lang="zh"><strong>Enigmata-Data</strong>包含<strong>跨越7个逻辑推理谜题类别的36种不同任务类型</strong>。每个任务都由两个核心组件构建：(1) <strong>生成器</strong>：生成具有精确可控难度参数的大量谜题实例；(2) <strong>验证器</strong>：提供自动的、基于规则的解决方案验证，以进行可靠的评估。</p>
-                        <!-- <p>For comprehensive details on each task, please refer to our task documentation.</p> -->
-                    </div>
-                    <div
-                        style="background-color: #f8fafc; border-radius: 12px; border-left: 6px solid #3a76ed; padding: 1.2rem; margin-bottom: 1.5rem;">
-                            <div style="display: flex; flex-direction: column; gap: 0.8rem;">
-                                <div style="display: flex; align-items: flex-start; gap: 0.8rem;"> 
-                                    <div
-                                        style="background-color: #3a76ed; color: white; padding: 0.4rem; border-radius: 50%; font-size: 0.9rem; display: flex; align-items: center; justify-content: center; min-width: 2rem; height: 2rem;">
-                                        1
-                                    </div>
-                                    <div>
-                                        <p style="margin: 0; line-height: 1.4;" lang="en"><strong>Unlimited Self-Verifying Data: </strong>
-                                            It can generate an unlimited supply of self-verifying puzzle prompts, which plug seamlessly into the RLVR framework and support long chain-of-thought training.</p>
-                                        <p style="margin: 0; line-height: 1.4;" lang="zh"><strong>无限自验证数据: </strong>
-                                            它可以生成无限供应的自验证谜题提示，无缝插入RLVR框架并支持长思维链训练。</p>
-                                    </div>
-                                </div>
-                        
-                                <div style="display: flex; align-items: flex-start; gap: 0.8rem;">
-                                    <div
-                                        style="background-color: #3a76ed; color: white; padding: 0.4rem; border-radius: 50%; font-size: 0.9rem; display: flex; align-items: center; justify-content: center; min-width: 2rem; height: 2rem;">
-                                        2
-                                    </div>
-                                    <div>
-                                    <p style="margin: 0; line-height: 1.4;" lang="en"><strong>Controlled Difficulty:</strong> Programmatic difficulty control allows researchers to mix puzzles in desired difficulty ratios and to conduct fine-grained experiments on how curriculum design influences reinforcement learning.</p>
-                                    <p style="margin: 0; line-height: 1.4;" lang="zh"><strong>可控难度:</strong> 程序化难度控制允许研究人员按照所需的难度比例混合谜题，并对课程设计如何影响强化学习进行细粒度实验。</p>
-                                    </div>
-                                </div>
+                    <p lang="en">
+                        Inspired by human strategies for long-text comprehension and neural memory models such as Neural Turing Machines and Memory Networks, we propose a novel architecture-free framework called <strong>Memory Agent</strong>, which equips LLMs with a dynamically updated memory module.
+                    </p>
+                    <p lang="zh">
+                        受人类处理长文本时的行为模式启发，并借鉴了Neural Turing Machine和Memory Network等神经网络与记忆机制结合的工作，我们提出了一种无需修改模型架构的长文处理新方案——<strong>Memory Agent</strong>，即“给LLM装上动态更新的记忆模块”。
+                    </p>
 
-                                <div style="display: flex; align-items: flex-start; gap: 0.8rem;">
-                                    <div
-                                        style="background-color: #3a76ed; color: white; padding: 0.4rem; border-radius: 50%; font-size: 0.9rem; display: flex; align-items: center; justify-content: center; min-width: 2rem; height: 2rem;">
-                                        3
-                                    </div>
-                                    <div>
-                                        <p style="margin: 0; line-height: 1.4;" lang="en"><strong>Flexible Task Sampling:</strong> Generators can emit arbitrary sample counts per task, enabling studies of task balancing and cross-task generalization.</p>
-                                        <p style="margin: 0; line-height: 1.4;" lang="zh"><strong>灵活的任务采样:</strong> 生成器可以为每个任务发出任意数量的样本，从而能够研究任务平衡和跨任务泛化。</p>
-                                    </div>
-                                </div>                                
-                        </div>
-                    </div>
-         
+                    <p lang="en">
+                        <strong>Memory Agent</strong> introduces a fixed-size auxiliary memory panel that allows the model to read long texts in segments and update memory after each segment. This forms a new "local processing + global fusion" workflow. During inference, the memory is dynamically written and aggregated to generate the final output.
+                    </p>
+                    <p lang="zh">
+                        <strong>Memory Agent</strong>引入了一个固定长度的辅助记忆面板，允许模型在处理长文本时以分段方式读取输入，并在每一段后主动更新记忆状态，从而实现“局部处理 + 全局融合”的新型工作流。该记忆模块在推理过程中不断更新，并在所有段落处理完毕后聚合关键信息生成最终输出。
+                    </p>
+
+                    <figure>
+                        <img src="path_to_image_1.png" alt="Memory Agent Architecture Overview">
+                    </figure>
+
+                    <p lang="en">
+                        <strong>Traditional Modeling:</strong> Conventional autoregressive LMs model the joint probability of a length-N token sequence as:
+                        <br>
+                        $$p(\mathbf{x}_{1:N})=p(x_1)\prod_{n=2}^N p(x_n \mid \mathbf{x}_{1:n-1})$$
+                        This requires caching all previous tokens, leading to quadratic complexity.
+                    </p>
+                    <p lang="zh">
+                        <strong>传统建模方式：</strong> 传统自回归语言模型通过以下方式建模长度为N的token序列：
+                        <br>
+                        $$p(\mathbf{x}_{1:N})=p(x_1)\prod_{n=2}^N p(x_n \mid \mathbf{x}_{1:n-1})$$
+                        这种方式需要缓存全部历史token，导致计算与显存开销呈二次方增长。
+                    </p>
+
+                    <p lang="en">
+                        <strong>Memory Agent Process:</strong> Input sequence is divided into K chunks $$(c^1, c^2, ..., c^K)$$, each with ≤C tokens. We introduce latent memory states $$m^{1:K-1}$$ with $$m^0 = ∅$$ and reformulate the generation as:
+                        <br>
+                        $$p(\mathbf{x}_{1:N}) = \sum_{\mathbf{m}^{1:K-1}} \prod_{k=1}^{K}
+                        \underbrace{p(\mathbf{c}^k \mid \mathbf{m}^{k-1})}_{\text{read}} \cdot
+                        \underbrace{p(\mathbf{m}^k \mid \mathbf{c}^k, \mathbf{m}^{k-1})}_{\text{write}}$$
+                    </p>
+                    <p lang="zh">
+                        <strong>Memory Agent 核心流程：</strong> 将输入序列分为 K 个块 $$(c^1, c^2, ..., c^K)$$，每块最多包含 $$C$$ 个token。我们引入潜在的记忆变量 $$m^{1:K-1}$$ 和初始状态 $$m^0 = ∅$$，重新建模生成过程为：
+                        <br>
+                        $$p(\mathbf{x}_{1:N}) = \sum_{\mathbf{m}^{1:K-1}} \prod_{k=1}^{K}
+                        \underbrace{p(\mathbf{c}^k \mid \mathbf{m}^{k-1})}_{\text{读取}} \cdot
+                        \underbrace{p(\mathbf{m}^k \mid \mathbf{c}^k, \mathbf{m}^{k-1})}_{\text{写入}}$$
+                    </p>
+
+                    <h4 lang="en"><strong>Reinforcement Learning Optimization</strong></h4>
+                    <h4 lang="zh"><strong>强化学习训练机制</strong></h4>
+
+                    <p lang="en">
+                        Memory Agent faces two challenges during training: 1) Non-differentiability of memory operations hinders standard backpropagation; 2) The memory sequence is latent and lacks explicit supervision. We adopt reinforcement learning to optimize memory control.
+                    </p>
+                    <p lang="zh">
+                        Memory Agent在训练时面临两个挑战：1）无法通过标准梯度优化进行端到端训练；2）引入的记忆序列是潜在变量，缺乏显式监督。为此，我们采用强化学习方式训练模型的记忆能力。
+                    </p>
+
+                    <figure>
+                        <img src="path_to_image_2.png" alt="RL Optimization Overview">
+                    </figure>
+
+                    <h4 lang="en"><strong>Multi-Turn Dialog RL Training</strong></h4>
+                    <h4 lang="zh"><strong>多轮对话强化学习机制</strong></h4>
+
+                    <p lang="en">
+                        For each sample, multiple independent dialog sequences are generated in parallel. The final answer is selected to compute a reward, which is then distributed intelligently across all related dialogues. Chunk-level token losses are computed under a 3D optimization structure: (group, turn, token).
+                    </p>
+                    <p lang="zh">
+                        在训练过程中，每个输入样本会并行生成多组独立的对话序列。系统根据最终的回答确定奖励值，并通过组归一化方式将其智能分配到所有相关对话中。损失以chunk为单位计算，优化结构包含“组别-对话轮次-token”三维。
+                    </p>
+
+                    <figure>
+                        <img src="path_to_image_3.png" alt="Multi-turn Optimization Scheme">
+                    </figure>
+
                 </div>
             </div>
         </div>
-    </section>
+    </div>
+</section>
 
+    
     <section class="section" id="eval">
         <div class="container">
             <div class="columns is-centered">
