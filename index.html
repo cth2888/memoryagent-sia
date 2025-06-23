@@ -312,9 +312,9 @@
                         Memory Agent reformulates the decoding process by introducing a memory-augmented, segment-wise strategy:
                     </p>
                     <ul lang="en">
-                        <li><strong>Chunking:</strong> The input is divided into K sequential chunks <span>$(c^1, c^2, ..., c^K)$</span>span> ,each of length ≤ C.</li>
+                        <li><strong>Chunking:</strong> The input is divided into K sequential chunks <span>$(c^1, c^2, ..., c^K)$</span> ,each of length ≤ C.</li>
                         <li><strong>Iterative Processing:</strong> Chunks are processed sequentially, keeping computation per chunk constant.</li>
-                        <li><strong>Memory Augmentation:</strong> A latent memory state <span>$m^k$</span>span> is updated after each chunk.</li>
+                        <li><strong>Memory Augmentation:</strong> A latent memory state <span>$m^k$</span> is updated after each chunk.</li>
                     </ul>
                     <p lang="en"><div class="content has-text-centered">
                         $$p(\mathbf{x}_{1:N}) = \sum_{\mathbf{m}^{1:K-1}} \prod_{k=1}^{K}
@@ -327,9 +327,9 @@
                         为实现对任意长文本的线性处理能力，Memory Agent提出如下机制：
                     </p>
                     <ul lang="zh">
-                        <li><strong>分块处理：</strong> 将输入序列划分为K个连续块 <span>$$(c^1, c^2, ..., c^K)$$</span>span>，每块不超过C个token。</li>
+                        <li><strong>分块处理：</strong> 将输入序列划分为K个连续块 <span>$$(c^1, c^2, ..., c^K)$$</span>，每块不超过C个token。</li>
                         <li><strong>循环处理：</strong> 按块顺序处理，每块的计算开销保持恒定。</li>
-                        <li><strong>引入记忆状态：</strong> 每一块处理后会更新潜在的记忆变量 <span>$$m^k$$</span>span>，作为下一块的输入。</li>
+                        <li><strong>引入记忆状态：</strong> 每一块处理后会更新潜在的记忆变量 <span>$$m^k$$</span>，作为下一块的输入。</li>
                     </ul>
                     <p lang="zh"><div class="content has-text-centered">
                         $$p(\mathbf{x}_{1:N}) = \sum_{\mathbf{m}^{1:K-1}} \prod_{k=1}^{K}
