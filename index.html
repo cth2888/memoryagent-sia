@@ -614,7 +614,7 @@
             <strong>MemAgent</strong> 的成功不仅依赖于理论方法，还得益于工程系统的创新性支持。我们提出了一种适配大模型训练的新型异步架构，并实现了接口统一，显著提升了训练效率与易用性。
           </p>
           <ul lang="zh">
-            <li><strong>纯异步流水线：</strong> GPU/CPU资源解耦，<code>AsyncLLMEngine</code> 负责多节点推理，<code> Ray Worker</code>管理常驻CPU任务池，通过协程完成资源调度。</li>
+            <li><strong>纯异步流水线：</strong> GPU/CPU资源解耦，<code>AsyncLLMEngine</code> 负责多节点推理，<code>Ray Worker</code>管理常驻CPU任务池，通过协程完成资源调度。</li>
             <li><strong>统一API接口：</strong> 兼容 OpenAI API 与 vLLM 推理，支持 <strong>多轮工具调用、多Agent并行、多任务训练</strong>，真正消除传统状态机地狱。</li>
             <li><strong>易用性显著提升：</strong> 训练流程只需编写一个标准 OpenAI 接口函数，即可完成复杂上下文拼接、token处理与状态管理。</li>
           </ul>
@@ -623,7 +623,7 @@
             The success of <strong>MemAgent</strong> is not only attributed to its theoretical design, but also to the innovative support from the engineering system. We introduce a new asynchronous architecture optimized for large-scale model training, with unified interfaces that significantly improve training efficiency and usability.
           </p>
           <ul lang="en">
-            <li><strong>Fully Asynchronous Pipeline:</strong> GPU and CPU resources are decoupled. <code>AsyncLLMEngine</code> handles multi-node inference while <code>  Ray Worker</code> manages a persistent CPU task pool, and resource scheduling is completed via coroutines.</li>
+            <li><strong>Fully Asynchronous Pipeline:</strong> GPU and CPU resources are decoupled. <code>AsyncLLMEngine</code> handles multi-node inference while   <code>Ray Worker</code> manages a persistent CPU task pool, and resource scheduling is completed via coroutines.</li>
             <li><strong>Unified API Interface:</strong> Compatible with both OpenAI API and vLLM inference, supporting <strong>multi-turn tool use, multi-agent parallelism, and multi-task training</strong>, effectively eliminating traditional state machine complexity.</li>
             <li><strong>Significant Usability Improvement:</strong> Training only requires implementing a standard OpenAI-style interface function, which automatically handles complex context stitching, token processing, and state management.</li>
           </ul>
