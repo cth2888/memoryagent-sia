@@ -307,24 +307,6 @@
                         该方法需要缓存全部历史token，导致计算和显存消耗随序列长度呈二次方增长。
                     </p>
                     
-                    <p lang="en"><strong>Traditional Modeling:</strong></p>
-                    <p lang="en">
-                      Autoregressive language models traditionally generate a token sequence of length N as:
-                    </p>
-                    <p lang="zh"><strong>传统建模方式：</strong></p>
-                    <p lang="zh">
-                      传统的自回归语言模型以如下形式建模长度为 N 的 token 序列：
-                    </p>
-                    <div class="content has-text-centered">
-                      $$p(\mathbf{x}_{1:N}) = p(x_1) \prod_{n=2}^{N} p(x_n \mid \mathbf{x}_{1:n-1})$$
-                    </div>
-                    <p lang="en">
-                      This requires caching all previous tokens, resulting in quadratic complexity with sequence length.
-                    </p>
-                    <p lang="zh">
-                      该方式需缓存全部历史 token，计算与显存成本随长度呈二次增长。
-                    </p>
-                    
                     <hr>
                     
                     <p lang="en"><strong>Memory Agent Architecture:</strong></p>
@@ -332,7 +314,7 @@
                       To overcome this bottleneck, <strong>Memory Agent</strong> introduces a memory-augmented decoding scheme:
                     </p>
                     <ul lang="en">
-                      <li><strong>Chunking:</strong> The input sequence is divided into K segments <span>\((c^1, c^2, \ldots, c^K)\)</span>, each with ≤ C tokens.</li>
+                      <li><strong>Chunking:</strong> The input sequence is divided into K segments <span style="white-space: nowrap;">\((c^1, c^2, \ldots, c^K)\)</span>, each with ≤ C tokens.</li>
                       <li><strong>Iterative Processing:</strong> Each chunk is processed sequentially with fixed computation cost per chunk.</li>
                       <li><strong>Memory Injection:</strong> A latent memory state \(m^k\) is updated after each chunk to influence the next step.</li>
                     </ul>
