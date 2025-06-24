@@ -69,7 +69,12 @@
             text-align: center;
             margin: 1.5rem 0;
             overflow-x: auto;
-        }
+        
+        .equation-centered {
+            text-align: center;
+            margin: 1.5rem 0;
+          }
+
     </style>
 
 
@@ -623,7 +628,7 @@
             The success of <strong>MemAgent</strong> is not only attributed to its theoretical design, but also to the innovative support from the engineering system. We introduce a new asynchronous architecture optimized for large-scale model training, with unified interfaces that significantly improve training efficiency and usability.
           </p>
           <ul lang="en">
-            <li><strong>Fully Asynchronous Pipeline:</strong> GPU and CPU resources are decoupled. <code> AsyncLLMEngine</code>  handles multi-node inference while   <code> Ray Worker</code> manages a persistent CPU task pool, and resource scheduling is completed via coroutines.</li>
+            <li><strong>Fully Asynchronous Pipeline:</strong> GPU and CPU resources are decoupled. <code>AsyncLLMEngine</code> handles multi-node inference while \\<code>Ray Worker</code> manages a persistent CPU task pool, and resource scheduling is completed via coroutines.</li>
             <li><strong>Unified API Interface:</strong> Compatible with both OpenAI API and vLLM inference, supporting <strong>multi-turn tool use, multi-agent parallelism, and multi-task training</strong>, effectively eliminating traditional state machine complexity.</li>
             <li><strong>Significant Usability Improvement:</strong> Training only requires implementing a standard OpenAI-style interface function, which automatically handles complex context stitching, token processing, and state management.</li>
           </ul>
