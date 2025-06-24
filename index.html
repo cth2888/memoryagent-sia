@@ -375,7 +375,7 @@
                         \mathcal{J}_{\text{GRPO}}(\theta) =\quad &\mathbb{E}_{(q,a)\sim \mathcal{D}, \{o_{i,j}\}_{i=1}^G\sim \pi_{\theta_\text{old}}(\cdot\mid q,~o_{i,j-1})} \\
                         &\Bigg[\frac{1}{\sum_{i=1}^{G}\sum_{j=1}^{n_i}|o_{i,j}|}\sum_{i=1}^{G}\sum_{j=1}^{n_i}\sum_{t=1}^{|o_{i,j}|}
                         \Big(\mathcal{C}_{i,j,t} - \beta D_{\text{KL}}(\pi_{\theta} || \pi_{\text{ref}} )\Big) \Bigg] \\
-                        \text{where\quad} \mathcal{C}_{i,j,t} = &\min\Big(r_{i,j,t}(\theta) \hat{A}_{i,j,t},  
+                        \text{where } \mathcal{C}_{i,j,t} = &\min\Big(r_{i,j,t}(\theta) \hat{A}_{i,j,t},  
                         \ \text{clip} \Big( r_{i,j,t}(\theta), 1 - {\varepsilon}, 1 + {\varepsilon} \Big) \hat{A}_{i,j,t}\Big)
                         \end{aligned}
                         $$
