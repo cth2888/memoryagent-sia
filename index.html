@@ -464,7 +464,7 @@
                 To verify the contribution of each component in MemAgent, we conducted systematic ablation experiments:
                 <ul lang="en">
                   <li><strong>Base Model:</strong> After exceeding the training window, information loss leads to sharp performance decline, unable to achieve extrapolation.</li>
-                  <li><strong>MemAgent (w/o RL training):</strong> Has certain processing capabilities, but still shows obvious performance loss on long text tasks.</li>
+                  <li><strong>MemAgent (untrained):</strong> Has certain processing capabilities, but still shows obvious performance loss on long text tasks.</li>
                   <li><strong>MemAgent:</strong> Reinforcement learning training significantly improves extrapolation capability, achieving near-lossless performance.</li>
                 </ul>
           </p>
@@ -473,7 +473,7 @@
                 为验证MemAgent各组件的贡献，我们开展了系统的消融实验：
                 <ul lang="zh">
                   <li><strong>基础模型：</strong> 在超出训练窗口后，信息缺失导致性能急剧下降，无法实现外推。</li>
-                  <li><strong>MemAgent（未经RL训练）：</strong> 具备一定处理能力，但在长文本任务下仍出现明显性能损失。</li>
+                  <li><strong>MemAgent（未训练）：</strong> 具备一定处理能力，但在长文本任务下仍出现明显性能损失。</li>
                   <li><strong>MemAgent：</strong> 强化学习训练显著提升外推能力，达到近乎无损性能。</li>
                 </ul>
           </p>
@@ -566,7 +566,6 @@
   </div>
 </section>
 
-
 <section class="section" id="conclusion">
   <div class="container">
     <div class="columns is-centered">
@@ -580,24 +579,25 @@
             本研究提出了一种全新的长文本处理框架 <strong>MemAgent</strong>，在以下三个关键维度实现了重要突破：
           </p>
           <ul lang="zh">
-            <li><strong>技术架构突破：</strong> 提出一种创新机制，使大语言模型在固定窗口限制下仍能以 <strong>线性复杂度</strong>处理任意长度文本，从根本上突破传统Transformer的计算瓶颈。</li>
-            <li><strong>智能体训练方法：</strong> 构建了一整套强化学习驱动的智能体工作流，基于 <strong>多对话GRPO</strong> 实现端到端训练机制。</li>
-            <li><strong>性能外推验证：</strong> 大量实验表明，RL训练能够帮助模型外推至远超训练窗口的任务中，<strong>性能下降<5%</strong>，显著扩展LLM能力边界。</li>
+            <li><strong>技术架构突破：</strong> 我们提出了一种创新的机制，使大语言模型能够在有限的上下文窗口内以<strong>线性时间复杂度</strong>处理任意长度的输入文本，从根本上解决了传统长文本方法面临的计算瓶颈问题。</li>
+            <li><strong>智能体训练方法：</strong> 我们设计了一套完整的智能体工作流来实现上述机制，并基于<strong>多轮对话强化学习</strong>为该智能体设计了端到端的训练框架。</li>
+            <li><strong>性能外推验证：</strong> 通过大量实验验证，我们证明了基于强化学习训练的方法能够让模型成功<strong>无损外推</strong>到远超训练长度的文档上，大幅扩展了当前长文本大语言模型系统的处理边界。</li>
           </ul>
 
           <p lang="en">
-            This study proposes a novel long-context processing framework <strong>MemAgent</strong>, achieving breakthroughs in the following three key dimensions:
+            In this work, we propose a novel framework for long-context processing, with contributions spanning three key dimensions:
           </p>
           <ul lang="en">
-            <li><strong>Architectural Innovation:</strong> A novel mechanism enables large language models to process arbitrarily long texts with <strong>linear complexity</strong> under fixed window constraints, fundamentally overcoming the computational bottleneck of traditional Transformers.</li>
-            <li><strong>Agent Training Strategy:</strong> A complete reinforcement learning-driven agent workflow is constructed, achieving end-to-end training based on <strong>Multi-Dialogue GRPO</strong>.</li>
-            <li><strong>Performance Extrapolation:</strong> Extensive experiments show that RL training enables the model to extrapolate far beyond the training window with <strong>less than 5% degradation</strong>, significantly expanding the capability frontier of LLMs.</li>
+            <li><strong>Architectural Innovation:</strong> We introduce an innovative mechanism that enables large language models to process arbitrarily long input sequences within a limited context window and with <strong>linear-time complexity</strong>, fundamentally addressing the computational bottlenecks faced by traditional long-context methods.</li>
+            <li><strong>Agent Training Methodology:</strong> We design a complete agent workflow to implement this mechanism, and develop an end-to-end training framework based on <strong>Multi-conv RL</strong>, enabling the agent to learn how to store and retrieve relevant information effectively.</li>
+            <li><strong>Extrapolation Performance:</strong> Through extensive empirical evaluation, we demonstrate that our RL-trained method allows models to extrapolate far beyond their training context length without significant performance degradation, substantially expanding the capability frontier of current long-context LLM systems.</li>
           </ul>
         </div>
       </div>
     </div>
   </div>
 </section>
+
 
 <section class="section" id="engineering">
   <div class="container">
@@ -612,7 +612,7 @@
             <strong>MemAgent</strong> 的成功不仅依赖于理论方法，还得益于工程系统的创新性支持。我们提出了一种适配大模型训练的新型异步架构，并实现了接口统一，显著提升了训练效率与易用性。
           </p>
           <ul lang="zh">
-            <li><strong>纯异步流水线：</strong> GPU/CPU资源解耦，<code>AsyncLLMEngine</code> 负责多节点推理，<code>Ray Worker</code>管理常驻CPU任务池，通过协程完成资源调度。</li>
+            <li><strong>纯异步流水线：</strong> GPU/CPU资源解耦，<code>AsyncLLMEngine</code> 负责多节点推理，<code>  Ray Worker</code>管理常驻CPU任务池，通过协程完成资源调度。</li>
             <li><strong>统一API接口：</strong> 兼容 OpenAI API 与 vLLM 推理，支持 <strong>多轮工具调用、多Agent并行、多任务训练</strong>，真正消除传统状态机地狱。</li>
             <li><strong>易用性显著提升：</strong> 训练流程只需编写一个标准 OpenAI 接口函数，即可完成复杂上下文拼接、token处理与状态管理。</li>
           </ul>
@@ -660,10 +660,10 @@
                         <p lang="en">If you find this work useful, please cite our paper:</p>
                         <p lang="zh">如果您发现这项工作有用，请引用我们的论文：</p>
                         <pre><code class="latex">
-@article{chen2025enigmata,
-    title={Enigmata: Scaling Logical Reasoning in Large Language Models with Synthetic Verifiable Puzzles},
-    author={Chen, Jiangjie and He, Qianyu and Yuan, Siyu and Chen, Aili and Cai, Zhicheng and Dai, Weinan and Yu, Hongli and Yu, Qiying and Li, Xuefeng and Chen, Jiaze and others},
-    journal={arXiv preprint arXiv:2505.19914},
+@article{,
+    title={MemAgent: Reshaping Long-Context LLM with Mult-Conv RL based Memory Agent},
+    author={},
+    journal={},
     year={2025}
 }
                         </code></pre>
