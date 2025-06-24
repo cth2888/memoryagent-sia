@@ -464,7 +464,7 @@
                 To verify the contribution of each component in MemAgent, we conducted systematic ablation experiments:
                 <ol lang="en">
                   <li><strong>Base Model:</strong> After exceeding the training window, information loss leads to sharp performance decline, unable to achieve extrapolation.</li>
-                  <li><strong>MemAgent (without RL training):</strong> Has certain processing capabilities, but still shows obvious performance loss on long text tasks.</li>
+                  <li><strong>MemAgent (w/o RL training):</strong> Has certain processing capabilities, but still shows obvious performance loss on long text tasks.</li>
                   <li><strong>MemAgent:</strong> Reinforcement learning training significantly improves extrapolation capability, achieving near-lossless performance.</li>
                 </ol>
           </p>
@@ -532,7 +532,7 @@
 
           <p lang="en">
                 <strong>Experimental Results Analysis:</strong> We use heatmaps to visualize the performance of different models across different length ranges and task types:
-                <ul>
+                <ul lang="en">
                   <li><strong>MemAgent:</strong> Outperforms existing models on all task types, showing significant performance advantages.</li>
                   <li><strong>MemAgent (untrained):</strong> Superior to base models in most cases, but still shows performance decline at extrapolation lengths.</li>
                   <li><strong>Base Models:</strong> Distill/Instruct series universally fail on ultra-long text tasks.</li>
@@ -543,7 +543,7 @@
 
           <p lang="zh">
                 <strong>实验结果分析：</strong> 我们使用热力图可视化不同模型在不同长度区间和任务类型下的性能：
-                <ul>
+                <ul lang="zh">
                   <li><strong>MemAgent：</strong> 所有任务类型上均优于现有模型，展现显著性能优势。</li>
                   <li><strong>MemAgent（未训练）：</strong> 在大多数情况下优于基础模型，但外推长度上仍出现性能下降。</li>
                   <li><strong>基础模型：</strong> Distill/Instruct系列在超长文本任务中普遍失败。</li>
@@ -553,38 +553,11 @@
           </p>
 
           <div class="columns is-multiline">
-            <div class="column is-4">
-              <figure class="image"><img src="figs/niah_single_1_00.png" alt="NIAH Single 1"></figure>
-            </div>
-            <div class="column is-4">
-              <figure class="image"><img src="figs/niah_single_2_00.png" alt="NIAH Single 2"></figure>
-            </div>
-            <div class="column is-4">
-              <figure class="image"><img src="figs/niah_single_3_00.png" alt="NIAH Single 3"></figure>
-            </div>
-
-            <div class="column is-4">
-              <figure class="image"><img src="figs/niah_multikey_1_00.png" alt="NIAH Multi 1"></figure>
-            </div>
-            <div class="column is-4">
-              <figure class="image"><img src="figs/niah_multikey_2_00.png" alt="NIAH Multi 2"></figure>
-            </div>
-            <div class="column is-4">
-              <figure class="image"><img src="figs/niah_multikey_3_00.png" alt="NIAH Multi 3"></figure>
-            </div>
-
             <div class="column is-6">
-              <figure class="image"><img src="figs/niah_multiquery_00.png" alt="Multi-query"></figure>
+              <figure class="image"><img src="figs/avg_00.png" alt="AVG"></figure>
             </div>
             <div class="column is-6">
-              <figure class="image"><img src="figs/niah_multivalue_00.png" alt="Multi-value"></figure>
-            </div>
-
-            <div class="column is-6">
-              <figure class="image"><img src="figs/fwe_00.png" alt="FWE"></figure>
-            </div>
-            <div class="column is-6">
-              <figure class="image"><img src="figs/vt_00.png" alt="VT"></figure>
+              <figure class="image"><img src="figs/qa_1_00.png" alt="QA_1"></figure>
             </div>
           </div>
         </div>
