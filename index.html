@@ -606,31 +606,19 @@
           <p lang="zh">
             本研究提出了一种全新的长文本处理框架 <strong>MemAgent</strong>，在以下三个关键维度实现了重要突破：
           </p>
+          <ul lang="zh">
+            <li><strong>技术架构突破：</strong> 提出一种创新机制，使大语言模型在固定窗口限制下仍能以 <strong>线性复杂度</strong>处理任意长度文本，从根本上突破传统Transformer的计算瓶颈。</li>
+            <li><strong>智能体训练方法：</strong> 构建了一整套强化学习驱动的智能体工作流，基于 <strong>多对话GRPO</strong> 实现端到端训练机制。</li>
+            <li><strong>性能外推验证：</strong> 大量实验表明，RL训练能够帮助模型外推至远超训练窗口的任务中，<strong>性能下降<5%</strong>，显著扩展LLM能力边界。</li>
+          </ul>
+
           <p lang="en">
-            This study introduces a novel framework for long-text processing called <strong>MemAgent</strong>, which achieves significant advancements in the following three dimensions:
+            This study proposes a novel long-context processing framework <strong>MemAgent</strong>, achieving breakthroughs in the following three key dimensions:
           </p>
-          <ul>
-            <li>
-              <strong lang="zh">技术架构突破：</strong>
-              <span lang="zh">提出一种创新机制，使大语言模型在固定窗口限制下仍能以 <strong>线性复杂度</strong>处理任意长度文本，从根本上突破传统Transformer的计算瓶颈。</span>
-              <br>
-              <strong lang="en">Architectural Innovation:</strong>
-              <span lang="en">An innovative mechanism enables LLMs to process arbitrarily long texts with <strong>linear complexity</strong> under a fixed window size, fundamentally breaking the computational bottleneck of traditional Transformers.</span>
-            </li>
-            <li>
-              <strong lang="zh">智能体训练方法：</strong>
-              <span lang="zh">构建了一整套强化学习驱动的智能体工作流，基于 <strong>多对话GRPO</strong> 实现端到端训练机制。</span>
-              <br>
-              <strong lang="en">Agent Training Methodology:</strong>
-              <span lang="en">A complete RL-driven agent workflow is built, achieving end-to-end training based on <strong>multi-conversation GRPO</strong>.</span>
-            </li>
-            <li>
-              <strong lang="zh">性能外推验证：</strong>
-              <span lang="zh">大量实验表明，RL训练能够帮助模型外推至远超训练窗口的任务中，<strong>性能下降&lt;5%</strong>，显著扩展LLM能力边界。</span>
-              <br>
-              <strong lang="en">Extrapolation Performance:</strong>
-              <span lang="en">Extensive experiments demonstrate that RL training enables the model to extrapolate to tasks far beyond the training window with <strong>&lt;5% performance degradation</strong>, significantly extending the capability boundaries of LLMs.</span>
-            </li>
+          <ul lang="en">
+            <li><strong>Architectural Innovation:</strong> A novel mechanism enables large language models to process arbitrarily long texts with <strong>linear complexity</strong> under fixed window constraints, fundamentally overcoming the computational bottleneck of traditional Transformers.</li>
+            <li><strong>Agent Training Strategy:</strong> A complete reinforcement learning-driven agent workflow is constructed, achieving end-to-end training based on <strong>Multi-Dialogue GRPO</strong>.</li>
+            <li><strong>Performance Extrapolation:</strong> Extensive experiments show that RL training enables the model to extrapolate far beyond the training window with <strong>less than 5% degradation</strong>, significantly expanding the capability frontier of LLMs.</li>
           </ul>
         </div>
       </div>
@@ -650,32 +638,21 @@
           <p lang="zh">
             <strong>MemAgent</strong> 的成功不仅依赖于理论方法，还得益于工程系统的创新性支持。我们提出了一种适配大模型训练的新型异步架构，并实现了接口统一，显著提升了训练效率与易用性。
           </p>
-          <p lang="en">
-            The success of <strong>MemAgent</strong> is not only attributed to theoretical advances, but also to engineering innovations. We propose a novel asynchronous architecture tailored for large-model training, along with a unified API design that significantly enhances training efficiency and usability.
-          </p>
-          <ul>
-            <li>
-              <strong lang="zh">纯异步流水线：</strong>
-              <span lang="zh">GPU/CPU资源解耦，<code>AsyncLLMEngine</code> 负责多节点推理，<code>Ray Worker</code>管理常驻CPU任务池，通过协程完成资源调度。</span>
-              <br>
-              <strong lang="en">Fully Asynchronous Pipeline:</strong>
-              <span lang="en">GPU and CPU resources are decoupled. <code>AsyncLLMEngine</code> handles multi-node inference while <code>Ray Worker</code> manages a persistent CPU task pool, with coroutine-based resource scheduling.</span>
-            </li>
-            <li>
-              <strong lang="zh">统一API接口：</strong>
-              <span lang="zh">兼容 OpenAI API 与 vLLM 推理，支持 <strong>多轮工具调用、多Agent并行、多任务训练</strong>，真正消除传统状态机地狱。</span>
-              <br>
-              <strong lang="en">Unified API Interface:</strong>
-              <span lang="en">Compatible with both OpenAI API and vLLM inference. Supports <strong>multi-turn tool use, multi-agent parallelism, and multi-task training</strong>, effectively eliminating traditional state machine complexity.</span>
-            </li>
-            <li>
-              <strong lang="zh">易用性显著提升：</strong>
-              <span lang="zh">训练流程只需编写一个标准 OpenAI 接口函数，即可完成复杂上下文拼接、token处理与状态管理。</span>
-              <br>
-              <strong lang="en">Improved Usability:</strong>
-              <span lang="en">Training only requires implementing a standard OpenAI-style interface function, handling complex context stitching, token management, and state transitions with ease.</span>
-            </li>
+          <ul lang="zh">
+            <li><strong>纯异步流水线：</strong> GPU/CPU资源解耦，<code>AsyncLLMEngine</code> 负责多节点推理，<code>Ray Worker</code>管理常驻CPU任务池，通过协程完成资源调度。</li>
+            <li><strong>统一API接口：</strong> 兼容 OpenAI API 与 vLLM 推理，支持 <strong>多轮工具调用、多Agent并行、多任务训练</strong>，真正消除传统状态机地狱。</li>
+            <li><strong>易用性显著提升：</strong> 训练流程只需编写一个标准 OpenAI 接口函数，即可完成复杂上下文拼接、token处理与状态管理。</li>
           </ul>
+
+          <p lang="en">
+            The success of <strong>MemAgent</strong> is not only attributed to its theoretical design, but also to the innovative support from the engineering system. We introduce a new asynchronous architecture optimized for large-scale model training, with unified interfaces that significantly improve training efficiency and usability.
+          </p>
+          <ul lang="en">
+            <li><strong>Fully Asynchronous Pipeline:</strong> GPU and CPU resources are decoupled. <code>AsyncLLMEngine</code> handles multi-node inference while <code>Ray Worker</code> manages a persistent CPU task pool, and resource scheduling is completed via coroutines.</li>
+            <li><strong>Unified API Interface:</strong> Compatible with both OpenAI API and vLLM inference, supporting <strong>multi-turn tool use, multi-agent parallelism, and multi-task training</strong>, effectively eliminating traditional state machine complexity.</li>
+            <li><strong>Significant Usability Improvement:</strong> Training only requires implementing a standard OpenAI-style interface function, which automatically handles complex context stitching, token processing, and state management.</li>
+          </ul>
+
           <div class="columns is-vcentered">
             <div class="column">
               <figure class="image">
@@ -688,11 +665,13 @@
               </figure>
             </div>
           </div>
+
         </div>
       </div>
     </div>
   </div>
 </section>
+
 
 
 
