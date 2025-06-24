@@ -49,6 +49,10 @@
         src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js">
     </script>
     <style>
+        .equation-centered {
+          text-align: center;
+          margin: 2rem 0;
+        }
         .nowrap-math {
             white-space: nowrap;
             display: inline-block;
@@ -69,11 +73,6 @@
             text-align: center;
             margin: 1.5rem 0;
             overflow-x: auto;
-        
-        .equation-centered {
-            text-align: center;
-            margin: 1.5rem 0;
-          }
 
     </style>
 
@@ -393,7 +392,7 @@
 
                     <p lang="en"><strong>Policy Optimization Objective:</strong> Loss is calculated per chunk, adopting a three-dimensional optimization structure of (group, conversation round, token), maintaining independence of each conversation throughout the process.</p>
                     <p lang="zh"><strong>策略优化目标：</strong>以每个chunk为单位计算损失（如下图所示），采用（组别、对话轮次、token）三维优化结构，整个过程保持各对话的独立性：</p>
-                    <div class="equation-centered">
+                    <div class="math-center">
                       $$
                       \begin{aligned}
                       \mathcal{J}_{\text{GRPO}}(\theta) =\quad &\mathbb{E}_{(q,a)\sim \mathcal{D}, \{o_{i,j}\}_{i=1}^G\sim \pi_{\theta_\text{old}}(\cdot\mid q,~o_{i,j-1})} \\
