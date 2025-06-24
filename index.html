@@ -48,27 +48,51 @@
     <script type="text/javascript" id="MathJax-script" async
         src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js">
     </script>
+    <script>
+        window.MathJax = {
+            tex: {
+                inlineMath: [['
     <style>
         .nowrap-math {
             white-space: nowrap;
             display: inline-block;
         }
-        .has-text-centered {
-            text-align: center !important;
-        }
-        .content .has-text-centered {
-            margin: 1.5rem 0;
-        }
-        /* 防止数学公式换行 */
-        .MathJax {
-            white-space: nowrap !important;
-        }
-        /* 确保居中的数学公式块 */
+        
+        /* 数学公式居中样式 */
         .math-center {
-            display: block;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin: 1.5rem 0;
+            text-align: center;
+            width: 100%;
+        }
+        
+        .math-center .MathJax {
+            margin: 0 auto;
+        }
+        
+        /* 备用居中方案 */
+        .formula-container {
             text-align: center;
             margin: 1.5rem 0;
             overflow-x: auto;
+        }
+        
+        .formula-container > * {
+            display: inline-block;
+            text-align: center;
+        }
+        
+        /* MathJax特定样式 */
+        .MathJax_Display {
+            text-align: center !important;
+            margin: 1em auto !important;
+        }
+        
+        mjx-container[display="block"] {
+            text-align: center !important;
+            margin: 1em auto !important;
         }
     </style>
 
