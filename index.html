@@ -421,7 +421,7 @@
 
           <p lang="en">
                 <strong>Baseline Models:</strong> Experiments show that existing long-text models universally suffer from severe performance degradation on ultra-long sequences:
-                <ul>
+                <ul lang="en">
                   <li>QwenLong-L1 series: Accuracy drops sharply by over 40 percentage points when text length exceeds 56K.</li>
                   <li>Qwen2.5-Instruct-1M series: Nominally supports 1M tokens, but performance drops to 0 at 896K.</li>
                   <li>DS-distill series: Performance decays exponentially with length, becoming almost completely ineffective at 224K.</li>
@@ -430,7 +430,7 @@
 
           <p lang="zh">
                 <strong>基线模型：</strong> 实验显示，现有长文本模型在超长序列上普遍存在严重的性能退化：
-                <ul>
+                <ul lang="zn">
                   <li>QwenLong-L1系列：在文本长度超过56K后准确率急剧下降，降幅超过40个百分点。</li>
                   <li>Qwen2.5-Instruct-1M系列：标称支持1M，但在896K时性能降为0。</li>
                   <li>DS-distill系列：性能随长度呈指数级衰减，在224K时几乎完全失效。</li>
@@ -439,7 +439,7 @@
 
           <p lang="en">
                 <strong>MemAgent:</strong> Demonstrates extremely high stability in ultra-long text processing tasks:
-                <ul>
+                <ul lang="en">
                   <li>MemAgent-14B: Shows only marginal performance decline (<5%) in 3.5M ultra-long text tests, achieving lossless extrapolation.</li>
                   <li>MemAgent-7B: While showing slight performance decline on the longest texts, overall performance far exceeds other models.</li>
                 </ul>
@@ -447,7 +447,7 @@
 
           <p lang="zh">
                 <strong>MemAgent：</strong> 在超长文本处理任务中表现出极高稳定性：
-                <ul>
+                <ul lang="zn">
                   <li>MemAgent-14B：在3.5M超长文本测试中仅出现边际性能下降（<5%），实现了无损外推。</li>
                   <li>MemAgent-7B：在最长文本上虽略有性能下降，但总体表现远超其他模型。</li>
                 </ul>
@@ -462,7 +462,7 @@
 
           <p lang="en">
                 To verify the contribution of each component in MemAgent, we conducted systematic ablation experiments:
-                <ol>
+                <ol lang="en">
                   <li><strong>Base Model:</strong> After exceeding the training window, information loss leads to sharp performance decline, unable to achieve extrapolation.</li>
                   <li><strong>MemAgent (without RL training):</strong> Has certain processing capabilities, but still shows obvious performance loss on long text tasks.</li>
                   <li><strong>MemAgent:</strong> Reinforcement learning training significantly improves extrapolation capability, achieving near-lossless performance.</li>
@@ -471,7 +471,7 @@
 
           <p lang="zh">
                 为验证MemAgent各组件的贡献，我们开展了系统的消融实验：
-                <ol>
+                <ol lang="zn">
                   <li><strong>基础模型：</strong> 在超出训练窗口后，信息缺失导致性能急剧下降，无法实现外推。</li>
                   <li><strong>MemAgent（未经RL训练）：</strong> 具备一定处理能力，但在长文本任务下仍出现明显性能损失。</li>
                   <li><strong>MemAgent：</strong> 强化学习训练显著提升外推能力，达到近乎无损性能。</li>
