@@ -316,7 +316,7 @@
                     <ul lang="en">
                       <li><strong>Chunking:</strong> The input sequence is divided into K segments <span style="white-space: nowrap;">\((c^1, c^2, \ldots, c^K)\)</span>, each with ≤ C tokens.</li>
                       <li><strong>Iterative Processing:</strong> Each chunk is processed sequentially with fixed computation cost per chunk.</li>
-                      <li><strong>Memory Injection:</strong> A latent memory state \(m^k\) is updated after each chunk to influence the next step.</li>
+                      <li><strong>Memory Injection:</strong> A latent memory state <span style="white-space: nowrap;">\(m^k\)</span> is updated after each chunk to influence the next step.</li>
                     </ul>
                     
                     
@@ -325,9 +325,9 @@
                       Memory Agent 引入一种“分块+记忆”的机制，以线性复杂度支持任意长度文本：
                     </p>
                     <ul lang="zh">
-                      <li><strong>分块处理：</strong> 将输入序列划分为 K 个连续块 <span>\((c^1, c^2, \ldots, c^K)\)</span>，每块最多包含 C 个 token。</li>
+                      <li><strong>分块处理：</strong> 将输入序列划分为 K 个连续块 <span style="white-space: nowrap;">\((c^1, c^2, \ldots, c^K)\)</span>，每块最多包含 C 个 token。</li>
                       <li><strong>顺序处理：</strong> 按顺序处理每一块，单块计算复杂度固定。</li>
-                      <li><strong>引入记忆：</strong> 每一块处理后更新潜在记忆状态 \(m^k\)，用于下一块生成。</li>
+                      <li><strong>引入记忆：</strong> 每一块处理后更新潜在记忆状态 <span style="white-space: nowrap;">\(m^k\)</span>，用于下一块生成。</li>
                     </ul>
                     <div class="content has-text-centered">
                           $$p(\mathbf{x}_{1:N}) = \sum_{\mathbf{m}^{1:K-1}} \prod_{k=1}^{K}
