@@ -43,10 +43,35 @@
                 fontCache: 'global'
             }
         };
+        
     </script>
     <script type="text/javascript" id="MathJax-script" async
         src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js">
     </script>
+    <style>
+        .nowrap-math {
+            white-space: nowrap;
+            display: inline-block;
+        }
+        .has-text-centered {
+            text-align: center !important;
+        }
+        .content .has-text-centered {
+            margin: 1.5rem 0;
+        }
+        /* 防止数学公式换行 */
+        .MathJax {
+            white-space: nowrap !important;
+        }
+        /* 确保居中的数学公式块 */
+        .math-center {
+            display: block;
+            text-align: center;
+            margin: 1.5rem 0;
+            overflow-x: auto;
+        }
+    </style>
+
 </head>
 
 <body>
@@ -295,8 +320,8 @@
                     <p lang="zh">
                         传统的自回归语言模型通过以下方式建模长度为N的token序列：
                     </p>
-                    <div class="content has-text-centered">
-                        $$p(\mathbf{x}_{1:N}) = p(x_1) \prod_{n=2}^{N} p(x_n \mid \mathbf{x}_{1:n-1})$$
+                    <div class="math-center">
+                        $p(\mathbf{x}_{1:N}) = p(x_1) \prod_{n=2}^{N} p(x_n \mid \mathbf{x}_{1:n-1})$
                     </div>
                     <p lang="en">
                         This method requires caching all previously generated tokens, leading to quadratic growth in computational cost with sequence length.
@@ -325,17 +350,17 @@
 
                     <p lang="en"><strong>Remodeling Language Model Generation Process:</strong></p>
                     <p lang="en">
-                        After introducing latent memory variables <span class="nowrap-math">\(m^{1:K-1}\)</span> and initial state <span class="nowrap-math">\(m^0\)</span>, the autoregressive decomposition is reformulated as:
+                        After introducing latent memory variables <span class="nowrap-math">\(m^{1:K-1}\)</span> and initial state <span class="nowrap-math">\(m^0 = \emptyset\)</span>, the autoregressive decomposition is reformulated as:
                     </p>
                     <p lang="zh"><strong>重新建模语言模型的生成过程：</strong></p>
                     <p lang="zh">
-                        引入潜在记忆变量 <span class="nowrap-math">\(m^{1:K-1}\)</span> 和初始状态 <span class="nowrap-math">\(m^0\)</span> 后，自回归分解被重新表述为：
+                        引入潜在记忆变量<span class="nowrap-math">\(m^{1:K-1}\)</span>和初始状态<span class="nowrap-math">\(m^0 = \emptyset\)</span>后，自回归分解被重新表述为：
                     </p>
                     
-                    <div class="content has-text-centered">
-                          $$p(\mathbf{x}_{1:N}) = \sum_{\mathbf{m}^{1:K-1}} \prod_{k=1}^{K}
+                    <div class="math-center">
+                          $p(\mathbf{x}_{1:N}) = \sum_{\mathbf{m}^{1:K-1}} \prod_{k=1}^{K}
                           \underbrace{p(\mathbf{c}^k \mid \mathbf{m}^{k-1})}_{\text{read}} \cdot
-                          \underbrace{p(\mathbf{m}^k \mid \mathbf{c}^k, \mathbf{m}^{k-1})}_{\text{write}}$$
+                          \underbrace{p(\mathbf{m}^k \mid \mathbf{c}^k, \mathbf{m}^{k-1})}_{\text{write}}$
                     </div>
 
                     <h4 lang="en"><strong>Memory Agent Reinforcement Learning Training Process</strong></h4>
