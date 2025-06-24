@@ -261,3 +261,7 @@ tbody tr:last-child td {
 tbody tr:nth-child(even) {
   background-color: #f8fafc;
 }
+
+.nowrap-math {
+  white-space: nowrap;
+}
