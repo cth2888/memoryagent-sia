@@ -368,18 +368,12 @@
                     <p lang="zh">
                         在训练过程中，每个输入样本会并行生成多组独立的对话序列。系统根据最终的回答确定奖励值，并通过组归一化方式将其智能分配到所有相关对话中。损失以chunk为单位计算，优化结构包含“组别-对话轮次-token”三维。
                     </p>
-                    
-                    <div class="text-align: center; margin: 1em 0;">
-                        $$ 
-                        \begin{aligned}
-                        \mathcal{J}_{\text{GRPO}}(\theta) =\quad &\mathbb{E}_{(q,a)\sim \mathcal{D}, \{o_{i,j}\}_{i=1}^G\sim \pi_{\theta_\text{old}}(\cdot\mid q,~o_{i,j-1})} \\
-                        &\Bigg[\frac{1}{\sum_{i=1}^{G}\sum_{j=1}^{n_i}|o_{i,j}|}\sum_{i=1}^{G}\sum_{j=1}^{n_i}\sum_{t=1}^{|o_{i,j}|}
-                        \Big(\mathcal{C}_{i,j,t} - \beta D_{\text{KL}}(\pi_{\theta} || \pi_{\text{ref}} )\Big) \Bigg] \\
-                        \text{where } \mathcal{C}_{i,j,t} = &\min\Big(r_{i,j,t}(\theta) \hat{A}_{i,j,t},  
-                        \ \text{clip} \Big( r_{i,j,t}(\theta), 1 - {\varepsilon}, 1 + {\varepsilon} \Big) \hat{A}_{i,j,t}\Big)
-                        \end{aligned}
-                        $$
+                    <div class="column">
+                        <figure class="image">
+                            <img src="figs/train_loss.png" alt="Train loss">
+                        </figure>
                     </div>
+
                 </div>
             </div>
         </div>
