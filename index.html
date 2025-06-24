@@ -73,7 +73,15 @@
             text-align: center;
             margin: 1.5rem 0;
             overflow-x: auto;
-
+        .boxed-title {
+          border: 2px solid #ccc;
+          padding: 0.5rem 1rem;
+          border-radius: 0.5rem;
+          background-color: #f9f9f9;
+          font-weight: bold;
+          display: inline-block; /* 可选，如果你希望它不占据整行 */
+          margin: 1rem 0;
+        }
     </style>
 
 
@@ -316,11 +324,11 @@
                         <img src="figs/method_00.png" alt="MemAgent Architecture Overview">
                     </figure>
 
-                    <p lang="en"><strong>Traditional Text Modeling:</strong></p>
+                    <p lang="en" class="boxed-title"><strong>Traditional Text Modeling:</strong></p>
                     <p lang="en">
                         Traditional autoregressive language models model token sequences of length N through the following approach:
                     </p>
-                    <p lang="zh"><strong>传统文本建模：</strong></p>
+                    <p lang="zh" class="boxed-title"><strong>传统文本建模：</strong></p>
                     <p lang="zh">
                         传统的自回归语言模型通过以下方式建模长度为N的token序列：
                     </p>
@@ -336,23 +344,23 @@
 
                     <hr>
 
-                    <p lang="en"><strong>MemAgent Core Architecture:</strong></p>
+                    <p lang="en" class="boxed-title"><strong>MemAgent Core Architecture:</strong></p>
                     <ol lang="en">
                       <li><strong>Chunk Processing:</strong> Divide the input sequence into K contiguous chunks <span class="nowrap-math">\((c^1, c^2, \ldots, c^K)\)</span>, with each chunk containing at most <span class="nowrap-math">\(C\)</span> tokens.</li>
                       <li><strong>Iterative Processing:</strong> Process chunks sequentially, maintaining constant computational cost per chunk.</li>
                     </ol>
 
-                    <p lang="zh"><strong>MemAgent 核心架构：</strong></p>
+                    <p lang="zh" class="boxed-title"><strong>MemAgent 核心架构：</strong></p>
                     <ol lang="zh">
                       <li><strong>分块处理：</strong> 将输入序列分割为K个连续块 <span class="nowrap-math">\((c^1, c^2, \ldots, c^K)\)</span>，每块最多包含 <span class="nowrap-math">\(C\)</span> 个token。</li>
                       <li><strong>循环处理：</strong> 按块顺序处理，每块的计算成本保持恒定。</li>
                     </ol>
 
-                    <p lang="en"><strong>Training MemAgent with Multi-conv RL</strong></p>
+                    <p lang="en" class="boxed-title"><strong>Remodeling the Language Model Generation Process</strong></p>
                     <p lang="en">
                         After introducing latent memory variables <span class="nowrap-math">\(m^{1:K-1}\)</span> and initial state <span class="nowrap-math">\(m^0 = \emptyset\)</span>, the autoregressive decomposition is reformulated as:
                     </p>
-                    <p lang="zh"><strong>重新建模语言模型的生成过程：</strong></p>
+                    <p lang="zh" class="boxed-title"><strong>重新建模语言模型的生成过程：</strong></p>
                     <p lang="zh">
                         引入潜在记忆变量<span class="nowrap-math">\(m^{1:K-1}\)</span>和初始状态<span class="nowrap-math">\(m^0 = \emptyset\)</span>后，自回归分解被重新表述为：
                     </p>
@@ -363,7 +371,8 @@
                           \underbrace{p(\mathbf{m}^k \mid \mathbf{c}^k, \mathbf{m}^{k-1})}_{\text{write}}$
                     </div>
 
-                    <h4 lang="zh"><strong>多轮对话强化学习训练 MemAgent </strong></h4>
+                    <h4 lang="zh" class="boxed-title"><strong>多轮对话强化学习训练 MemAgent </strong></h4>
+                    <h4 lang="en" class="boxed-title"><strong>Training MemAgent with Multi-conv RL </strong></h4>
                     <p lang="en">
                         We use Reinforcement Learning with Verifiable Rewards (RLVR), which currently demonstrates outstanding performance in the reasoning domain, to train MemAgent, rather than simple fine-tuning or instruction engineering. For this purpose, we extend the existing DAPO algorithm to further support end-to-end optimization of AgentWorkflow with multi-conversation independent dialogues.
                     </p>
