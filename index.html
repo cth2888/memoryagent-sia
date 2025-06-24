@@ -257,8 +257,6 @@
     </div>
 </section>
 
-</section>
-
 <section class="section" id="method">
     <div class="container">
         <div class="columns is-centered">
@@ -269,82 +267,56 @@
                 </h2>
                 <div class="content">
 
-                    <p lang="en">
-                        Inspired by human strategies for long-text comprehension and neural memory models such as Neural Turing Machines and Memory Networks, we propose a novel architecture-free framework called <strong>Memory Agent</strong>, which equips LLMs with a dynamically updated memory module.
+                    <h3 class="title is-4" lang="zh">Memory Agent 框架</h3>
+                    <p lang="zh">
+                        受人类处理长文本时的行为模式启发，并借鉴了Nerual Truing machine和Memory Network等神经网络与记忆机制结合的工作，我们提出了一种无需修改模型架构的长文处理新方案：
+                    </p>
+                    <p lang="zh" style="color:#3273dc;">
+                        <strong>| 给LLM装上动态更新的“记忆模块”</strong>
                     </p>
                     <p lang="zh">
-                        受人类处理长文本时的行为模式启发，并借鉴了Neural Turing Machine和Memory Network等神经网络与记忆机制结合的工作，我们提出了一种无需修改模型架构的长文处理新方案——<strong>Memory Agent</strong>，
-                        <br><strong style="color:#3273dc;">| 给LLM装上动态更新的记忆模块</strong>。
+                        Memory Agent 引入了一个固定长度的辅助记忆面板，允许模型在处理长文本时以分段的方式读取输入，并在每一段之后主动更新记忆状态，从而实现“局部处理 + 全局融合”的新型工作流。该记忆模块在推理过程中不断动态更新，并在所有段落处理完毕后，通过聚合记忆中的关键信息协助生成最终输出。
                     </p>
 
-                    <p lang="en">
-                        <strong>Memory Agent</strong> introduces a fixed-size auxiliary memory panel that allows the model to read long texts in segments and update memory after each segment. This forms a new "local processing + global fusion" workflow. During inference, the memory is dynamically written and aggregated to generate the final output.
-                    </p>
+                    <hr>
+
+                    <h3 class="title is-4" lang="zh">传统文本建模</h3>
                     <p lang="zh">
-                        <strong>Memory Agent</strong>引入了一个固定长度的辅助记忆面板，允许模型在处理长文本时以分段方式读取输入，并在每一段后主动更新记忆状态，从而实现“局部处理 + 全局融合”的新型工作流。该记忆模块在推理过程中不断更新，并在所有段落处理完毕后聚合关键信息生成最终输出。
+                        传统的自回归语言模型通过以下方式建模长度为N的token序列：
+                    </p>
+                    <div class="content has-text-centered">
+                        $$p(\mathbf{x}_{1:N})=p(x_1)\prod_{n=2}^{N}p(x_n \mid \mathbf{x}_{1:n-1})$$
+                    </div>
+                    <p lang="zh">
+                        这种方法需要缓存所有先前生成的token，导致计算成本随序列长度呈二次方增长。
                     </p>
 
-                    <figure class="image" style="max-width: 800px; margin: 2rem auto;">
+                    <hr>
+
+                    <h3 class="title is-4" lang="zh">Memory Agent核心架构</h3>
+                    <ul lang="zh">
+                        <li><strong>分块处理：</strong> 将输入序列分割为K个连续块 <span class="nowrap-math">\((c^1, c^2, \ldots, c^K)\)</span>，每块最多包含 <span class="nowrap-math">\(C\)</span> 个token。</li>
+                        <li><strong>循环处理：</strong> 按块顺序处理，每块的计算成本保持恒定。</li>
+                        <li><strong>重新建模语言模型的生成过程</strong></li>
+                    </ul>
+                    <p lang="zh">
+                        引入潜在记忆变量 <span class="nowrap-math">\(m^{1:K-1}\)</span> 和初始状态 <span class="nowrap-math">\(m^0 = \varnothing\)</span> 后，自回归分解被重新表述为：
+                    </p>
+                    <div class="content has-text-centered">
+                        $$p(\mathbf{x}_{1:N}) = \sum_{\mathbf{m}^{1:K-1}} \prod_{k=1}^{K}
+                        \underbrace{p(\mathbf{c}^k \mid \mathbf{m}^{k-1})}_{\text{read}} \cdot
+                        \underbrace{p(\mathbf{m}^k \mid \mathbf{c}^k, \mathbf{m}^{k-1})}_{\text{write}}$$
+                    </div>
+                     <figure class="image" style="max-width: 800px; margin: 2rem auto;">
                         <img src="figs/method_00.png" alt="Memory Agent Architecture Overview">
                     </figure>
 
-                    <p lang="en"><strong>Traditional Modeling:</strong></p>
-                    <p lang="en">
-                        Conventional autoregressive language models represent a token sequence of length N as:
-                    </p>
-
-                    <p lang="zh"><strong>传统建模方式：</strong></p>
-                    <p lang="zh">
-                        传统自回归语言模型通常对长度为N的token序列建模如下：
-                    </p>
-                    <div class="content has-text-centered">
-                        $$p(\mathbf{x}_{1:N}) = p(x_1) \prod_{n=2}^{N} p(x_n \mid \mathbf{x}_{1:n-1})$$
-                    </div>
-                    <p lang="en">
-                        This requires caching all historical tokens, leading to quadratic complexity in computation and memory usage.
-                    </p>
-                    <p lang="zh">
-                        该方法需要缓存全部历史token，导致计算和显存消耗随序列长度呈二次方增长。
-                    </p>
-                    
                     <hr>
-                    
-                    <p lang="en"><strong>Memory Agent Architecture:</strong></p>
-                    <p lang="en">
-                      To overcome this bottleneck, <strong>Memory Agent</strong> introduces a memory-augmented decoding scheme:
-                    </p>
-                    <ul lang="en">
-                      <li><strong>Chunking:</strong> The input sequence is divided into K segments <span class="nowrap-math">\((c^1, c^2, \ldots, c^K)\)</span>, each with ≤ C tokens.</li>
-                      <li><strong>Iterative Processing:</strong> Each chunk is processed sequentially with fixed computation cost per chunk.</li>
-                      <li><strong>Memory Injection:</strong> A latent memory state <span class="nowrap-math">\(m^k\)</span> is updated after each chunk to influence the next step.</li>
-                    </ul>
-                    
-                    
-                    <p lang="zh"><strong>Memory Agent 核心架构：</strong></p>
-                    <p lang="zh">
-                      Memory Agent 引入一种“分块+记忆”的机制，以线性复杂度支持任意长度文本：
-                    </p>
-                    <ul lang="zh">
-                      <li><strong>分块处理：</strong> 将输入序列划分为 K 个连续块 <span class="nowrap-math">\((c^1, c^2, \ldots, c^K)\)</span>，每块最多包含 C 个 token。</li>
-                      <li><strong>顺序处理：</strong> 按顺序处理每一块，单块计算复杂度固定。</li>
-                      <li><strong>引入记忆：</strong> 每一块处理后更新潜在记忆状态 <span class="nowrap-math">\(m^k\)</span>，用于下一块生成。</li>
-                    </ul>
-                    <div class="content has-text-centered">
-                          $$p(\mathbf{x}_{1:N}) = \sum_{\mathbf{m}^{1:K-1}} \prod_{k=1}^{K}
-                          \underbrace{p(\mathbf{c}^k \mid \mathbf{m}^{k-1})}_{\text{读取}} \cdot
-                          \underbrace{p(\mathbf{m}^k \mid \mathbf{c}^k, \mathbf{m}^{k-1})}_{\text{写入}}$$
-                    </div>
 
-                    <h4 lang="en"><strong>Reinforcement Learning Optimization</strong></h4>
-                    <h4 lang="zh"><strong>强化学习训练机制</strong></h4>
-                    
-                    <p lang="en">
-                        We adopt Reinforcement Learning with Verifiable Results (RLVR), a method proven effective in reasoning, to train Memory Agent. Instead of conventional fine-tuning or instruction engineering, we extend the DAPO algorithm to support end-to-end optimization of multi-turn dialogue workflows.
-                    </p>
+                    <h3 class="title is-4" lang="zh">Memory agent 强化学习训练流程：</h3>
                     <p lang="zh">
-                        我们采用强化学习方案RLVR（基于可验证结果的强化学习），而非简单微调或指令工程，来训练Memory Agent。我们对现有DAPO算法进行了扩展，使其支持多轮独立对话Agent工作流的端到端优化。
+                        我们使用目前在推理领域表现出卓越性能的基于可验证结果的强化学习（RLVR)来训练Memory agent，而非简单的进行微调或指令工程。为此，我们扩展了现有的DAPO算法，使其进一步支持了具有多轮独立对话的AgentWorkflow的端到端优化。
                     </p>
-                    
                     <div class="columns is-vcentered">
                         <div class="column">
                             <figure class="image">
@@ -358,16 +330,12 @@
                         </div>
                     </div>
 
-
-                    <h4 lang="en"><strong>Multi-Turn Dialog RL Training</strong></h4>
-                    <h4 lang="zh"><strong>多轮对话强化学习机制</strong></h4>
-
-                    <p lang="en">
-                        For each sample, multiple independent dialog sequences are generated in parallel. The final answer is selected to compute a reward, which is then distributed intelligently across all related dialogues. Chunk-level token losses are computed under a 3D optimization structure: (group, turn, token).
-                    </p>
-                    <p lang="zh">
-                        在训练过程中，每个输入样本会并行生成多组独立的对话序列。系统根据最终的回答确定奖励值，并通过组归一化方式将其智能分配到所有相关对话中。损失以chunk为单位计算，优化结构包含“组别-对话轮次-token”三维。
-                    </p>
+                    <h4 class="title is-5" lang="zh">多轮对话训练机制：</h4>
+                    <p lang="zh">对于每个输入样本，会通过模型并行生成多组独立对话序列。</p>
+                    <h4 class="title is-5" lang="zh">奖励计算与分配：</h4>
+                    <p lang="zh">系统根据最后一组回答，识别最终答案，计算其奖励值，然后将该奖励通过组归一化方式智能分配到所有关联对话序列。</p>
+                    <h4 class="title is-5" lang="zh">策略优化目标：</h4>
+                    <p lang="zh">以每个chunk为单位计算损失（如下图所示），采用（组别、对话轮次、token）三维优化结构，整个过程保持各对话的独立性：</p>
                     <div class="column">
                         <figure class="image">
                             <img src="figs/train_loss.png" alt="Train loss">
