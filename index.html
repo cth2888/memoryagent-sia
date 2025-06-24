@@ -197,9 +197,7 @@
                 </div>
             </div>
         </div>
-    </section>
-
-<section class="section" id="introduction">
+    </section><section class="section" id="introduction">
     <div class="container">
         <div class="columns is-centered">
             <div class="column is-10">
@@ -210,15 +208,15 @@
                 <div class="content">
 
                     <p lang="en">
-                        We present <strong>RL-Memory Agent</strong>, a novel framework for long-text processing that directly optimizes task performance through end-to-end reinforcement learning, without any architectural modifications to the base model.
+                        We propose <strong>RL-Memory Agent</strong>, a novel long-context processing framework that directly optimizes long-context tasks through end-to-end reinforcement learning, without modifying the underlying model architecture.
                     </p>
                     <p lang="zh">
                         我们推出了<strong>RL-Memory Agent</strong>，这是一个全新的长文本处理框架，能够通过端到端的强化学习直接优化长文本任务性能，而无需更改底层模型架构。
                     </p>
-                    <p lang="en">
-                        <strong>RL-Memory Agent</strong> achieves three major breakthroughs:
-                    </p>
 
+                    <p lang="en">
+                        <strong>RL-Memory Agent</strong> achieves three core breakthroughs:
+                    </p>
                     <p lang="zh">
                         <strong>RL-Memory Agent</strong> 实现了三大核心突破：
                     </p>
@@ -231,8 +229,8 @@
                                         1
                                     </div>
                                     <div>
-                                        <p style="margin: 0; line-height: 1.4;" lang="en"><strong>Novel memory mechanism: </strong>
-                                            It introduces a notebook-style workflow where the agent reads input in segments and efficiently updates memory using an overwrite strategy. This enables handling virtually unlimited-length inputs within a fixed context window, fundamentally breaking the hard length limits of Transformer models.</p>
+                                        <p style="margin: 0; line-height: 1.4;" lang="en"><strong>Novel Memory Mechanism:</strong>
+                                            We introduce a notepad-style agent workflow, where the agent reads input text segment-by-segment and efficiently updates a fixed-length memory via an overwrite strategy. This allows the model to handle virtually arbitrary-length inputs within a fixed context window, fundamentally overcoming the rigid window-size limitation of traditional Transformers.</p>
                                         <p style="margin: 0; line-height: 1.4;" lang="zh"><strong>新型记忆机制：</strong>
                                             我们引入了一种记事本式的工作流，Agent 以分段方式读取文本，并借助覆写策略高效更新记忆。该设计使得模型能够在固定上下文窗口内处理几乎任意长度的输入，从根本上突破了传统 Transformer 架构的窗口长度限制。</p>
                                     </div>
@@ -244,10 +242,10 @@
                                         2
                                     </div>
                                     <div>
-                                    <p style="margin: 0; line-height: 1.4;" lang="en"><strong>O(n) linear complexity:</strong> 
-                                        The agent design decouples compute and memory cost from input length, reducing the processing burden from quadratic to linear with respect to input size.</p>
-                                    <p style="margin: 0; line-height: 1.4;" lang="zh"><strong>O(n) 线性复杂度：</strong>
-                                        这一创新性的 Agent 设计将计算与显存开销与文本长度解耦，使得处理长文本的复杂度由原本的二次方增长转变为线性增长。</p>
+                                        <p style="margin: 0; line-height: 1.4;" lang="en"><strong>O(n) Linear Complexity:</strong>
+                                            This innovative agent design decouples computational and memory cost from input length, achieving linear complexity in processing long text and overcoming the quadratic bottleneck of traditional attention mechanisms.</p>
+                                        <p style="margin: 0; line-height: 1.4;" lang="zh"><strong>O(n) 线性复杂度：</strong>
+                                            这一创新性的 Agent 设计将计算与显存开销与文本长度解耦，使得处理长文本的复杂度由原本的二次方增长转变为线性增长。</p>
                                     </div>
                                 </div>
 
@@ -257,8 +255,8 @@
                                         3
                                     </div>
                                     <div>
-                                        <p style="margin: 0; line-height: 1.4;" lang="en"><strong>RL-driven extrapolation:</strong>
-                                            A modified GRPO algorithm supports training on multi-turn generation tasks with independent contexts. As a result, models trained with 32K contexts can extrapolate to 3.5M-token sequences with <5% performance drop.</p>
+                                        <p style="margin: 0; line-height: 1.4;" lang="en"><strong>RL-Driven Extrapolation:</strong>
+                                            We enhance the GRPO algorithm to support multi-turn training over context-independent conversations. The resulting Memory Agent, trained on 32K context data, can extrapolate to 3.5M-token QA tasks with less than 5% performance degradation.</p>
                                         <p style="margin: 0; line-height: 1.4;" lang="zh"><strong>强化学习驱动的外推能力:</strong>
                                             我们改进了 GRPO 算法，使其支持独立上下文的多轮生成训练。基于此，训练出的 Memory Agent 在32K上下文长度的数据上训练后，能够无损外推至3.5M token的问答任务中，性能下降低于5%。</p>
                                     </div>
@@ -267,7 +265,7 @@
                     </div>
 
                     <p lang="en">
-                        In a simple yet effective way, we demonstrate—for the first time—a trainable memory ability empowered by reinforcement learning. RL-Memory Agent showcases the untapped potential of optimizing specialized workflows via policy learning rather than architectural changes.
+                        Through a simple yet effective design, we demonstrate the first truly trainable memory mechanism powered by reinforcement learning, showcasing the vast potential of applying RL to optimize task-specific agent workflows.
                     </p>
                     <p lang="zh">
                         我们以一种简洁而高效的方式，首次实现了真正意义上的、由强化学习赋予的可训练记忆能力，充分展现了强化学习在优化特定工作流方面的巨大潜力。
@@ -282,6 +280,7 @@
     </div>
 </section>
 
+
 <section class="section" id="method">
     <div class="container">
         <div class="columns is-centered">
@@ -294,7 +293,7 @@
 
                     <p lang="en">
                         Inspired by human strategies for long-text comprehension and neural memory models such as Neural Turing Machines and Memory Networks, we propose a novel architecture-free framework called <strong>Memory Agent</strong>
-                       <br><strong style="color:#3273dc;">| Equips LLMs with a dynamically updated memory module."</strong>。
+                        <br><strong style="color:#3273dc;">| Equips LLMs with a dynamically updated memory module.</strong>
                     </p>
                     <p lang="zh">
                         受人类处理长文本时的行为模式启发，并借鉴了Neural Turing Machine和Memory Network等神经网络与记忆机制结合的工作，我们提出了一种无需修改模型架构的长文处理新方案——<strong>Memory Agent</strong>：
@@ -335,13 +334,12 @@
                     
                     <p lang="en"><strong>Memory Agent Core Architecture:</strong></p>
                     <p lang="en">
-                      To overcome this bottleneck, <strong>Memory Agent</strong> introduces a memory-augmented decoding scheme:
+                        To overcome this bottleneck, <strong>Memory Agent</strong> introduces a memory-augmented decoding scheme:
                     </p>
                     <ol lang="en">
                       <li><strong>Chunking:</strong> The input sequence is divided into K consecutive chunks <span class="nowrap-math">\((c^1, c^2, \ldots, c^K)\)</span>, each containing at most <span class="nowrap-math">\(C\)</span> tokens.</li>
                       <li><strong>Sequential Processing:</strong> Each chunk is processed sequentially with constant computational cost per chunk.</li>
                     </ol>
-                    
                     
                     <p lang="zh"><strong>Memory Agent 核心架构：</strong></p>
                     <ol lang="zh">
@@ -395,6 +393,7 @@
 
                     <p lang="en"><strong>Policy Optimization Objective:</strong> Loss is computed on a per-chunk basis (as shown in the figure below), using a three-dimensional optimization structure (group, dialog turn, token), while maintaining the independence of each dialog throughout the process:</p>
                     <p lang="zh"><strong>策略优化目标：</strong>以每个chunk为单位计算损失（如下图所示），采用（组别、对话轮次、token）三维优化结构，整个过程保持各对话的独立性：</p>
+                    
                     <div class="has-text-centered">
                         <p>
                             $$ 
@@ -414,6 +413,7 @@
         </div>
     </div>
 </section>
+
 
 
 
