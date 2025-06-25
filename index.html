@@ -2,7 +2,15 @@
 <html lang="en">
 <head>
     <meta charset="utf-8" />
-    <meta name="description"
+    <meta name="descripti基线模型：现有模型在面对超长序列时均出现显著的性能退化：
+
+DS-distill系列：context内性能随长度呈迅速衰减到极低水平，超出context window因丢失信息基本失效。
+QwenLong-L1系列：后训练长度为60K，在此之内的性能下降约为10%。从64K到112K的下降则超过28%，尽管此时尚在context window长度之内。
+Qwen2.5-Instruct-1M系列：context内性能下降平缓，但在尚在1M上下文长度范围内的896K测试上便已降至0。
+RL-MemAgent： 相比之下，RL-MemAgent在超长文本处理中展现了优异的稳定性：
+
+RL-MemAgent-14B：在3.5M token任务上性能下降<5.5%，实现了真正意义上的无损外推。
+RL-MemAgent-7B：在最长文本上仅出现<11%的性能下降，整体表现远超现有长文本模型。aon"
         content="MemAgent: Reshaping Long-Context LLM with Multi-Conv RL based Memory Agent" />
     <meta name="Long context, reasoning, large lanuge model, LLM"
         content="MemAgent" />
@@ -489,7 +497,7 @@
                 <ul lang="en">
                   <li><strong>Base Model:</strong> After exceeding the training window, information loss leads to sharp performance decline, unable to achieve extrapolation.</li>
                   <li><strong>MemAgent (w/o RL):</strong> Has certain processing capabilities, but still shows obvious performance loss on long text tasks.</li>
-                  <li><strong>RL-MemAgent:</strong> Reinforcement learning training significantly improves extrapolation capability, achieving near-lossless performance.</li>
+                  <li><strong>RL-MemAgent:</strong> Reinforcement learning training significantly improves extrapolation capability, achieving nearly lossless performance.</li>
                 </ul>
           </p>
 
@@ -651,7 +659,7 @@
                                         3
                                     </div>
                                     <div>
-                                        <p style="margin: 0; line-height: 1.4;" lang="en"><strong>Extrapolation Performance:</strong> Through extensive empirical evaluation, we demonstrate that our RL-trained method allows models to extrapolate far beyond their training context length without significant performance degradation, substantially expanding the capability frontier of current long-context LLM systems.</p>
+                                        <p style="margin: 0; line-height: 1.4;" lang="en"><strong>Extrapolation Performance:</strong> Through extensive empirical evaluation, we demonstrate that our Multi-conv RL method allows models to extrapolate far beyond their training context length with almost lossless performance during testing, substantially expanding the capability frontier of current long-context LLM systems.</p>
 
                                         <p style="margin: 0; line-height: 1.4;" lang="zh"><strong>性能外推验证：</strong>
                                             通过大量实验验证，我们证明了基于强化学习训练的方法能够让模型成功<strong>无损外推</strong>到远超训练长度的文档上，大幅扩展了当前长文本大语言模型系统的处理边界。</p>
