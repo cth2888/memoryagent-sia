@@ -3,11 +3,11 @@
 <head>
     <meta charset="utf-8" />
     <meta name="description"
-        content="MemAgent: Reshaping Long-Context LLM with Mult-Conv RL based Memory Agent" />
+        content="MemAgent: Reshaping Long-Context LLM with Multi-Conv RL based Memory Agent" />
     <meta name="Long context, reasoning, large lanuge model, LLM"
         content="MemAgent" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>MemAgent: Reshaping Long-Context LLM with Mult-Conv RL based Memory Agent</title>
+    <title>MemAgent: Reshaping Long-Context LLM with Multi-Conv RL based Memory Agent</title>
 
     <link href="https://fonts.googleapis.com/css?family=Google+Sans|Noto+Sans|Castoro" rel="stylesheet" />
     <link rel="stylesheet" href="./css/bulma.min.css" />
@@ -132,8 +132,8 @@
     <div class="container">
       <div class="has-text-centered">
         <h1 class="publication-title">
-          <span lang="en"><em class="dnerf">MemAgent</em>: Reshaping Long-Context LLM with Mult-Conv RL based Memory Agent</span>
-          <span lang="zh"><em class="dnerf">MemAgent</em>：Reshaping Long-Context LLM with Mult-Conv RL based Memory Agent</span>
+          <span lang="en"><em class="dnerf">MemAgent</em>: Reshaping Long-Context LLM with Multi-Conv RL based Memory Agent</span>
+          <span lang="zh"><em class="dnerf">MemAgent</em>：Reshaping Long-Context LLM with Multi-Conv RL based Memory Agent</span>
         </h1>
 
         <div class="publication-authors">
@@ -319,6 +319,9 @@
 
                     <figure class="image" style="max-width: 800px; margin: 2rem auto;">
                         <img src="figs/method_00.png" alt="MemAgent Architecture Overview">
+                            <figcaption>
+                                <span>MemAgent Architecture Overview</span>
+                            </figcaption>
                     </figure>
 
                     <p lang="en" class="boxed-title"><strong>Traditional Text Modeling:</strong></p>
@@ -379,12 +382,18 @@
                     <div class="columns is-vcentered">
                         <div class="column">
                             <figure class="image">
-                                <img src="figs/algo_00.png" alt="RL Flow">
+                                <img src="figs/algo_00.png" alt="Comparison between vanilla GRPO and Multi-Conv DAPO">
+                                <figcaption>
+                                    <span>Comparison between vanilla GRPO and Multi-Conv DAPO</span>
+                                  </figcaption>
                             </figure>
                         </div>
                         <div class="column">
                             <figure class="image">
-                                <img src="figs/template.png" alt="RL Template" style="width: 120%;">
+                                <img src="figs/template.png" alt="Template of MemAgent for context processing (top part) and final answer generation (bottom)" style="width: 120%;">
+                                <figcaption>
+                                    <span>Template of MemAgent for context processing (top part) and final answer generation (bottom)</span>
+                                </figcaption>
                             </figure>
                         </div>
                     </div>
