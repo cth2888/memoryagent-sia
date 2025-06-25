@@ -2,15 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="utf-8" />
-    <meta name="descripti基线模型：现有模型在面对超长序列时均出现显著的性能退化：
-
-DS-distill系列：context内性能随长度呈迅速衰减到极低水平，超出context window因丢失信息基本失效。
-QwenLong-L1系列：后训练长度为60K，在此之内的性能下降约为10%。从64K到112K的下降则超过28%，尽管此时尚在context window长度之内。
-Qwen2.5-Instruct-1M系列：context内性能下降平缓，但在尚在1M上下文长度范围内的896K测试上便已降至0。
-RL-MemAgent： 相比之下，RL-MemAgent在超长文本处理中展现了优异的稳定性：
-
-RL-MemAgent-14B：在3.5M token任务上性能下降<5.5%，实现了真正意义上的无损外推。
-RL-MemAgent-7B：在最长文本上仅出现<11%的性能下降，整体表现远超现有长文本模型。"
+    <meta name="description"
         content="MemAgent: Reshaping Long-Context LLM with Multi-Conv RL based Memory Agent" />
     <meta name="Long context, reasoning, large lanuge model, LLM"
         content="MemAgent" />
@@ -96,8 +88,8 @@ RL-MemAgent-7B：在最长文本上仅出现<11%的性能下降，整体表现�
         <div class="container">
             <div class="navbar-brand">
                 <a class="navbar-item" href="#">
-                    <img src="figs/gensi.png" alt="GenSI logo" style="height: 3.0rem; max-height: unset; margin-right: 0.5rem;">
-                    <img src="figs/seed_logo.png" alt="Seed logo" style="height: 3.0rem; max-height: unset; margin-right: 0.5rem;">
+                    <img src="figs/seed_logo.png" alt="Seed logo" style="height: 2.0rem; max-height: unset; margin-right: 0.5rem;">
+                    <img src="figs/gensi.png" alt="GenSI logo" style="height: 2.0rem; max-height: unset; margin-right: 0.5rem;">
                     | MemAgent
                     
                 </a>
