@@ -277,7 +277,7 @@
                     <strong><em style="color: #3a76ed"><p lang="zh">
                         我们以一种简洁而高效的方式，首次实现了真正意义上的、由强化学习赋予的可训练记忆能力，充分展现了强化学习在优化工作流方面的巨大潜力。
                     </p></em></strong>
-                    <figure class="image">
+                    <figure class="image" style="max-width: 800px; margin: 2rem auto;">
                       <img src="figs/main_result_00.png" alt="Main Result Fig">
                     </figure>
 
@@ -387,8 +387,8 @@
                         </div>
                     </div>
 
-                    <p lang="en"><strong>Multi-Conv Training Mechanism:</strong> For each input sample, multiple sets of independent conversation sequences are generated in parallel through the model.</p>
-                    <p lang="zh"><strong>多轮对话训练机制：</strong>对于每个输入样本，会通过模型并行生成多组独立对话序列。</p>
+                    <p lang="en"><strong></p>
+                    <p lang="zh"><strong>多轮对话训练机制：</strong>对于每个输入样本，模型生成多次回答，每次回答的输入不能通过简单的拼接此前的生成轨迹获得，而是具有独立的输入，区别于工具调用中使用多轮拼接轨迹作为输入的方式。</p>
 
                     <p lang="en"><strong>Reward Calculation and Distribution:</strong> The system identifies the final answer based on the last set of responses, calculates its reward value, then intelligently distributes this reward to all associated conversation sequences through group normalization.</p>
                     <p lang="zh"><strong>奖励计算与分配：</strong>系统根据最后一组回答，识别最终答案，计算其奖励值，然后将该奖励通过组归一化方式智能分配到所有关联对话序列。</p>
@@ -458,7 +458,7 @@
           </p>
 
 
-            <figure class="image">
+            <figure class="image" style="max-width: 800px; margin: 2rem auto;">
                 <img src="figs/main_result.png" alt="Main Result Table">
             </figure>
 
