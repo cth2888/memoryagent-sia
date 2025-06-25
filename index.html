@@ -346,7 +346,18 @@
                     <p lang="zh">
                         引入潜在记忆变量<span class="nowrap-math">\(m^{1:K-1}\)</span>和初始状态<span class="nowrap-math">\(m^0 = \emptyset\)</span>后，自回归分解被重新表述为：
                     </p>
+                    
+                    <p lang="en" class="boxed-title"><strong>MemAgent Core Architecture:</strong></p>
+                    <ol lang="en">
+                      <li><strong>Chunk Processing:</strong> Divide the input sequence into K contiguous chunks <span class="nowrap-math">\((c^1, c^2, \ldots, c^K)\)</span>, with each chunk containing at most <span class="nowrap-math">\(C\)</span> tokens.</li>
+                      <li><strong>Iterative Processing:</strong> Process chunks sequentially, maintaining constant computational cost per chunk.</li>
+                    </ol>
 
+                    <p lang="zh" class="boxed-title"><strong>MemAgent 核心架构：</strong></p>
+                    <ol lang="zh">
+                      <li><strong>分块处理：</strong> 将输入序列分割为K个连续块 <span class="nowrap-math">\((c^1, c^2, \ldots, c^K)\)</span>，每块最多包含 <span class="nowrap-math">\(C\)</span> 个token。</li>
+                      <li><strong>循环处理：</strong> 按块顺序处理，每块的计算成本保持恒定。</li>
+                    </ol>
                     <div class="math-center">
                           $p(\mathbf{x}_{1:N}) = \sum_{\mathbf{m}^{1:K-1}} \prod_{k=1}^{K}
                           \underbrace{p(\mathbf{c}^k \mid \mathbf{m}^{k-1})}_{\text{read}} \cdot
@@ -426,7 +437,7 @@
                 <ul lang="zh">
                   <li>DS-distill系列：context内性能随长度呈迅速衰减到极低水平，超出context window因丢失信息基本失效。</li>
                   <li>QwenLong-L1系列：后训练长度为60K，在此之内的性能下降约为10%。从64K到112K的下降则超过28%，尽管此时尚在context window长度之内。</li>
-                  <li>context内性能下降平缓，但在尚在1M上下文长度范围内的896K测试上便已降至0</li>
+                  <li>context内性能下降平缓，但在尚在1M上下文长度范围内的896K测试上便已降至0。</li>
                 </ul>
           </p>
 
@@ -439,8 +450,8 @@
           <p lang="zh">
                 <strong>RL-MemAgent：</strong> 相比之下，RL-MemAgent在超长文本处理中展现了优异的稳定性：
                 <ul lang="zh">
-                  <li>RL-MemAgent-14B：在3.5M token任务上性能下降<5.5%，实现了真正意义上的无损外推 </li>
-                  <li>RL-MemAgent-7B：在最长文本上仅出现<11%的性能下降，整体表现远超现有长文本模型 </li>
+                  <li>RL-MemAgent-14B：在3.5M token任务上性能下降<5.5%，实现了真正意义上的无损外推。 </li>
+                  <li>RL-MemAgent-7B：在最长文本上仅出现<11%的性能下降，整体表现远超现有长文本模型。 </li>
                 </ul>
           </p>
 
