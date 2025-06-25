@@ -264,7 +264,7 @@
                                     <div>
                                         <p style="margin: 0; line-height: 1.4;" lang="en"><strong>RL-driven extrapolation:</strong> We enhance the DAPO algorithm to support multi-turn training over context-independent conversations. Based on this, the trained model exhibits unprecedented extrapolation performance.</p>
                                         <p style="margin: 0; line-height: 1.4;" lang="zh"><strong>强化学习驱动的外推能力:</strong>
-                                            我们改进了 DAPO 算法，使其支持独立上下文的多轮生成训练。 基于此，训练出的模型表现出了可观的外推性能。
+                                            我们改进了 DAPO 算法，使其支持独立上下文的多轮生成训练。 基于此训练出的模型表现出了可观的外推性能。
                                         </p>
                                     </div>
                                 </div>                                
@@ -359,7 +359,7 @@
                     <p lang="en"><strong></strong></p>
                     <p lang="zh"><strong>多轮对话训练机制：</strong>对于每个输入样本，模型生成多次回答，每次回答的输入不能通过简单的拼接此前的生成轨迹获得，而是具有独立的输入，区别于工具调用中使用多轮拼接轨迹作为输入的方式。</p>
                     <p lang="en"><strong>Reward Calculation and Distribution:</strong> The system identifies the final answer based on the last set of responses, calculates its reward value, then intelligently distributes this reward to all associated conversation sequences through group normalization.</p>
-                    <p lang="zh"><strong>奖励计算与分配：</strong>系统根据最后一组回答，识别最终答案，计算其奖励值，然后将该奖励通过组归一化方式智能分配到所有关联对话序列。</p>
+                    <p lang="zh"><strong>奖励计算与分配：</strong>根据最后一组回答识别最终答案，计算其奖励值并通过组归一化计算优势，将其分配到所有关联对话。</p>
 
                     <p lang="en"><strong>Policy Optimization Objective:</strong> Loss is calculated per chunk, adopting a three-dimensional optimization structure of (group, conversation round, token), maintaining independence of each conversation throughout the process.</p>
                     <p lang="zh"><strong>策略优化目标：</strong>以每轮对话为优化目标，根据其优势计算目标函数，并进行token-level平均。</p>
