@@ -391,7 +391,7 @@
                     <p lang="zh"><strong>奖励计算与分配：</strong>系统根据最后一组回答，识别最终答案，计算其奖励值，然后将该奖励通过组归一化方式智能分配到所有关联对话序列。</p>
 
                     <p lang="en"><strong>Policy Optimization Objective:</strong> Loss is calculated per chunk, adopting a three-dimensional optimization structure of (group, conversation round, token), maintaining independence of each conversation throughout the process.</p>
-                    <p lang="zh"><strong>策略优化目标：</strong>以每个chunk为单位计算损失（如下图所示），采用（组别、对话轮次、token）三维优化结构，整个过程保持各对话的独立性：</p>
+                    <p lang="zh"><strong>策略优化目标：</strong>以每个chunk为单位计算损失，采用（组别、对话轮次、token）三维优化结构，整个过程保持各对话的独立性：</p>
                     <div class="math-center">
                       $$
                       \begin{aligned}
@@ -664,7 +664,7 @@
         </h2>
         <div class="content">
           <p lang="zh">
-            <strong>MemAgent</strong> 的成功不仅依赖于理论方法，还得益于工程系统支持。我们提出了一种适配大模型训练的新型异步架构，并实现了接口统一，显著提升了训练效率与易用性。
+            我们实现了一个纯异步版本的工程，使用统一接口做到了<strong>“Agent as a function”</strong>，仅需定义一个函数，即可实现任意agent workflow。
           </p>
           <ul lang="zh">
             <li><strong>纯异步流水线：</strong> GPU/CPU资源解耦，<code>AsyncLLMEngine</code> 负责多节点推理，<code>Ray Worker</code>管理常驻CPU任务池，通过协程完成资源调度。</li>
@@ -673,7 +673,7 @@
           </ul>
 
           <p lang="en">
-            The success of <strong>MemAgent</strong> is not only attributed to its theoretical design, but also to the innovative support from the engineering system. We introduce a infrastration optimized for large-scale model training, with unified interfaces that significantly improve training efficiency and usability.
+              We have implemented a fully asynchronous training framework that achieves <strong>"Agent as a Function"</strong> through a unified interface, requiring only the definition of a single function to implement arbitrary agent workflows.
           </p>
           <ul lang="en">
             <li><strong>Fully Asynchronous Pipeline:</strong> GPU and CPU resources are decoupled. <code>AsyncLLMEngine</code> handles multi-node inference while <br/><code>Ray Worker</code> manages a persistent CPU task pool, and resource scheduling is completed via coroutines.</li>
