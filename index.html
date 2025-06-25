@@ -88,6 +88,8 @@
         <div class="container">
             <div class="navbar-brand">
                 <a class="navbar-item" href="#">
+                    <img src="figs/seed_loge.png" alt="Seed logo" style="height: 2.0rem; max-height: unset; margin-right: 0.5rem;">
+                    <img src="figs/gensi.jpg" alt="GenSI logo" style="height: 2.0rem; max-height: unset; margin-right: 0.5rem;">
                     | MemAgent
                     
                 </a>
@@ -128,16 +130,6 @@
     
 <section class="hero"> 
   <div class="hero-body">
-      <div class="container" style="margin-top: 1rem; margin-bottom: 1rem;">
-          <div class="columns is-vcentered is-mobile">
-            <div class="column has-text-left">
-              <img src="figs/seed_logo.png" alt="Seed logo" style="height: 2.5rem; max-height: unset; margin-left: 0.5rem;">
-            </div>
-            <div class="column has-text-right">
-              <img src="figs/gensi.png" alt="GenSI logo" style="height: 2.5rem; max-height: unset; margin-right: 0.5rem;">
-            </div>
-          </div>
-        </div>
 
     <div class="container">
       <div class="has-text-centered">
@@ -455,18 +447,18 @@
           <p lang="en">
             <strong>Baseline Models:</strong> Experimental results demonstrate that existing models exhibit significant performance degradation when confronted with ultra-long contexts:
             <ul lang="en">
-              <li>DS-distill series: Performance within context rapidly decays to extremely low levels as length increases, becoming essentially ineffective beyond the context window due to information loss.</li>
-              <li>QwenLong-L1: With post-training length of 60K, performance decline within this range is approximately 10%. The degradation from 64K to 112K exceeds 28%, despite remaining within the context window length.</li>
-              <li>Qwen2.5-Instruct-1M series: Performance decline within context is gradual, but performance drops to zero at 896K testing, still within the 1M context length range.</li>
+              <li><strong>DS-distill series:</strong> Performance within context rapidly decays to extremely low levels as length increases, becoming essentially ineffective beyond the context window due to information loss.</li>
+              <li><strong>QwenLong-L1:</strong> With post-training length of 60K, performance decline within this range is approximately 10%. The degradation from 64K to 112K exceeds 28%, despite remaining within the context window length.</li>
+              <li><strong>Qwen2.5-Instruct-1M series:</strong> Performance decline within context is gradual, but performance drops to zero at 896K testing, still within the 1M context length range.</li>
             </ul>
           </p>
 
           <p lang="zh">
             <strong>基线模型：</strong> 实验结果显示，现有模型在面对超长序列时均出现显著的性能退化：
             <ul lang="zh">
-              <li>DS-distill系列：context内性能随长度呈迅速衰减到极低水平，超出context window因丢失信息基本失效。</li>
-              <li>QwenLong-L1系列：后训练长度为60K，在此之内的性能下降约为10%。从64K到112K的下降则超过28%，尽管此时尚在context window长度之内。</li>
-              <li>Qwen2.5-Instruct-1M系列：context内性能下降平缓，但在尚在1M上下文长度范围内的896K测试上便已降至0。</li>
+              <li><strong>DS-distill系列：</strong>context内性能随长度呈迅速衰减到极低水平，超出context window因丢失信息基本失效。</li>
+              <li><strong>QwenLong-L1系列：</strong>后训练长度为60K，在此之内的性能下降约为10%。从64K到112K的下降则超过28%，尽管此时尚在context window长度之内。</li>
+              <li><strong>Qwen2.5-Instruct-1M系列：</strong>context内性能下降平缓，但在尚在1M上下文长度范围内的896K测试上便已降至0。</li>
             </ul>
           </p>
 
@@ -498,7 +490,7 @@
           <h4 lang="zh"><strong>消融实验</strong></h4>
 
           <p lang="en">
-                我们进行了系统性的消融实验，验证使用强化学习对Memory Agent进行训练的必要性。
+                To systematically validate the necessity of using reinforcement learning for Memory Agent training, we conduct comprehensive ablation experiments.
                 <ul lang="en">
                   <li><strong>Base Model:</strong> After exceeding the training window, information loss leads to sharp performance decline, unable to achieve extrapolation.</li>
                   <li><strong>MemAgent (w/o RL):</strong> Has certain processing capabilities, but still shows obvious performance loss on long text tasks.</li>
