@@ -375,9 +375,8 @@
                         </div>
                     </div>
 
-                    <p lang="en"><strong></p>
+                    <p lang="en"><strong></strong></p>
                     <p lang="zh"><strong>多轮对话训练机制：</strong>对于每个输入样本，模型生成多次回答，每次回答的输入不能通过简单的拼接此前的生成轨迹获得，而是具有独立的输入，区别于工具调用中使用多轮拼接轨迹作为输入的方式。</p>
-
                     <p lang="en"><strong>Reward Calculation and Distribution:</strong> The system identifies the final answer based on the last set of responses, calculates its reward value, then intelligently distributes this reward to all associated conversation sequences through group normalization.</p>
                     <p lang="zh"><strong>奖励计算与分配：</strong>系统根据最后一组回答，识别最终答案，计算其奖励值，然后将该奖励通过组归一化方式智能分配到所有关联对话序列。</p>
 
