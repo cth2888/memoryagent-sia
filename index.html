@@ -497,18 +497,18 @@
           <p lang="en">
                 To systematically validate the necessity of using reinforcement learning for Memory Agent training, we conduct comprehensive ablation experiments.
                 <ul lang="en">
-                  <li><strong>Base Model:</strong> After exceeding the training window, information loss leads to sharp performance decline, unable to achieve extrapolation.</li>
-                  <li><strong>MemAgent (w/o RL):</strong> Has certain processing capabilities, but still shows obvious performance loss on long text tasks.</li>
-                  <li><strong>RL-MemAgent:</strong> Reinforcement learning training significantly improves extrapolation capability, achieving nearly lossless performance.</li>
+                  <li><strong>Base Model:</strong> The original model exhibits severe performance degradation as context length increases, particularly after 112K where inputs are truncated due to context window limitations, making effective extrapolation nearly impossible.</li>
+                  <li><strong>MemAgent (w/o RL):</strong> Compared to the base model, it demonstrates better performance and maintains reasonable capability on tasks exceeding the context length, but still experiences overall performance decline as input length increases.</li>
+                  <li><strong>RL-MemAgent:</strong>The reinforcement learning-trained MemAgent maintains near-lossless extrapolation capability across almost all context lengths.</li>
                 </ul>
           </p>
 
           <p lang="zh">
                 我们进行了系统性的消融实验，验证使用强化学习对Memory Agent进行训练的必要性。
                 <ul lang="zh">
-                  <li><strong>基础模型：</strong> 在超出训练窗口后，信息缺失导致性能急剧下降，无法实现外推。</li>
-                  <li><strong>MemAgent（w/o RL）：</strong> 具备一定处理能力，但在长文本任务下仍出现明显性能损失。</li>
-                  <li><strong>RL-MemAgent：</strong> 强化学习训练显著提升外推能力，达到近乎无损性能。</li>
+                  <li><strong>基础模型：</strong> 原始模型随着上下文长度增加表现出严重的性能下降，特别是在112K之后，由于上下文窗口限制导致输入被截断，使得有效外推几乎不可能实现。</li>
+                  <li><strong>MemAgent（w/o RL）：</strong> 相较于基础模型表现出更好的性能，在超出上下文长度的任务中保持合理的能力，但随着输入长度增加仍然经历整体性能下降。</li>
+                  <li><strong>RL-MemAgent：</strong> 经过强化学习训练的MemAgent在几乎所有上下文长度中保持近乎无损的外推能力</li>
                 </ul>
           </p>
 
