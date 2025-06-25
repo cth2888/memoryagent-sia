@@ -49,8 +49,11 @@
     </script>
     <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js"></script>
 
-
     <style>
+        .left-logo {
+            margin-right: 0.5rem; /* 调整右侧间距，使得其他元素能够与其对齐 */
+            border-radius: 0; /* 移除圆角处理 */
+        }
         .equation-centered {
           text-align: center;
           margin: 2rem 0;
@@ -88,7 +91,7 @@
         <div class="container">
             <div class="navbar-brand">
                 <a class="navbar-item" href="#">
-                    <img src="figs/seed_logo.png" alt="Seed logo" style="height: 1.5rem; max-height: unset;">
+                    <img src="figs/seed_logo.png" alt="Seed logo" style="height: 1.5rem; max-height: unset;" class="left-logo">
                     <img src="figs/gensi.jpg" alt="GenSI logo" style="height: 3.0rem; max-height: unset; margin-right: 0.5rem;">
                     | MemAgent
                     
