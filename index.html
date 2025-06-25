@@ -324,6 +324,55 @@
                             </figcaption>
                     </figure>
 
+                    <h4 lang="zh" class="boxed-title"><strong>多轮对话强化学习训练 MemAgent </strong></h4>
+                    <h4 lang="en" class="boxed-title"><strong>Training MemAgent with Multi-conv RL </strong></h4>
+                    <p lang="en">
+                        We use Reinforcement Learning with Verifiable Rewards (RLVR), which currently demonstrates outstanding performance in the reasoning domain, to train MemAgent, rather than simple fine-tuning or instruction engineering. For this purpose, we extend the existing DAPO algorithm to further support end-to-end optimization of AgentWorkflow with multi-conversation independent dialogues.
+                    </p>
+                    <p lang="zh">
+                        我们使用目前在推理领域表现出卓越性能的基于可验证结果的强化学习（RLVR）来训练MemAgent，而非简单的进行微调或指令工程。为此，我们扩展了现有的DAPO算法，使其进一步支持了具有多轮独立对话的Agent Workflow的端到端优化。
+                    </p>
+
+                    <div class="columns is-vcentered">
+                        <div class="column">
+                            <figure class="image">
+                                <img src="figs/algo_00.png" alt="Comparison between vanilla GRPO and Multi-Conv DAPO">
+                                <figcaption>
+                                    <span>Comparison between vanilla GRPO and Multi-Conv DAPO</span>
+                                  </figcaption>
+                            </figure>
+                        </div>
+                        <div class="column">
+                            <figure class="image">
+                                <img src="figs/template.png" alt="Template of MemAgent for context processing (top part) and final answer generation (bottom)" style="width: 120%;">
+                                <figcaption>
+                                    <span>Template of MemAgent</span>
+                                </figcaption>
+                            </figure>
+                        </div>
+                    </div>
+
+                    <p lang="en"><strong></strong></p>
+                    <p lang="zh"><strong>多轮对话训练机制：</strong>对于每个输入样本，模型生成多次回答，每次回答的输入不能通过简单的拼接此前的生成轨迹获得，而是具有独立的输入，区别于工具调用中使用多轮拼接轨迹作为输入的方式。</p>
+                    <p lang="en"><strong>Reward Calculation and Distribution:</strong> The system identifies the final answer based on the last set of responses, calculates its reward value, then intelligently distributes this reward to all associated conversation sequences through group normalization.</p>
+                    <p lang="zh"><strong>奖励计算与分配：</strong>系统根据最后一组回答，识别最终答案，计算其奖励值，然后将该奖励通过组归一化方式智能分配到所有关联对话序列。</p>
+
+                    <p lang="en"><strong>Policy Optimization Objective:</strong> Loss is calculated per chunk, adopting a three-dimensional optimization structure of (group, conversation round, token), maintaining independence of each conversation throughout the process.</p>
+                    <p lang="zh"><strong>策略优化目标：</strong>以每个chunk为单位计算损失，采用（组别、对话轮次、token）三维优化结构，整个过程保持各对话的独立性：</p>
+                    <div class="math-center">
+                      $$
+                      \begin{aligned}
+                      \mathcal{J}_{\text{DAPO}}(\theta) =\quad &\mathbb{E}_{(q,a)\sim \mathcal{D}, \{o_{i,j}\}_{i=1}^G\sim \pi_{\theta_\text{old}}(\cdot\mid q,~o_{i,j-1})} \\
+                      &\Bigg[\frac{1}{\sum_{i=1}^{G}\sum_{j=1}^{n_i}|o_{i,j}|}\sum_{i=1}^{G}\sum_{j=1}^{n_i}\sum_{t=1}^{|o_{i,j}|}
+                      \Big(\mathcal{C}_{i,j,t} - \beta D_{\text{KL}}(\pi_{\theta} || \pi_{\text{ref}} )\Big) \Bigg] \\
+                      \text{where } \mathcal{C}_{i,j,t} = &\min\Big(r_{i,j,t}(\theta) \hat{A}_{i,j,t},  
+                      \ \text{clip} \Big( r_{i,j,t}(\theta), 1 - {\varepsilon}, 1 + {\varepsilon} \Big) \hat{A}_{i,j,t}\Big)
+                      \end{aligned}
+                      $$
+                    </div>
+
+                    <h4 lang="zh" class="boxed-title"><strong>重新建模语言模型的生成过程 </strong></h4>
+                    <h4 lang="en" class="boxed-title"><strong> </strong></h4>
                     <p lang="en" class="boxed-title"><strong>Traditional Text Modeling:</strong></p>
                     <p lang="en">
                         Traditional autoregressive language models model token sequences of length N through the following approach:
@@ -341,8 +390,6 @@
                     <p lang="zh">
                         这种方法需要缓存所有先前生成的token，导致计算成本随序列长度呈二次方增长。
                     </p>
-
-                    <hr>
 
                     <p lang="en" class="boxed-title"><strong>Remodeling the Language Model Generation Process</strong></p>
                     <p lang="en">
@@ -369,54 +416,6 @@
                           \underbrace{p(\mathbf{c}^k \mid \mathbf{m}^{k-1})}_{\text{read}} \cdot
                           \underbrace{p(\mathbf{m}^k \mid \mathbf{c}^k, \mathbf{m}^{k-1})}_{\text{write}}$
                     </div>
-
-                    <h4 lang="zh" class="boxed-title"><strong>多轮对话强化学习训练 MemAgent </strong></h4>
-                    <h4 lang="en" class="boxed-title"><strong>Training MemAgent with Multi-conv RL </strong></h4>
-                    <p lang="en">
-                        We use Reinforcement Learning with Verifiable Rewards (RLVR), which currently demonstrates outstanding performance in the reasoning domain, to train MemAgent, rather than simple fine-tuning or instruction engineering. For this purpose, we extend the existing DAPO algorithm to further support end-to-end optimization of AgentWorkflow with multi-conversation independent dialogues.
-                    </p>
-                    <p lang="zh">
-                        我们使用目前在推理领域表现出卓越性能的基于可验证结果的强化学习（RLVR）来训练MemAgent，而非简单的进行微调或指令工程。为此，我们扩展了现有的DAPO算法，使其进一步支持了具有多轮独立对话的Agent Workflow的端到端优化。
-                    </p>
-
-                    <div class="columns is-vcentered">
-                        <div class="column">
-                            <figure class="image">
-                                <img src="figs/algo_00.png" alt="Comparison between vanilla GRPO and Multi-Conv DAPO">
-                                <figcaption>
-                                    <span>Comparison between vanilla GRPO and Multi-Conv DAPO</span>
-                                  </figcaption>
-                            </figure>
-                        </div>
-                        <div class="column">
-                            <figure class="image">
-                                <img src="figs/template.png" alt="Template of MemAgent for context processing (top part) and final answer generation (bottom)" style="width: 120%;">
-                                <figcaption>
-                                    <span>Template of MemAgent for context processing and final answer generation</span>
-                                </figcaption>
-                            </figure>
-                        </div>
-                    </div>
-
-                    <p lang="en"><strong></strong></p>
-                    <p lang="zh"><strong>多轮对话训练机制：</strong>对于每个输入样本，模型生成多次回答，每次回答的输入不能通过简单的拼接此前的生成轨迹获得，而是具有独立的输入，区别于工具调用中使用多轮拼接轨迹作为输入的方式。</p>
-                    <p lang="en"><strong>Reward Calculation and Distribution:</strong> The system identifies the final answer based on the last set of responses, calculates its reward value, then intelligently distributes this reward to all associated conversation sequences through group normalization.</p>
-                    <p lang="zh"><strong>奖励计算与分配：</strong>系统根据最后一组回答，识别最终答案，计算其奖励值，然后将该奖励通过组归一化方式智能分配到所有关联对话序列。</p>
-
-                    <p lang="en"><strong>Policy Optimization Objective:</strong> Loss is calculated per chunk, adopting a three-dimensional optimization structure of (group, conversation round, token), maintaining independence of each conversation throughout the process.</p>
-                    <p lang="zh"><strong>策略优化目标：</strong>以每个chunk为单位计算损失，采用（组别、对话轮次、token）三维优化结构，整个过程保持各对话的独立性：</p>
-                    <div class="math-center">
-                      $$
-                      \begin{aligned}
-                      \mathcal{J}_{\text{GRPO}}(\theta) =\quad &\mathbb{E}_{(q,a)\sim \mathcal{D}, \{o_{i,j}\}_{i=1}^G\sim \pi_{\theta_\text{old}}(\cdot\mid q,~o_{i,j-1})} \\
-                      &\Bigg[\frac{1}{\sum_{i=1}^{G}\sum_{j=1}^{n_i}|o_{i,j}|}\sum_{i=1}^{G}\sum_{j=1}^{n_i}\sum_{t=1}^{|o_{i,j}|}
-                      \Big(\mathcal{C}_{i,j,t} - \beta D_{\text{KL}}(\pi_{\theta} || \pi_{\text{ref}} )\Big) \Bigg] \\
-                      \text{where } \mathcal{C}_{i,j,t} = &\min\Big(r_{i,j,t}(\theta) \hat{A}_{i,j,t},  
-                      \ \text{clip} \Big( r_{i,j,t}(\theta), 1 - {\varepsilon}, 1 + {\varepsilon} \Big) \hat{A}_{i,j,t}\Big)
-                      \end{aligned}
-                      $$
-                    </div>
-
 
                 </div>
             </div>
@@ -449,7 +448,7 @@
                 <ul lang="zh">
                   <li>DS-distill系列：context内性能随长度呈迅速衰减到极低水平，超出context window因丢失信息基本失效。</li>
                   <li>QwenLong-L1系列：后训练长度为60K，在此之内的性能下降约为10%。从64K到112K的下降则超过28%，尽管此时尚在context window长度之内。</li>
-                  <li>context内性能下降平缓，但在尚在1M上下文长度范围内的896K测试上便已降至0。</li>
+                  <li>Qwen2.5-Instruct-1M系列：context内性能下降平缓，但在尚在1M上下文长度范围内的896K测试上便已降至0。</li>
                 </ul>
           </p>
 
