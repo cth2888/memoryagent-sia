@@ -338,18 +338,6 @@
 
                     <hr>
 
-                    <p lang="en" class="boxed-title"><strong>MemAgent Core Architecture:</strong></p>
-                    <ol lang="en">
-                      <li><strong>Chunk Processing:</strong> Divide the input sequence into K contiguous chunks <span class="nowrap-math">\((c^1, c^2, \ldots, c^K)\)</span>, with each chunk containing at most <span class="nowrap-math">\(C\)</span> tokens.</li>
-                      <li><strong>Iterative Processing:</strong> Process chunks sequentially, maintaining constant computational cost per chunk.</li>
-                    </ol>
-
-                    <p lang="zh" class="boxed-title"><strong>MemAgent 核心架构：</strong></p>
-                    <ol lang="zh">
-                      <li><strong>分块处理：</strong> 将输入序列分割为K个连续块 <span class="nowrap-math">\((c^1, c^2, \ldots, c^K)\)</span>，每块最多包含 <span class="nowrap-math">\(C\)</span> 个token。</li>
-                      <li><strong>循环处理：</strong> 按块顺序处理，每块的计算成本保持恒定。</li>
-                    </ol>
-
                     <p lang="en" class="boxed-title"><strong>Remodeling the Language Model Generation Process</strong></p>
                     <p lang="en">
                         After introducing latent memory variables <span class="nowrap-math">\(m^{1:K-1}\)</span> and initial state <span class="nowrap-math">\(m^0 = \emptyset\)</span>, the autoregressive decomposition is reformulated as:
