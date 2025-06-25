@@ -508,7 +508,7 @@
                 <ul lang="zh">
                   <li><strong>基础模型：</strong> 原始模型随着上下文长度增加表现出严重的性能下降，特别是在112K之后，由于上下文窗口限制导致输入被截断，使得有效外推几乎不可能实现。</li>
                   <li><strong>MemAgent（w/o RL）：</strong> 相较于基础模型表现出更好的性能，在超出上下文长度的任务中保持合理的能力，但随着输入长度增加仍然经历整体性能下降。</li>
-                  <li><strong>RL-MemAgent：</strong> 经过强化学习训练的MemAgent在所有上下文长度中保持近乎无损的外推能力</li>
+                  <li><strong>RL-MemAgent：</strong> 经过强化学习训练的MemAgent在所有上下文长度中保持近乎无损的外推能力。</li>
                 </ul>
           </p>
 
@@ -519,11 +519,11 @@
                 </figcaption>
           </figure>
 
-          <h4 lang="en"><strong>RULER Benchmark Testing and OOD Capability Analysis</strong></h4>
+          <h4 lang="en"><strong>RULER Benchmark and OOD Capability Analysis</strong></h4>
           <h4 lang="zh"><strong>RULER基准测试与OOD能力分析</strong></h4>
 
           <p lang="en">
-            <strong>RULER Benchmark Testing:</strong> This is the current standard test set for long-text extrapolation capability research, with the core advantage of controllable length generation tasks.
+            <strong>RULER Benchmark:</strong> This is the current standard test set for long-text extrapolation capability research, with the core advantage of controllable length generation tasks.
           </p>
 
           <p lang="zh">
@@ -568,21 +568,11 @@
           </div>
 
           <p lang="en">
-                <strong>Experimental Results Analysis:</strong> We use heatmaps to visualize the performance of different models across different length ranges and task types:
-                <ul lang="en">
-                  <li><strong>RL-MemAgent:</strong> Outperforms existing models on all task types, showing significant performance advantages.</li>
-                  <li><strong>MemAgent (w/o RL):</strong> Superior to base models in most cases, but still shows performance decline at extrapolation lengths.</li>
-                  <li><strong>Base Models:</strong> universally fail on ultra-long text tasks.</li>
-                </ul>
+                <strong>OOD Experiments</strong> We use heatmaps to visualize the performance of different models across different length ranges and task types:
           </p>
 
           <p lang="zh">
-                <strong>实验结果分析：</strong> 我们使用热力图可视化不同模型在不同长度区间和任务类型下的性能：
-                <ul lang="zh">
-                  <li><strong>RL-MemAgent：</strong> 所有任务类型上均优于现有模型，展现显著性能优势。</li>
-                  <li><strong>MemAgent (w/o RL)：</strong> 在大多数情况下优于基础模型，但外推长度上仍出现性能下降。</li>
-                  <li><strong>基础模型：</strong> 在超长文本任务中普遍性能下降显著。</li>
-                </ul>
+                <strong>OOD实验：</strong> 我们使用热力图可视化不同模型在不同长度区间和任务类型下的性能
           </p>
 
           <div class="columns is-multiline">
