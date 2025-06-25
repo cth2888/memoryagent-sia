@@ -300,7 +300,9 @@
                     <span lang="zh">方法介绍</span>
                 </h2>
                 <div class="content">
-
+                    
+                    <h4 lang="zh" class="boxed-title"><strong>Memory Agent框架</strong></h4>
+                    <h4 lang="en" class="boxed-title"><strong> </strong></h4>
                     <p lang="en">
                         Inspired by human behavioral patterns when processing long texts, we propose a new long-text processing solution that requires no model architecture modifications:
                         <br><strong style="color:#3273dc;">| Equipping LLMs with dynamically updating "Memory Modules"</strong>.
@@ -309,7 +311,14 @@
                         受人类处理长文本时的行为模式启发，我们提出了一种无需修改模型架构的长文处理新方案——<strong>MemAgent</strong>：
                         <br><strong style="color:#3273dc;">| 给LLM装上动态更新的"记忆模块"</strong>。
                     </p>
-
+                    
+                    <figure class="image" style="max-width: 800px; margin: 2rem auto;">
+                        <img src="figs/method_00.png" alt="MemAgent Architecture Overview">
+                            <figcaption>
+                                <span>MemAgent Architecture Overview</span>
+                            </figcaption>
+                    </figure>
+                    
                     <p lang="en">
                         <strong>MemAgent</strong> introduces a fixed-length auxiliary memory panel that allows the model to read input in chunks when processing long texts, and actively update memory state after each chunk, thereby achieving a new workflow of "local processing + global fusion". This memory module continuously updates dynamically during inference and assists in generating final output by aggregating key information in memory after all chunks are processed.
                     </p>
@@ -317,12 +326,7 @@
                         <strong>MemAgent</strong>引入了一个固定长度的辅助记忆面板，允许模型在处理长文本时以分段的方式读取输入，并在每一段之后主动更新记忆状态，从而实现"局部处理 + 全局融合"的新型工作流。该记忆模块在推理过程中不断动态更新，并在所有段落处理完毕后，通过聚合记忆中的关键信息协助生成最终输出。
                     </p>
 
-                    <figure class="image" style="max-width: 800px; margin: 2rem auto;">
-                        <img src="figs/method_00.png" alt="MemAgent Architecture Overview">
-                            <figcaption>
-                                <span>MemAgent Architecture Overview</span>
-                            </figcaption>
-                    </figure>
+
 
                     <h4 lang="zh" class="boxed-title"><strong>多轮对话强化学习训练 MemAgent </strong></h4>
                     <h4 lang="en" class="boxed-title"><strong>Training MemAgent with Multi-conv RL </strong></h4>
@@ -358,7 +362,7 @@
                     <p lang="zh"><strong>奖励计算与分配：</strong>系统根据最后一组回答，识别最终答案，计算其奖励值，然后将该奖励通过组归一化方式智能分配到所有关联对话序列。</p>
 
                     <p lang="en"><strong>Policy Optimization Objective:</strong> Loss is calculated per chunk, adopting a three-dimensional optimization structure of (group, conversation round, token), maintaining independence of each conversation throughout the process.</p>
-                    <p lang="zh"><strong>策略优化目标：</strong>以每个chunk为单位计算损失，采用（组别、对话轮次、token）三维优化结构，整个过程保持各对话的独立性：</p>
+                    <p lang="zh"><strong>策略优化目标：</strong>以每轮对话为优化目标，根据其优势计算目标函数，并进行token-level平均。</p>
                     <div class="math-center">
                       $$
                       \begin{aligned}
@@ -395,9 +399,9 @@
                     <p lang="en">
                         After introducing latent memory variables <span class="nowrap-math">\(m^{1:K-1}\)</span> and initial state <span class="nowrap-math">\(m^0 = \emptyset\)</span>, the autoregressive decomposition is reformulated as:
                     </p>
-                    <p lang="zh" class="boxed-title"><strong>重新建模语言模型的生成过程：</strong></p>
+                    <p lang="zh" class="boxed-title"><strong>MemAgent文本建模</strong></p>
                     <p lang="zh">
-                        引入潜在记忆变量<span class="nowrap-math">\(m^{1:K-1}\)</span>和初始状态<span class="nowrap-math">\(m^0 = \emptyset\)</span>后，自回归分解被重新表述为：
+                        早期的工作曾经探索过为神经网络配备“内存”而增强神经网络的表示能力的架构，而MemAgent更进一步地，使用附加的memory作为隐变量重新建模了语言模型生成过程。
                     </p>
                     
                     <p lang="en" class="boxed-title"><strong>MemAgent Core Architecture:</strong></p>
@@ -406,11 +410,13 @@
                       <li><strong>Iterative Processing:</strong> Process chunks sequentially, maintaining constant computational cost per chunk.</li>
                     </ol>
 
-                    <p lang="zh" class="boxed-title"><strong>MemAgent 核心架构：</strong></p>
+                    <p lang="zh" ><strong>具体来说：</strong></p>
                     <ol lang="zh">
                       <li><strong>分块处理：</strong> 将输入序列分割为K个连续块 <span class="nowrap-math">\((c^1, c^2, \ldots, c^K)\)</span>，每块最多包含 <span class="nowrap-math">\(C\)</span> 个token。</li>
                       <li><strong>循环处理：</strong> 按块顺序处理，每块的计算成本保持恒定。</li>
                     </ol>
+                    <p lang="zh" >引入潜在记忆变量<span class="nowrap-math">\(m^{1:K-1}\)</span>和初始状态<span class="nowrap-math">\(m^0 = \emptyset\)</span>后，自回归分解被重新表述为：</p>
+                    <p lang="en" ></p>
                     <div class="math-center">
                           $p(\mathbf{x}_{1:N}) = \sum_{\mathbf{m}^{1:K-1}} \prod_{k=1}^{K}
                           \underbrace{p(\mathbf{c}^k \mid \mathbf{m}^{k-1})}_{\text{read}} \cdot
