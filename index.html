@@ -424,7 +424,7 @@
           <p lang="zh">
                 <strong>基线模型：</strong>现有模型在面对超长序列时均出现显著的性能退化：
                 <ul lang="zh">
-                  <li>context内性能随长度呈迅速衰减到极低水平，超出context window因丢失信息基本失效。</li>
+                  <li>DS-distill系列：context内性能随长度呈迅速衰减到极低水平，超出context window因丢失信息基本失效。</li>
                   <li>QwenLong-L1系列：后训练长度为60K，在此之内的性能下降约为10%。从64K到112K的下降则超过28%，尽管此时尚在context window长度之内。</li>
                   <li>context内性能下降平缓，但在尚在1M上下文长度范围内的896K测试上便已降至0</li>
                 </ul>
