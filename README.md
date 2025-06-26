@@ -1,134 +1,218 @@
-### Refreshing Long-Context for LLMs: The Memory Agent Paradigm via Reinforcement Learning
+<div align="center">
+<h1 style="display: flex; justify-content: center; align-items: center; gap: 10px; margin: 0;">
+  MemAgent: Reshaping Long-Context LLM with Multi-Conv RL based Memory Agent
+</h1>
 
-**[📄 论文](https://arxiv.org/abs/xxx)** | **[💻 代码](https://github.com/your-repo/RL-MemoryAgent)** | **[🧠 模型](https://huggingface.co/your-org/RL-MemoryAgent)**
 
-![图片：RL训练流程](figs/main_result_00.png)
----
-
-### 导读：
-我们推出了一个全新的长文本处理框架——RL-Memory Agent，通过端到端的强化学习，无需改变模型架构便可以对长文本任务进行直接优化。
-RL-Memory Agent实现了三大核心突破：
-
-1.  **新型记忆机制**：我们引入了一种记事本式的工作流 ，Agent 以分段方式读取文本，并借助覆写策略高效更新记忆。该设计使得模型能在固定的上下文窗口内处理几乎任意长度的输入，彻底突破了传统 Transformer 架构的窗口长度硬性限制。
-2.  **O(n) 线性复杂度**：这一创新性的 Agent 工作流将长文本处理的计算与显存开销与文本长度解耦，实现了 O(n) 的线性复杂度，从根本上解决了传统注意力机制面临的二次方增长瓶颈。
-3.  **强化学习驱动的外推能力**：我们改进了 GRPO 算法，使其能支持独立上下文的多轮对话生成训练。基于此，我们训练的 Memory Agent 展现了前所未有的外推性能，将在 32K 上下文数据上训练，成功无损外推至 3.5M 长度的问答任务中（性能下降<5%）。
-
-这项工作以一种简洁而高效的方式，首次实现了真正意义上的、由强化学习赋予的可训练记忆能力，充分证明了将强化学习应用于优化特定工作流的巨大潜力。
+[![Paper](https://img.shields.io/badge/paper-5f16a8?style=for-the-badge&logo=arxiv&logoColor=white)]()
+[![Blog](https://img.shields.io/badge/Blog-3858bf?style=for-the-badge&logo=homepage&logoColor=white)]()
+[![Dataset](https://img.shields.io/badge/Datasets-4d8cd8?style=for-the-badge&logo=huggingface&logoColor=white)](https://huggingface.co/datasets/BytedTsinghua-SIA/hotpotqa)
+[![Weights](https://img.shields.io/badge/Model%20Weights-63cad3?style=for-the-badge&logo=huggingface&logoColor=white)](https://huggingface.co/BytedTsinghua-SIA/RL-MemoryAgent-14B)
+</div>
 
 ---
 
-### 方法介绍：
-
-#### Memory Agent框架
-受人类处理长文本时的行为模式启发，并借鉴了Nerual Truing machine和Memory Network等神经网络与记忆机制结合的工作，我们提出了一种无需修改模型架构的长文处理新方案：
-
-> 给LLM装上一本动态更新的“笔记本”
-
-![图片：Memory Agent核心架构](figs/method_00.png)
-
-#### 长文本建模
-传统的自回归语言模型通过以下方式建模长度为N的token序列：
-$$p(\mathbf{x}_{1:N})=p(x_1)\prod_{n=2\ldots N}p(x_n \mid \mathbf{x}_{1:n-1})$$
-这种方法需要缓存所有先前生成的token，导致计算成本随序列长度呈二次方增长。
-
-#### Memory Agent核心架构
-
-Memory Agent引入了一个辅助记忆面板，让模型学习在这个固定大小的记事本中总结前面的token。
-具体来说：
-
-* **分块处理**：将输入序列分割为K个连续块 $(c^1, c^2, ..., c^K)$ ，每块最多包含 $C$ 个token
-* **循环处理**：按块顺序处理，每块的计算成本保持恒定
-
-#### 概率分解
-引入潜在记忆变量 $m^{1:K-1}$ 和初始状态 $m^0 = \emptyset$ 后，自回归分解被重新表述为：
-$$p(x_{1:N}) = \sum_{m^1,...,m^{K-1}} \prod_{k=1}^{K} p(m^k | c^k, m^{k-1})p(c^k | m^{k-1})$$
-其中：
-
-* **读操作**： $p(c^k | m^{k-1}) = \prod_{i=(k-1)C+1,...,kC} p(x_i | x_{1:i-1}, m^{k-1})$
-* **写操作**： $p(m^k | c^k, m^{k-1}) = \prod_{j=1,...,M} p(m^k_j | m^k_{1:j-1}, c^k, m^{k-1})$
-
-这种建模方法实现了一种新的生成范式，让模型能够在保持有界记忆的同时捕获序列中的长距离依赖关系。然而，该方法在训练时面临关键挑战：系统不完全可微分，无法通过标准梯度优化进行端到端训练；引入的记忆序列是潜在的且缺乏显式监督。为此，我们采用强化学习来训练模型的记忆能力。
-
-![图片：RL训练流程](figs/algo_00.png)
+> [!IMPORTANT]
+> **🔥 News!!!**
+> - **[2025/06]** We release **RL-MemAgent-14B** and **RL-MemAgent-7B** models achieving nearly lossless performance on 3.5M token contexts task.
 
 ---
 
-### 多轮RL训练流程：
+## Discussions Welcomed
 
-* **多轮对话训练机制**
-    对于每个输入样本，模型会通过模型并行生成多组独立对话序列。
-* **奖励计算与分配**
-    系统根据最后一组回答，识别最终答案，计算其奖励值，然后将该奖励通过组归一化方式智能分配到所有关联对话序列。
-* **策略优化目标**
-    以每个chunk为单位计算损失，采用（组别、对话轮次、token）三维优化结构，整个过程保持各对话的独立性
-
-### 实验分析
-
-#### 主实验结果
+🤗 If you have any questions about our paper, issues are welcomed and we could discuss there. Thank you!
 
 
-* **基线模型性能衰减**
-    实验结果显示，现有长文本模型在面对超长序列时均出现显著的性能退化：
-    * **QwenLong-L1系列**：在文本长度超过56K后准确率出现急剧下降，降幅超过40个百分点
-    * **Qwen2.5-Instruct-1M系列**：尽管标称支持1M长度，但在896K时性能降至0
-    * **DS-distill系列**：性能随长度呈指数级衰减，在224K长度时基本失效
 
-* **RL-Memory Agent性能表现**
-    相比之下，RL-Notepad在超长文本处理中展现了优异的稳定性：
-    * **RL-Memory Agent-14B模型**：在3.5M超长文本测试时仅出现边际性能下降（<5%），实现了真正意义上的无损外推
-    * **RL-Memory Agent-7B模型**：虽然在最长文本上出现了轻微的性能下降，但整体表现仍远超现有长文本模型
+## 📖Introduction
 
-#### 消融实验：
+We propose a novel long-context processing framework — **MemAgent**, which directly optimizes long-context tasks through end-to-end Reinforcement Learning without altering the underlying model architecture. MemAgent has demonstrated superb long-context capabilities, being able to extrapolate from an 8K context trained on 32K text to a 3.5M QA task with performance loss < 5% and achieves 95%+ accuracy in 512K RULER test.
 
-![图片：消融实验](figs/ablation.png)
+<div align="center">
+  <img src="figs/method_00.png" alt="overview" style="width: 66%; height: auto;">
+</div>
 
-我们进行了系统性的消融实验，渐进式验证RL-Notepad各组件的有效性：
+### Highlights:
+- **🚀 Novel memory mechanism** Introduces MemAgent architecture enabling arbitrarily long input processing within fixed context windows, overcoming traditional context window length limitations.
+- **⚡ Linear time Complexity** Breaks through computational bottlenecks in long-text processing, achieving linear scaling of resources with text length.
+- **🎯 RL-driven extrapolation** Through RL training with MemAgent architecture, enables models to extrapolate to vastly longer texts with minimal performance degradation.
+<div align="center">
+  <img src="figs/main_result_00.png" alt="overview" style="width: 66%; height: auto;">
+</div>
 
-* **基础模型**：在超出训练上下文窗口后，由于信息丢失导致性能严重下降，难以实现有效外推
-* **Memory Agent**：仅添加记事本机制（未经强化学习训练）可帮助模型保持一定性能，但仍存在明显的性能损失
-* **RL-Memory Agent**：经过强化学习训练的记事本能够帮助模型实现近乎无损的外推能力
+### Multi-conv RL Framework
+We use Reinforcement Learning from Verifiable Rewards (RLVR) to train MemAgent, extending the DAPO algorithm to support end-to-end optimization of Agent Workflows with multi-turn context-independent conversations.
 
-#### OOD数据测试
+<img src="figs/algo_00.png" width="49%" style="display:inline-block"> <img src="figs/template.png" width="49%" style="display:inline-block">
 
-[图片：OOD数据测试热力图]
+### Results
 
-##### RULER基准测试介绍
-RULER是被长文本模型研究广泛采用的评估基准，其核心优势在于提供长度可控的合成任务，这正是验证外推能力的理想测试环境。该基准包含四大核心任务类型：
+**RL-MemAgent** demonstrates exceptional stability in ultra-long context processing：
+- **14B model:** Performance degradation <5.5% on 3.5M token tasks, achieving truly lossless extrapolation.
+- **7B model:** Only 11% performance decline in longest contexts, significantly outperforming existing long-context models
 
-* **大海捞针（Needle-in-a-Haystack）**：在大规模文本中精准定位随机插入的关键信息，包含8种不同的干扰变体，全面测试模型的抗干扰能力。
-* **变量追踪（Variable Tracking）**：模拟代码调试场景，要求模型在长距离间隔中准确追踪变量的引用和赋值关系。
-* **聚合任务（Aggregation）**：通过统计和聚合长文档中分散的信息元素，检验模型对文本全局特征的理解和处理能力。
-* **问答任务（QA）**：基于长文本进行复杂推理和问答，测试模型在长上下文中的理解和推理能力。
+![Performance Comparison](figs/main_result.png)
 
-##### 实验结果分析
-我们采用热力图直观展示了不同模型在各长度区间的性能表现。
 
-* **性能对比**：
-    * **RL-Memory Agent（本文方法）**：平均而言，RL-Memory Agent在所有任务类型上的表现都远超其他对比模型，展现出了显著的性能优势。
-    * **Memory Agent（未训练）**：Memory Agent能在大部分场景中优于基础模型，但在更长文本下仍出现大幅性能下降
-    * **基础模型**：Distill和Instruct系列模型在几乎所有长文本任务上都出现性能暴跌
-    * **QwenLong系列**：虽然专门针对长文本设计，但在超长文本场景下性能仍出现急剧下降，某些情况下甚至不如基础模型。
-    * **Qwen-1M系列**：在单一大海捞针和聚合任务上表现相对较好，但面对更复杂的多问题、多答案大海捞针任务时，性能同样急剧下降，反映出在复杂长文本推理方面的能力瓶颈。
+---
 
-### 总结
-在这项研究中，我们提出了一套全新的长文本处理框架，主要贡献体现在三个关键维度：
+## Engineering
 
-1.  **技术架构突破**：我们提出了一种创新的机制，使大语言模型能够在有限的上下文窗口内以线性时间复杂度处理任意长度的输入文本，从根本上解决了传统长文本方法面临的计算瓶颈问题。
-2.  **智能体训练方法**：我们设计了一套完整的智能体工作流来实现上述机制，并基于多对话GRPO算法提出了端到端的训练方案，为该智能体提供了有效的强化学习训练框架。
-3.  **性能外推验证**：通过大量实验验证，我们证明了基于强化学习训练的方法能够让模型成功外推到远超训练长度的文档上，且性能衰减极小，大幅扩展了当前长文本大语言模型系统的处理边界。
+### Sync mode: From tool-calling to general workflow
 
-### 彩蛋：大模型多轮训练框架创新——异步架构与接口统一
+Inspired by [Search-R1](https://github.com/PeterGriffinJin/Search-R1), we implement a framework for general multi-conversation workflow with indepedent context. Therefore the context is not limited to be a concatenated string of all previous conversations as in original tool-calling. This framework make it possible to optimize a multi-step agent in a end-to-end manner. Memory agent is one of the examples of this framework, demonstrating how the reinforcement learning can be applied to optimize the agent's performance in a multi-step workflow.
 
-[图片：彩蛋架构图]
+See the `recurrent/impls/memory.py` for implementation details and `recurrent/interface.py, recurrent/generation_manager.py` for our interface design.
 
-长文本能力需匹配高效工程架构，新方案实现三大创新：
+### Async mode: Agent as a function
 
-* **纯异步流水线**
-    * GPU/CPU资源彻底解耦：
-    * AsyncLLMEngine管理GPU计算，ProcessPoolWorker调度CPU任务，通过协程机制实现“零闲置”。
-    * 实测在SWE BENCH等Agentless任务中，吞吐量提升5倍，单卡并发支持100+独立对话流。
-* **OpenAI API+VLLM无缝兼容**
-    * 一套接口统一普通RL、工具调用、RecurrentRL，支持任意多Agent工作流训练。
-    * 彻底告别“状态机地狱”：传统Tool-Use需手动拼接多轮上下文，新方案自动维护独立对话状态。
-* **类sglang验证器实战表现**
-    * 关键突破：任务与资源解耦，每个样本仅提交任务即可释放CPU/GPU资源，系统自动调度。
+Based on [the server mode generation](https://github.com/volcengine/verl/pull/1138), we further implement a brand new framework which **allows users to implement an agent as a function which calling LLMs in openai-api style**, without worrying about batched tensor operation such as tokenization, padding, state tracing, which often requires a lot of boilerplate code or even a state machine.
+
+
+In this view, each agent is a function that returns one or more list of `{"role":"", "content":""}` dicts:
+![unfied_agent](unfied_agent.png)
+
+  - vanilla：`[{"role":"user","content":pmt},{"role":"assistant""content":rsp}]`
+  - multi-turn tool-calling：`[{"role":"user","content":pmt},{"role":"assistant","content":rsp1},{"role":"tool","content":obs},{"role":"assistant","content":rsp2}]`,
+  - context-indepedent multi-conversation：`[{"role":"user","content":pmt1},{"role":"assistant","content":rsp1}], [{"role":"user","content":pmt2},{"role":"assistant","content":rsp2}]`
+
+We modify the `chat_template` to support tool-response masking without any tensor operations.
+
+See the `rollout` method implementation of agent class defined in `recurrent/impls/async_*.py` for more details and `recurrent/interface.py, recurrent/async_generation_manager.py` for our framework design.
+
+
+### RayActor Process pool
+
+Computation-intensive reward computation or tool calling may stuck the head node from sending generation requests to LLMs. To promote the efficiency of cpu-intensive tasks, we create a RayActor in each node that runs a process pool and accepts tasks from the head node.
+
+Therefore, the cpu task can be executed asynchronously by submitting to ray actor, so does the gpu task：LLM generation.
+
+See `verl/workers/reward_manager/thread.py` for more details.
+## Reproducibility
+
+### Testing Results
+
+```bash
+pip install httpx==0.23.1 aiohttp -U ray[serve,default] vllm
+```
+
+1. Prepare QA data
+
+```bash
+cd taskutils/memory_data
+bash download_qa_dataset.sh
+```
+
+2. Download the dataset
+
+```bash
+cd ../..
+bash hfd.sh BytedTsinghua-SIA/hotpotqa --dataset --tool aria2c -x 10
+export DATAROOT=$(pwd)/hotpotqa
+```
+
+3. Preparing models
+
+The model used in tests will be downloaded from HuggingFace. However, Qwen2.5-Instruct series models needs to be downloaded manually and properly config their `config.json` to activate YaRN. Please follow the instruction in [Qwen2.5-Instruct Repo](https://huggingface.co/Qwen/Qwen2.5-7B-Instruct)
+
+
+```bash
+bash hfd.sh Qwen/Qwen2.5-7B-Instruct --model --tool aria2c -x 10
+bash hfd.sh Qwen/Qwen2.5-14B-Instruct --model --tool aria2c -x 10
+bash hfd.sh Qwen/Qwen2.5-32B-Instruct --model --tool aria2c -x 10
+# then change the config.json manually
+```
+
+```bash
+export MODELROOT=/your/path/to/models # move to your model root directory, this env variable is used in the run.py script
+mv Qwen2.5-7B-Instruct $MODELROOT/Qwen2.5-7B-Instruct-128K
+mv Qwen2.5-14B-Instruct $MODELROOT/Qwen2.5-14B-Instruct-128K
+mv Qwen2.5-32B-Instruct $MODELROOT/Qwen2.5-32B-Instruct-128K
+```
+
+4. Running
+
+**Note:** This will take a few days to run all the tests, you may want to specify which tests/models to run.
+
+```bash
+cd taskutils/memory_eval
+python run.py
+```
+
+**Note:** This scripts will use all available GPUs to serve the 
+models. If you have multiple GPU nodes, you can create a ray cluster and run the script in one of cluster nodes. Use `SERVE_PORT` and `DASH_PORT` to specify the ports for the ray cluster.
+
+```bash
+cd taskutils/memory_eval
+SERVE_PORT=8000 DASH_PORT=8265 python run.py # port numbers here are default values, you may need to specify them as the serve/dashboard port in your ray cluster
+```
+
+
+## Training
+
+Fistly specify `PROJ_ROOT` (for checkpoints) and `DATASET_ROOT` (for training data, should be the same as used in testing) in `run_memory_7B.sh` and `run_memory_14B.sh`. 
+
+Then run this script directly to launch a single-node training, or config a ray cluster properly and run the script in one of the cluster nodes.
+
+
+## Data
+
+
+Please run the following commnads in this section under the`taskutils/memory_data` directory.
+
+```bash
+cd taskutils/memory_data
+pip install nltk pyyaml beautifulsoup4 html2text wonderwords tenacity fire
+```
+
+1. Train & dev split: hotpotqa_train.parquet & hotpotqa_dev.parquet
+
+- Download qa dataset and synthetic data, skip this step if you have downloaded it in the previous step:
+
+```bash
+bash download_qa_dataset.sh
+```
+
+```bash
+python processing.py # Dataprocess, synthetic long context multihop-QA
+```
+
+- Deploy Qwen-7B in localhost:8000 and Qwen-7B-Instruct in localhost:8001
+
+- filtering
+
+```bash
+python filter.py -i hotpotqa_dev_process.parquet -o hotpotqa_dev_result --noresume
+python filter.py -i hotpotqa_train_process.parquet -o hotpotqa_train_result --noresume
+python3 filter2.py # Filtering out sample which can be answered correctly by LLM without any context:
+```
+
+### 2. Main task: eval\_{50|100|200|...}.json
+
+```bash
+export DATAROOT="your_dir_to_hotpotqa_dev.parquet"
+python convert_to_eval.py # Convert the `hotpotqa_dev` to `eval_200.json`
+python different_docs_eval.py.py # Create eval dataset with different number of documents
+```
+
+
+### 3. OOD task: eval_{rulersubset}_{8192|16384|...}.json
+
+```bash
+export DATAROOT="your_dir_to_hotpotqa_dev.parquet"
+python download_paulgraham_essay.py
+bash download_qa_dataset.sh
+bash ruler_data_prepare.sh 
+```
+
+---
+## Citation
+
+```bibtex
+@article{2025,
+  title={MemAgent: Reshaping Long-Context LLM with Multi-Conv RL based Memory Agent},
+  author={},
+  journal={arXiv preprint arXiv:xxxx.xxxxx},
+  year={2025}
+}
+```
